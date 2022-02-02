@@ -1,14 +1,14 @@
-package com.github.whyrising.app.home
+package com.github.whyrising.flashyalarm.home
 
-import com.github.whyrising.app.Keys
-import com.github.whyrising.app.Keys.disable_about_btn
-import com.github.whyrising.app.Keys.enable_about_btn
-import com.github.whyrising.app.Keys.inc_counter
-import com.github.whyrising.app.Keys.navigateFx
-import com.github.whyrising.app.Keys.navigate_about
-import com.github.whyrising.app.Keys.sdk_version
-import com.github.whyrising.app.Routes
-import com.github.whyrising.app.global.DbSchema
+import com.github.whyrising.flashyalarm.Keys
+import com.github.whyrising.flashyalarm.Keys.disable_about_btn
+import com.github.whyrising.flashyalarm.Keys.enable_about_btn
+import com.github.whyrising.flashyalarm.Keys.inc_counter
+import com.github.whyrising.flashyalarm.Keys.navigateFx
+import com.github.whyrising.flashyalarm.Keys.navigate_about
+import com.github.whyrising.flashyalarm.Keys.sdk_version
+import com.github.whyrising.flashyalarm.Routes
+import com.github.whyrising.flashyalarm.global.DbSchema
 import com.github.whyrising.recompose.cofx.injectCofx
 import com.github.whyrising.recompose.fx.FxIds.fx
 import com.github.whyrising.recompose.regEventDb

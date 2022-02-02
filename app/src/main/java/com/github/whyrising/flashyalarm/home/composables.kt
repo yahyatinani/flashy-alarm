@@ -1,4 +1,4 @@
-package com.github.whyrising.app.home
+package com.github.whyrising.flashyalarm.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Arrangement
@@ -20,17 +20,17 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.whyrising.app.Keys.android_greeting
-import com.github.whyrising.app.Keys.counter
-import com.github.whyrising.app.Keys.enable_about_btn
-import com.github.whyrising.app.Keys.inc_counter
-import com.github.whyrising.app.Keys.is_about_btn_enabled
-import com.github.whyrising.app.Keys.navigate_about
-import com.github.whyrising.app.Keys.set_android_version
-import com.github.whyrising.app.Keys.update_screen_title
-import com.github.whyrising.app.R
-import com.github.whyrising.app.initAppDb
-import com.github.whyrising.app.ui.theme.JetpackComposeTemplateTheme
+import com.github.whyrising.flashyalarm.Keys.android_greeting
+import com.github.whyrising.flashyalarm.Keys.counter
+import com.github.whyrising.flashyalarm.Keys.enable_about_btn
+import com.github.whyrising.flashyalarm.Keys.inc_counter
+import com.github.whyrising.flashyalarm.Keys.is_about_btn_enabled
+import com.github.whyrising.flashyalarm.Keys.navigate_about
+import com.github.whyrising.flashyalarm.Keys.set_android_version
+import com.github.whyrising.flashyalarm.Keys.update_screen_title
+import com.github.whyrising.flashyalarm.R
+import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
@@ -99,7 +99,7 @@ fun HomeScreen() {
 @Composable
 fun ScreenPreview() {
     initAppDb()
-    JetpackComposeTemplateTheme {
+    FlashyAlarmTheme {
         HomeScreen()
     }
 }
@@ -108,7 +108,7 @@ fun ScreenPreview() {
 @Composable
 fun ScreenDarkPreview() {
     initAppDb()
-    JetpackComposeTemplateTheme {
+    FlashyAlarmTheme {
         HomeScreen()
     }
 }

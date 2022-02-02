@@ -1,13 +1,13 @@
-package com.github.whyrising.app.global
+package com.github.whyrising.flashyalarm.global
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FlashlightOff
 import androidx.compose.material.icons.filled.FlashlightOn
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.github.whyrising.app.Keys.flashLight
-import com.github.whyrising.app.Keys.format_screen_title
-import com.github.whyrising.app.Keys.isDark
-import com.github.whyrising.app.Keys.screen_title
+import com.github.whyrising.flashyalarm.Keys.flashLight
+import com.github.whyrising.flashyalarm.Keys.format_screen_title
+import com.github.whyrising.flashyalarm.Keys.isDark
+import com.github.whyrising.flashyalarm.Keys.screen_title
 import com.github.whyrising.recompose.regSub
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.y.collections.core.v

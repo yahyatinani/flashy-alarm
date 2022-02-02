@@ -1,4 +1,4 @@
-package com.github.whyrising.app.about
+package com.github.whyrising.flashyalarm.about
 
 import android.content.res.Configuration
 import android.util.Log
@@ -20,12 +20,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.whyrising.app.Keys.sdk_version
-import com.github.whyrising.app.Keys.update_screen_title
-import com.github.whyrising.app.R
-import com.github.whyrising.app.home.start
-import com.github.whyrising.app.initAppDb
-import com.github.whyrising.app.ui.theme.JetpackComposeTemplateTheme
+import com.github.whyrising.flashyalarm.Keys.sdk_version
+import com.github.whyrising.flashyalarm.Keys.update_screen_title
+import com.github.whyrising.flashyalarm.R
+import com.github.whyrising.flashyalarm.home.start
+import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
@@ -73,7 +73,7 @@ private fun init() {
 @Composable
 fun ScreenPreview() {
     init()
-    JetpackComposeTemplateTheme {
+    FlashyAlarmTheme {
         AboutScreen()
     }
 }
@@ -82,7 +82,7 @@ fun ScreenPreview() {
 @Composable
 fun ScreenDarkPreview() {
     init()
-    JetpackComposeTemplateTheme {
+    FlashyAlarmTheme {
         AboutScreen()
     }
 }

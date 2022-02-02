@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.JetpackComposeTemplate" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.FlashyAlarm" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,12 +14,12 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.JetpackComposeTemplate.NoActionBar">
+    <style name="Theme.FlashyAlarm.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.JetpackComposeTemplate.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.FlashyAlarm.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.JetpackComposeTemplate.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.FlashyAlarm.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

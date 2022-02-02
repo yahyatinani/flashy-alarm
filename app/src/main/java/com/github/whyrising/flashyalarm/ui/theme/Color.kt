@@ -1,4 +1,4 @@
-package com.github.whyrising.app.ui.theme
+package com.github.whyrising.flashyalarm.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

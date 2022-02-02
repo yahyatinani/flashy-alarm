@@ -1,4 +1,4 @@
-package com.github.whyrising.app
+package com.github.whyrising.flashyalarm
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,15 +11,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavGraphBuilder
-import com.github.whyrising.app.Keys.navigateFx
-import com.github.whyrising.app.about.AboutScreen
-import com.github.whyrising.app.global.HostScreen
-import com.github.whyrising.app.global.defaultDb
-import com.github.whyrising.app.global.regGlobalEvents
-import com.github.whyrising.app.global.regGlobalSubs
-import com.github.whyrising.app.home.HomeScreen
-import com.github.whyrising.app.ui.animation.nav.enterAnimation
-import com.github.whyrising.app.ui.animation.nav.exitAnimation
+import com.github.whyrising.flashyalarm.Keys.navigateFx
+import com.github.whyrising.flashyalarm.about.AboutScreen
+import com.github.whyrising.flashyalarm.global.HostScreen
+import com.github.whyrising.flashyalarm.global.defaultDb
+import com.github.whyrising.flashyalarm.global.regGlobalEvents
+import com.github.whyrising.flashyalarm.global.regGlobalSubs
+import com.github.whyrising.flashyalarm.home.HomeScreen
+import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
+import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
 import com.github.whyrising.recompose.dispatchSync
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regFx

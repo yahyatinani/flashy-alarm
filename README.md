@@ -1,9 +1,7 @@
-Jetpack Compose Template
-=========
+Flashy Alarm
+============
 
-[![PR](https://github.com/whyrising/jetpack-compose-template/actions/workflows/PR.yml/badge.svg)](https://github.com/whyrising/jetpack-compose-template/actions/workflows/PR.yml)
-
-Up-To-Date Jetpack Compose project template in Kotlin.
+[![PR](https://github.com/whyrising/flashy-alarm/actions/workflows/PR.yml/badge.svg)](https://github.com/whyrising/flashy-alarm/actions/workflows/PR.yml)
 
 #### Running on:
 
