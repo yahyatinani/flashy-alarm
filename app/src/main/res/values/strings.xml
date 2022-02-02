@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Template</string>
+    <string name="home_screen_title">home</string>
+    <string name="about_screen_title">about</string>
+</resources>

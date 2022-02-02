@@ -1,0 +1,63 @@
+name: PR
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'doc/**'
+      - 'docs/**'
+      - '*.md'
+      - '*.yml'
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
+      - name: Cache Gradle and wrapper
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run ktlint check
+        run: ./gradlew ktlintCheck
+
+      - name: Run tests
+        run: ./gradlew check --stacktrace
+
+      - name: Bundle the build report
+        if: failure()
+        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
+
+      - name: Upload the build report
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: error-report
+          path: build-reports.zip
+
+      - name: Generate android app bundle
+        run: ./gradlew bundle
+
+      - name: Upload AAB Artifact
+        uses: actions/upload-artifact@v2.2.1
+        with:
+          name: debug-apk
+          path: android/build/outputs/bundle/debug/android-debug.aab
