@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.github.whyrising.flashyalarm.Keys.sdk_version
 import com.github.whyrising.flashyalarm.Keys.update_screen_title
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.home.start
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
@@ -33,8 +32,6 @@ import com.github.whyrising.y.collections.core.v
 
 @Composable
 fun AboutScreen() {
-    val finish = System.currentTimeMillis()
-    Log.i("Measurements", "${finish - start}")
     val title = stringResource(R.string.about_screen_title)
     SideEffect {
         dispatch(v(update_screen_title, title))

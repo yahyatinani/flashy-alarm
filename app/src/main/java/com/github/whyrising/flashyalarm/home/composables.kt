@@ -1,6 +1,12 @@
 package com.github.whyrising.flashyalarm.home
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.os.Build
+import android.os.Parcel
+import android.service.notification.StatusBarNotification
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,15 +26,17 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.github.whyrising.flashyalarm.Keys.android_greeting
 import com.github.whyrising.flashyalarm.Keys.counter
 import com.github.whyrising.flashyalarm.Keys.enable_about_btn
 import com.github.whyrising.flashyalarm.Keys.inc_counter
 import com.github.whyrising.flashyalarm.Keys.is_about_btn_enabled
-import com.github.whyrising.flashyalarm.Keys.navigate_about
 import com.github.whyrising.flashyalarm.Keys.set_android_version
 import com.github.whyrising.flashyalarm.Keys.update_screen_title
 import com.github.whyrising.flashyalarm.R
+import com.github.whyrising.flashyalarm.global.regGlobalSubs
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
@@ -36,10 +44,8 @@ import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
 import com.github.whyrising.y.collections.core.v
 
-var start: Long = System.currentTimeMillis()
-
 @Composable
-fun HomeScreen() {
+fun HomeScreen(context: Context) {
     regHomeCofx()
     regHomeEvents()
     regHomeSubs()
@@ -82,8 +88,7 @@ fun HomeScreen() {
 
             Button(
                 onClick = {
-                    start = System.currentTimeMillis()
-                    dispatch(v(navigate_about))
+                    sendNotification(context)
                 },
                 enabled = subscribe<Boolean>(v(is_about_btn_enabled)).w()
             ) {
@@ -93,14 +98,44 @@ fun HomeScreen() {
     }
 }
 
+fun sendNotification(
+    context: Context,
+    title: String = "Sup!",
+    body: String = "Body"
+) {
+
+    val manager = NotificationManagerCompat.from(context)
+
+    val channelId = "notification_channel_firing_alarm_and_timer"
+    val CHANNEL_NAME = "whychan"
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+        manager.createNotificationChannel(
+            NotificationChannel(
+                channelId, CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+        )
+    }
+
+    val notificationBuilder = NotificationCompat.Builder(context, channelId)
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setContentTitle(title)
+        .setContentText(body)
+        .setCategory("alarm")
+
+    manager.notify(578454, notificationBuilder.build())
+
+}
 // -- Previews -----------------------------------------------------------------
 
 @Preview(showBackground = true)
 @Composable
 fun ScreenPreview() {
     initAppDb()
+    regGlobalSubs()
     FlashyAlarmTheme {
-        HomeScreen()
+//        HomeScreen()
     }
 }
 
@@ -108,7 +143,8 @@ fun ScreenPreview() {
 @Composable
 fun ScreenDarkPreview() {
     initAppDb()
+    regGlobalSubs()
     FlashyAlarmTheme {
-        HomeScreen()
+//        HomeScreen()
     }
 }
