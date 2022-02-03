@@ -1,7 +1,7 @@
-package com.github.whyrising.app.home
+package com.github.whyrising.flashyalarm.home
 
 import android.os.Build
-import com.github.whyrising.app.Keys.sdk_version
+import com.github.whyrising.flashyalarm.Keys.sdk_version
 import com.github.whyrising.recompose.cofx.regCofx
 
 data class DbHomeSchema(

@@ -1,12 +1,12 @@
-package com.github.whyrising.app.global
+package com.github.whyrising.flashyalarm.global
 
 import android.content.res.Configuration.UI_MODE_NIGHT_MASK
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import com.github.whyrising.app.Keys.navigate
-import com.github.whyrising.app.Keys.navigateFx
-import com.github.whyrising.app.Keys.setDarkMode
-import com.github.whyrising.app.Keys.toggle_theme
-import com.github.whyrising.app.Keys.update_screen_title
+import com.github.whyrising.flashyalarm.Keys.navigate
+import com.github.whyrising.flashyalarm.Keys.navigateFx
+import com.github.whyrising.flashyalarm.Keys.setDarkMode
+import com.github.whyrising.flashyalarm.Keys.toggle_theme
+import com.github.whyrising.flashyalarm.Keys.update_screen_title
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.y.collections.core.m

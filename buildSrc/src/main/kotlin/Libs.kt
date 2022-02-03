@@ -1,10 +1,10 @@
 object Libs {
-    const val kotlinVersion = "1.5.31"
+    const val kotlinVersion = "1.6.10"
     const val jvmTarget = "1.8"
 
     object Compose {
         private const val gr = "androidx.compose"
-        const val version = "1.1.0-beta03"
+        const val version = "1.1.0-rc03"
 
         const val ui = "$gr.ui:ui:$version"
 
@@ -50,32 +50,32 @@ object Libs {
     }
 
     object Navigation {
-        private const val version = "2.4.0-beta02"
+        private const val version = "2.4.0"
 
         const val compose = "androidx.navigation:navigation-compose:$version"
     }
 
     object Androidx {
         // Appcompat is needed for themes.xml resource
-        const val appcompat = "androidx.appcompat:appcompat:1.4.0"
+        const val appcompat = "androidx.appcompat:appcompat:1.4.1"
 
         const val constraintLayoutCompose =
-            "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
+            "androidx.constraintlayout:constraintlayout-compose:1.0.0"
 
         const val coreSplashscreen =
-            "androidx.core:core-splashscreen:1.0.0-alpha02"
+            "androidx.core:core-splashscreen:1.0.0-beta01"
 
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
     }
 
     object Material {
-        private const val version = "1.5.0-beta01"
+        private const val version = "1.5.0"
 
         const val material = "com.google.android.material:material:$version"
     }
 
     object Accompanist {
-        private const val version = "0.21.2-beta"
+        private const val version = "0.22.1-rc"
         const val navAnimation =
             "com.google.accompanist:accompanist-navigation-animation:$version"
     }

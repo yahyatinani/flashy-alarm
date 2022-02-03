@@ -1,4 +1,4 @@
-package com.github.whyrising.app.global
+package com.github.whyrising.flashyalarm.global
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -12,11 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.whyrising.app.Keys.flashLight
-import com.github.whyrising.app.Keys.format_screen_title
-import com.github.whyrising.app.Keys.toggle_theme
-import com.github.whyrising.app.initAppDb
-import com.github.whyrising.app.ui.theme.JetpackComposeTemplateTheme
+import com.github.whyrising.flashyalarm.Keys.flashLight
+import com.github.whyrising.flashyalarm.Keys.format_screen_title
+import com.github.whyrising.flashyalarm.Keys.toggle_theme
+import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
@@ -24,7 +24,7 @@ import com.github.whyrising.y.collections.core.v
 
 @Composable
 fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
-    JetpackComposeTemplateTheme {
+    FlashyAlarmTheme {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -63,7 +63,7 @@ private fun init() {
 @Composable
 fun ScreenPreview() {
     init()
-    JetpackComposeTemplateTheme {
+    FlashyAlarmTheme {
         HostScreen()
     }
 }
@@ -73,7 +73,7 @@ fun ScreenPreview() {
 @Composable
 fun ScreenDarkPreview() {
     init()
-    JetpackComposeTemplateTheme {
+    FlashyAlarmTheme {
         HostScreen()
     }
 }

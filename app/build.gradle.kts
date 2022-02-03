@@ -8,8 +8,7 @@ android {
     buildToolsVersion = "31.0.0"
 
     defaultConfig {
-        // TODO: Change the applicationId
-        applicationId = "com.github.whyrising.app"
+        applicationId = "com.github.whyrising.flashyalarm"
         minSdk = 22
         targetSdk = 31
         versionCode = 1

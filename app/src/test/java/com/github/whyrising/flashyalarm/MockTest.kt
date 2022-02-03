@@ -1,4 +1,4 @@
-package com.github.whyrising.app
+package com.github.whyrising.flashyalarm
 
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.ints.shouldBeExactly

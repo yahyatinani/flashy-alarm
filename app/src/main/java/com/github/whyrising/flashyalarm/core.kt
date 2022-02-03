@@ -1,5 +1,7 @@
-package com.github.whyrising.app
+package com.github.whyrising.flashyalarm
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,15 +13,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavGraphBuilder
-import com.github.whyrising.app.Keys.navigateFx
-import com.github.whyrising.app.about.AboutScreen
-import com.github.whyrising.app.global.HostScreen
-import com.github.whyrising.app.global.defaultDb
-import com.github.whyrising.app.global.regGlobalEvents
-import com.github.whyrising.app.global.regGlobalSubs
-import com.github.whyrising.app.home.HomeScreen
-import com.github.whyrising.app.ui.animation.nav.enterAnimation
-import com.github.whyrising.app.ui.animation.nav.exitAnimation
+import com.github.whyrising.flashyalarm.Keys.navigateFx
+import com.github.whyrising.flashyalarm.about.AboutScreen
+import com.github.whyrising.flashyalarm.global.HostScreen
+import com.github.whyrising.flashyalarm.global.defaultDb
+import com.github.whyrising.flashyalarm.global.regGlobalEvents
+import com.github.whyrising.flashyalarm.global.regGlobalSubs
+import com.github.whyrising.flashyalarm.home.HomeScreen
+import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
+import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
 import com.github.whyrising.recompose.dispatchSync
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regFx
@@ -29,7 +31,6 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 // -- Routes & Navigation ------------------------------------------------------
-
 object Routes {
     const val home = "/home"
     const val about = "/about"
@@ -64,13 +65,13 @@ enum class Keys {
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.homeComposable(animOffSetX: Int) {
+fun NavGraphBuilder.homeComposable(animOffSetX: Int, context: Context) {
     composable(
         route = Routes.home,
         exitTransition = { exitAnimation(targetOffsetX = -animOffSetX) },
         popEnterTransition = { enterAnimation(initialOffsetX = -animOffSetX) }
     ) {
-        HomeScreen()
+        HomeScreen(context)
     }
 }
 
@@ -87,7 +88,7 @@ fun NavGraphBuilder.aboutComposable(animOffSetX: Int) {
 
 @ExperimentalAnimationApi
 @Composable
-fun Navigation(padding: PaddingValues) {
+fun Navigation(padding: PaddingValues, context: Context) {
     val navController = rememberAnimatedNavController()
     LaunchedEffect(navController) {
         regFx(id = navigateFx) { route ->
@@ -103,7 +104,7 @@ fun Navigation(padding: PaddingValues) {
         navController = navController,
         startDestination = Routes.home
     ) {
-        homeComposable(animOffSetX = 300)
+        homeComposable(animOffSetX = 300, context)
         aboutComposable(animOffSetX = 300)
     }
 }
@@ -117,18 +118,47 @@ fun initAppDb() {
 
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
 
+        // StatusBarNotification(
+        // pkg=com.sec.android.app.clockpackage
+        // user=UserHandle{0}
+        // id=268439552
+        // tag=null
+        // key=0|com.sec.android.app.clockpackage|268439552|null|10178:
+        //      Notification(channel=notification_channel_firing_alarm_and_timer
+        // shortcut=null
+        // contentView=null
+        // vibrate=null
+        // sound=null
+        // defaults=0x0
+        // flags=0x62
+        // color=0x00000000
+        // category=alarm
+        // groupKey=ALARM_GROUP_KEY
+        // vis=PRIVATE
+        // semFlags=0x0
+        // semPriority=0
+        // semMissedCount=0))
+
+        val inte =
+            Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
+        startActivity(inte)
+
         initAppDb()
         regGlobalEvents()
         regGlobalSubs()
-
         setContent {
             HostScreen {
-                Navigation(padding = it)
+                Navigation(padding = it, this)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

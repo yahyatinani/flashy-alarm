@@ -1,4 +1,4 @@
-package com.github.whyrising.app.home
+package com.github.whyrising.flashyalarm.home
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
@@ -6,11 +6,11 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
-import com.github.whyrising.app.Keys.android_greeting
-import com.github.whyrising.app.Keys.counter
-import com.github.whyrising.app.Keys.is_about_btn_enabled
-import com.github.whyrising.app.Keys.sdk_version
-import com.github.whyrising.app.global.DbSchema
+import com.github.whyrising.flashyalarm.Keys.android_greeting
+import com.github.whyrising.flashyalarm.Keys.counter
+import com.github.whyrising.flashyalarm.Keys.is_about_btn_enabled
+import com.github.whyrising.flashyalarm.Keys.sdk_version
+import com.github.whyrising.flashyalarm.global.DbSchema
 import com.github.whyrising.recompose.regSub
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.y.collections.core.v

@@ -1,7 +1,7 @@
-package com.github.whyrising.app.global
+package com.github.whyrising.flashyalarm.global
 
-import com.github.whyrising.app.home.DbHomeSchema
-import com.github.whyrising.app.home.defaultDbHomeSchema
+import com.github.whyrising.flashyalarm.home.DbHomeSchema
+import com.github.whyrising.flashyalarm.home.defaultDbHomeSchema
 
 data class DbSchema(
     val screenTitle: String,
