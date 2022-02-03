@@ -5,8 +5,6 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Build
-import android.os.Parcel
-import android.service.notification.StatusBarNotification
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -125,7 +123,6 @@ fun sendNotification(
         .setCategory("alarm")
 
     manager.notify(578454, notificationBuilder.build())
-
 }
 // -- Previews -----------------------------------------------------------------
 

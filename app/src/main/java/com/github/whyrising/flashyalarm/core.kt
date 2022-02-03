@@ -30,9 +30,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
-
 // -- Routes & Navigation ------------------------------------------------------
-
 object Routes {
     const val home = "/home"
     const val about = "/about"
@@ -162,6 +160,5 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-
     }
 }

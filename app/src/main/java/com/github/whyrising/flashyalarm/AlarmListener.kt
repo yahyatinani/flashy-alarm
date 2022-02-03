@@ -12,7 +12,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
 
-
 class AlarmListener : NotificationListenerService() {
 //    var flashLightStatus: Boolean = false
 
