@@ -26,25 +26,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.github.whyrising.flashyalarm.Keys.android_greeting
-import com.github.whyrising.flashyalarm.Keys.counter
-import com.github.whyrising.flashyalarm.Keys.inc_counter
-import com.github.whyrising.flashyalarm.Keys.set_android_version
-import com.github.whyrising.flashyalarm.Keys.update_screen_title
+import com.github.whyrising.flashyalarm.Ids.android_greeting
+import com.github.whyrising.flashyalarm.Ids.counter
+import com.github.whyrising.flashyalarm.Ids.inc_counter
+import com.github.whyrising.flashyalarm.Ids.is_notif_access_enabled
+import com.github.whyrising.flashyalarm.Ids.set_android_version
+import com.github.whyrising.flashyalarm.Ids.update_screen_title
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.global.regGlobalSubs
 import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.notificationdialog.EnableNotificationAlertDialog
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
 import com.github.whyrising.y.collections.core.v
 
+const val route = "/home"
+
 @Composable
 fun HomeScreen(context: Context) {
     regHomeCofx()
     regHomeEvents()
     regHomeSubs()
+
+    if (!subscribe<Boolean>(v(is_notif_access_enabled)).w()) {
+        EnableNotificationAlertDialog()
+    }
 
     val title = stringResource(R.string.home_screen_title)
     SideEffect {

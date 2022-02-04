@@ -6,10 +6,11 @@ import com.github.whyrising.flashyalarm.home.defaultDbHomeSchema
 data class DbSchema(
     val screenTitle: String,
     val home: DbHomeSchema,
-    val isDark: Boolean = false
+    val isDark: Boolean = false,
+    val isNotifAccessEnabled: Boolean = false
 )
 
 val defaultDb = DbSchema(
-    screenTitle = "Page Title",
+    screenTitle = "",
     home = defaultDbHomeSchema,
 )

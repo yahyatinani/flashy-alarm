@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.whyrising.flashyalarm.Keys.flashLight
-import com.github.whyrising.flashyalarm.Keys.format_screen_title
-import com.github.whyrising.flashyalarm.Keys.toggle_theme
+import com.github.whyrising.flashyalarm.Ids.flashLight
+import com.github.whyrising.flashyalarm.Ids.format_screen_title
+import com.github.whyrising.flashyalarm.Ids.toggle_theme
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch

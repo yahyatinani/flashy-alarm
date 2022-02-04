@@ -1,13 +1,9 @@
 package com.github.whyrising.flashyalarm
 
-import android.app.Activity
-import android.app.NotificationManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,17 +14,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavGraphBuilder
-import com.github.whyrising.flashyalarm.Keys.navigateFx
+import com.github.whyrising.flashyalarm.Ids.exit_app
+import com.github.whyrising.flashyalarm.Ids.fx_enable_notif_access
+import com.github.whyrising.flashyalarm.Ids.is_notif_access_enabled
+import com.github.whyrising.flashyalarm.Ids.navigateFx
 import com.github.whyrising.flashyalarm.global.HostScreen
 import com.github.whyrising.flashyalarm.global.defaultDb
 import com.github.whyrising.flashyalarm.global.regGlobalEvents
 import com.github.whyrising.flashyalarm.global.regGlobalSubs
 import com.github.whyrising.flashyalarm.home.HomeScreen
+import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogCofx
+import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogEvents
+import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogSubs
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
+import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.dispatchSync
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regFx
@@ -36,14 +38,11 @@ import com.github.whyrising.y.collections.core.v
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-
-// -- Routes & Navigation ------------------------------------------------------
-object Routes {
-    const val home = "/home"
-}
+import kotlin.system.exitProcess
+import com.github.whyrising.flashyalarm.home.route as home_route
 
 @Suppress("EnumEntryName")
-enum class Keys {
+enum class Ids {
     // Events
     set_android_version,
     update_screen_title,
@@ -52,6 +51,8 @@ enum class Keys {
     toggle_theme,
     setDarkMode,
     isDark,
+    enable_notification_access,
+    exit_app,
 
     // Subs
     sdk_version,
@@ -59,17 +60,21 @@ enum class Keys {
     format_screen_title,
     android_greeting,
     counter,
+    is_notif_access_enabled,
+
     flashLight,
-    uiMode,
 
     // Fx
     navigateFx,
+    fx_enable_notif_access
 }
 
+// -- Routing ------------------------------------------------------------------
+
 @ExperimentalAnimationApi
-fun NavGraphBuilder.homeComposable(animOffSetX: Int, context: Context) {
+fun NavGraphBuilder.home(animOffSetX: Int, context: Context) {
     composable(
-        route = Routes.home,
+        route = home_route,
         exitTransition = { exitAnimation(targetOffsetX = -animOffSetX) },
         popEnterTransition = { enterAnimation(initialOffsetX = -animOffSetX) }
     ) {
@@ -83,9 +88,7 @@ fun Navigation(padding: PaddingValues, context: Context) {
     val navController = rememberAnimatedNavController()
     LaunchedEffect(navController) {
         regFx(id = navigateFx) { route ->
-            if (route == null)
-                return@regFx
-
+            if (route == null) return@regFx
             navController.navigate("$route")
         }
     }
@@ -93,9 +96,9 @@ fun Navigation(padding: PaddingValues, context: Context) {
     AnimatedNavHost(
         modifier = Modifier.padding(padding),
         navController = navController,
-        startDestination = Routes.home
+        startDestination = home_route
     ) {
-        homeComposable(animOffSetX = 300, context)
+        home(animOffSetX = 300, context)
     }
 }
 
@@ -108,54 +111,34 @@ fun initAppDb() {
 
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
-    private fun isNotificationListenerAccessAllowed() = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
-            val name = ComponentName(this, AlarmListener::class.java)
-            val notificationManager = getSystemService(
-                NOTIFICATION_SERVICE
-            ) as NotificationManager
-            notificationManager.isNotificationListenerAccessGranted(name)
-        }
-        else -> {
-            val packages = NotificationManagerCompat
-                .getEnabledListenerPackages(this)
-            Log.i("enabledListener", "$packages")
-            packages.contains(BuildConfig.APPLICATION_ID)
-        }
-    }
-
-    private fun enableNotificationListenerAccessByUser() {
-        when {
-            isNotificationListenerAccessAllowed() -> return
-            else -> {
-                val intent = Intent(
-                    "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
-                )
-
-                userAllowsAccess.launch(intent)
-            }
-        }
-    }
-
     private val userAllowsAccess = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (!isNotificationListenerAccessAllowed()) {
-//            TODO("Trigger an alert dialog: Exit    Enable")
-            finishActivity(Activity.RESULT_CANCELED)
-            Log.i("finishActivity", "Done!")
-            enableNotificationListenerAccessByUser()
-        }
-    }
+    ) {}
 
     @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = installSplashScreen()
+
+        installSplashScreen()
 
         initAppDb()
         regGlobalEvents()
         regGlobalSubs()
+
+        regNotifDialogCofx(context = this)
+        regNotifDialogSubs()
+        regNotifDialogEvents()
+
+        regFx(exit_app) { value ->
+            exitProcess(value as Int)
+        }
+        regFx(fx_enable_notif_access) {
+            val intent = Intent(
+                "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
+            )
+            userAllowsAccess.launch(intent)
+        }
+
         setContent {
             HostScreen {
                 Navigation(padding = it, this)
@@ -166,6 +149,6 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
 
-        enableNotificationListenerAccessByUser()
+        dispatch(v(is_notif_access_enabled))
     }
 }

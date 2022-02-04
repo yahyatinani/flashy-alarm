@@ -6,9 +6,9 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
-import com.github.whyrising.flashyalarm.Keys.android_greeting
-import com.github.whyrising.flashyalarm.Keys.counter
-import com.github.whyrising.flashyalarm.Keys.sdk_version
+import com.github.whyrising.flashyalarm.Ids.android_greeting
+import com.github.whyrising.flashyalarm.Ids.counter
+import com.github.whyrising.flashyalarm.Ids.sdk_version
 import com.github.whyrising.flashyalarm.global.DbSchema
 import com.github.whyrising.recompose.regSub
 import com.github.whyrising.recompose.subscribe

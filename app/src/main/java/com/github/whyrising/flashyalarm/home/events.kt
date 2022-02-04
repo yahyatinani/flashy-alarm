@@ -1,8 +1,8 @@
 package com.github.whyrising.flashyalarm.home
 
-import com.github.whyrising.flashyalarm.Keys
-import com.github.whyrising.flashyalarm.Keys.inc_counter
-import com.github.whyrising.flashyalarm.Keys.sdk_version
+import com.github.whyrising.flashyalarm.Ids
+import com.github.whyrising.flashyalarm.Ids.inc_counter
+import com.github.whyrising.flashyalarm.Ids.sdk_version
 import com.github.whyrising.flashyalarm.global.DbSchema
 import com.github.whyrising.recompose.cofx.injectCofx
 import com.github.whyrising.recompose.regEventDb
@@ -14,7 +14,7 @@ import com.github.whyrising.y.collections.core.v
 
 fun regHomeEvents() {
     regEventFx(
-        id = Keys.set_android_version,
+        id = Ids.set_android_version,
         interceptors = v(injectCofx(sdk_version)),
     ) { cofx, _ ->
         val appDb = cofx[db] as DbSchema

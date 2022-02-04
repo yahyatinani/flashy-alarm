@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.platform.LocalConfiguration
-import com.github.whyrising.flashyalarm.Keys
-import com.github.whyrising.flashyalarm.Keys.isDark
+import com.github.whyrising.flashyalarm.Ids
+import com.github.whyrising.flashyalarm.Ids.isDark
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
@@ -42,7 +42,7 @@ fun FlashyAlarmTheme(
 ) {
     val uiMode = LocalConfiguration.current.uiMode
     LaunchedEffect(uiMode) {
-        dispatch(v(Keys.setDarkMode, uiMode))
+        dispatch(v(Ids.setDarkMode, uiMode))
     }
 
     MaterialTheme(

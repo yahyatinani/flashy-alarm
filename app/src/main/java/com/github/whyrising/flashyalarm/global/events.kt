@@ -2,11 +2,12 @@ package com.github.whyrising.flashyalarm.global
 
 import android.content.res.Configuration.UI_MODE_NIGHT_MASK
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import com.github.whyrising.flashyalarm.Keys.navigate
-import com.github.whyrising.flashyalarm.Keys.navigateFx
-import com.github.whyrising.flashyalarm.Keys.setDarkMode
-import com.github.whyrising.flashyalarm.Keys.toggle_theme
-import com.github.whyrising.flashyalarm.Keys.update_screen_title
+import com.github.whyrising.flashyalarm.Ids.exit_app
+import com.github.whyrising.flashyalarm.Ids.navigate
+import com.github.whyrising.flashyalarm.Ids.navigateFx
+import com.github.whyrising.flashyalarm.Ids.setDarkMode
+import com.github.whyrising.flashyalarm.Ids.toggle_theme
+import com.github.whyrising.flashyalarm.Ids.update_screen_title
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.y.collections.core.m
@@ -29,5 +30,9 @@ fun regGlobalEvents() {
 
     regEventFx(id = navigate) { _, (_, route) ->
         m(navigateFx to route)
+    }
+
+    regEventFx(id = exit_app) { _, _ ->
+        m(exit_app to -1)
     }
 }
