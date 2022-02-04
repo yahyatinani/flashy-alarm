@@ -22,7 +22,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.Keys.navigateFx
-import com.github.whyrising.flashyalarm.about.AboutScreen
 import com.github.whyrising.flashyalarm.global.HostScreen
 import com.github.whyrising.flashyalarm.global.defaultDb
 import com.github.whyrising.flashyalarm.global.regGlobalEvents
@@ -41,17 +40,13 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 // -- Routes & Navigation ------------------------------------------------------
 object Routes {
     const val home = "/home"
-    const val about = "/about"
 }
 
 @Suppress("EnumEntryName")
 enum class Keys {
     // Events
-    enable_about_btn,
-    disable_about_btn,
     set_android_version,
     update_screen_title,
-    navigate_about,
     navigate,
     inc_counter,
     toggle_theme,
@@ -62,7 +57,6 @@ enum class Keys {
     sdk_version,
     screen_title,
     format_screen_title,
-    is_about_btn_enabled,
     android_greeting,
     counter,
     flashLight,
@@ -80,17 +74,6 @@ fun NavGraphBuilder.homeComposable(animOffSetX: Int, context: Context) {
         popEnterTransition = { enterAnimation(initialOffsetX = -animOffSetX) }
     ) {
         HomeScreen(context)
-    }
-}
-
-@ExperimentalAnimationApi
-fun NavGraphBuilder.aboutComposable(animOffSetX: Int) {
-    composable(
-        route = Routes.about,
-        enterTransition = { enterAnimation(initialOffsetX = animOffSetX) },
-        popExitTransition = { exitAnimation(targetOffsetX = animOffSetX) },
-    ) {
-        AboutScreen()
     }
 }
 
@@ -113,7 +96,6 @@ fun Navigation(padding: PaddingValues, context: Context) {
         startDestination = Routes.home
     ) {
         homeComposable(animOffSetX = 300, context)
-        aboutComposable(animOffSetX = 300)
     }
 }
 

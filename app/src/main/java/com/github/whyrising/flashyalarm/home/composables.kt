@@ -28,9 +28,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.github.whyrising.flashyalarm.Keys.android_greeting
 import com.github.whyrising.flashyalarm.Keys.counter
-import com.github.whyrising.flashyalarm.Keys.enable_about_btn
 import com.github.whyrising.flashyalarm.Keys.inc_counter
-import com.github.whyrising.flashyalarm.Keys.is_about_btn_enabled
 import com.github.whyrising.flashyalarm.Keys.set_android_version
 import com.github.whyrising.flashyalarm.Keys.update_screen_title
 import com.github.whyrising.flashyalarm.R
@@ -52,7 +50,6 @@ fun HomeScreen(context: Context) {
     SideEffect {
         dispatch(v(update_screen_title, title))
         dispatch(v(set_android_version))
-        dispatch(v(enable_about_btn))
     }
 
     val primaryColor = MaterialTheme.colors.primary
@@ -87,8 +84,7 @@ fun HomeScreen(context: Context) {
             Button(
                 onClick = {
                     sendNotification(context)
-                },
-                enabled = subscribe<Boolean>(v(is_about_btn_enabled)).w()
+                }
             ) {
                 Text(text = "About")
             }
