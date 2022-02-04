@@ -97,9 +97,7 @@ fun sendNotification(
     title: String = "Sup!",
     body: String = "Body"
 ) {
-
     val manager = NotificationManagerCompat.from(context)
-
     val channelId = "notification_channel_firing_alarm_and_timer"
     val CHANNEL_NAME = "whychan"
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
