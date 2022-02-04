@@ -5,9 +5,10 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.platform.LocalConfiguration
-import com.github.whyrising.flashyalarm.Keys
-import com.github.whyrising.flashyalarm.Keys.isDark
+import com.github.whyrising.flashyalarm.Ids
+import com.github.whyrising.flashyalarm.Ids.isDark
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
@@ -22,12 +23,12 @@ private val DarkColorPalette = darkColors(
 private val LightColorPalette = lightColors(
     primary = Purple500,
     primaryVariant = Purple700,
-    secondary = Teal200
+    onPrimary = Black,
+    secondary = Teal200,
 
     /* Other default colors to override
     background = Color.White,
     surface = Color.White,
-    onPrimary = Color.White,
     onSecondary = Color.Black,
     onBackground = Color.Black,
     onSurface = Color.Black,
@@ -41,7 +42,7 @@ fun FlashyAlarmTheme(
 ) {
     val uiMode = LocalConfiguration.current.uiMode
     LaunchedEffect(uiMode) {
-        dispatch(v(Keys.setDarkMode, uiMode))
+        dispatch(v(Ids.setDarkMode, uiMode))
     }
 
     MaterialTheme(

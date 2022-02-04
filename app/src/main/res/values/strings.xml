@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Flashy Alarm</string>
-    <string name="home_screen_title">home</string>
-    <string name="about_screen_title">about</string>
+    <string name="home_screen_title">Flashy Alarm</string>
+    <string name="notif_alert_msg">Please, enable `Notification Access` for %1$s to work.</string>
 </resources>
