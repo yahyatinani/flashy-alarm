@@ -66,7 +66,8 @@ enum class Ids {
 
     // Fx
     navigateFx,
-    fx_enable_notif_access
+    fx_enable_notif_access,
+    flash_on
 }
 
 // -- Routing ------------------------------------------------------------------

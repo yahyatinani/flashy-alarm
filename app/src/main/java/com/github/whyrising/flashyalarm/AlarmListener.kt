@@ -1,53 +1,46 @@
 package com.github.whyrising.flashyalarm
 
 import android.content.Context
-import android.content.Intent
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
-import android.os.Build
-import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.annotation.RequiresApi
-import com.github.whyrising.y.concurrency.atom
+import com.github.whyrising.flashyalarm.Ids.flash_on
+import com.github.whyrising.recompose.dispatch
+import com.github.whyrising.recompose.regEventFx
+import com.github.whyrising.recompose.regFx
+import com.github.whyrising.y.collections.core.m
+import com.github.whyrising.y.collections.core.v
 
 class AlarmListener : NotificationListenerService() {
-    private val flashLightStatus = atom(false)
+    override fun onCreate() {
+        super.onCreate()
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return super.onBind(intent)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun flash(context: Context) {
-        val cameraManager = context.getSystemService(
-            ComponentActivity.CAMERA_SERVICE
-        ) as CameraManager
-        try {
-            cameraManager.setTorchMode(
-                cameraManager.cameraIdList[0],
-                flashLightStatus.swap { true }
-            )
-        } catch (e: CameraAccessException) {
-            throw e
+        regEventFx(id = flash_on) { _, (_, context, stBarNotif) ->
+            when ((stBarNotif as StatusBarNotification).notification.category) {
+                "alarm" -> m(flash_on to context)
+                else -> m()
+            }
+        }
+        regFx(flash_on) { context ->
+            val cameraManager = (context as Context).getSystemService(
+                ComponentActivity.CAMERA_SERVICE
+            ) as CameraManager
+            try {
+                cameraManager.setTorchMode(cameraManager.cameraIdList[0], true)
+            } catch (e: CameraAccessException) {
+                throw e
+            }
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
-
+        // TODO: Change API in re-compose, make Event: IPersistentVector<Any?>
+        //  in 0.0.7
         if (sbn == null) return
-        Log.i("AlarmListener", "$sbn")
 
-        if (sbn.notification.category == "alarm") {
-            flash(application)
-        }
-    }
-
-    override fun onNotificationRemoved(sbn: StatusBarNotification?) {
-        super.onNotificationRemoved(sbn)
+        dispatch(v<Any>(flash_on, application, sbn))
     }
 }
