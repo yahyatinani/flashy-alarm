@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk = 31
-    buildToolsVersion = "32.1.0-rc1"
+    buildToolsVersion = "31.0.0"
 
     defaultConfig {
         applicationId = "com.github.whyrising.flashyalarm"
