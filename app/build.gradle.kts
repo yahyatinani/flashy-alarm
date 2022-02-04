@@ -5,12 +5,12 @@ plugins {
 
 android {
     compileSdk = 31
-    buildToolsVersion = "31.0.0"
+    buildToolsVersion = "32.1.0-rc1"
 
     defaultConfig {
         applicationId = "com.github.whyrising.flashyalarm"
-        minSdk = 22
-        targetSdk = 31
+        minSdk = 23
+        targetSdk = 32
         versionCode = 1
         versionName = Ci.publishVersion
 
