@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId = "com.github.whyrising.flashyalarm"
-        minSdk = 22
-        targetSdk = 31
+        minSdk = 23
+        targetSdk = 32
         versionCode = 1
         versionName = Ci.publishVersion
 
