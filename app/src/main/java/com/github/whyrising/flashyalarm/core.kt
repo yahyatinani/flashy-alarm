@@ -1,16 +1,24 @@
 package com.github.whyrising.flashyalarm
 
+import android.app.Activity
+import android.app.NotificationManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.Keys.navigateFx
@@ -118,35 +126,50 @@ fun initAppDb() {
 
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
+    private fun isNotificationListenerAccessAllowed() = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
+            val name = ComponentName(this, AlarmListener::class.java)
+            val notificationManager = getSystemService(
+                NOTIFICATION_SERVICE
+            ) as NotificationManager
+            notificationManager.isNotificationListenerAccessGranted(name)
+        }
+        else -> {
+            val packages = NotificationManagerCompat
+                .getEnabledListenerPackages(this)
+            Log.i("enabledListener", "$packages")
+            packages.contains(BuildConfig.APPLICATION_ID)
+        }
+    }
 
+    private fun enableNotificationListenerAccessByUser() {
+        when {
+            isNotificationListenerAccessAllowed() -> return
+            else -> {
+                val intent = Intent(
+                    "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
+                )
+
+                userAllowsAccess.launch(intent)
+            }
+        }
+    }
+
+    private val userAllowsAccess = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (!isNotificationListenerAccessAllowed()) {
+//            TODO("Trigger an alert dialog: Exit    Enable")
+            finishActivity(Activity.RESULT_CANCELED)
+            Log.i("finishActivity", "Done!")
+            enableNotificationListenerAccessByUser()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
-
-        // StatusBarNotification(
-        // pkg=com.sec.android.app.clockpackage
-        // user=UserHandle{0}
-        // id=268439552
-        // tag=null
-        // key=0|com.sec.android.app.clockpackage|268439552|null|10178:
-        //      Notification(channel=notification_channel_firing_alarm_and_timer
-        // shortcut=null
-        // contentView=null
-        // vibrate=null
-        // sound=null
-        // defaults=0x0
-        // flags=0x62
-        // color=0x00000000
-        // category=alarm
-        // groupKey=ALARM_GROUP_KEY
-        // vis=PRIVATE
-        // semFlags=0x0
-        // semPriority=0
-        // semMissedCount=0))
-
-        val inte =
-            Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
-        startActivity(inte)
 
         initAppDb()
         regGlobalEvents()
@@ -160,5 +183,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        enableNotificationListenerAccessByUser()
     }
 }

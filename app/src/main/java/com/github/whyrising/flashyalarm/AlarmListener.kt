@@ -11,31 +11,28 @@ import android.service.notification.StatusBarNotification
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
+import com.github.whyrising.y.concurrency.atom
 
 class AlarmListener : NotificationListenerService() {
-//    var flashLightStatus: Boolean = false
+    private val flashLightStatus = atom(false)
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return super.onBind(intent)
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun flash(context: Context) {
         val cameraManager = context.getSystemService(
             ComponentActivity.CAMERA_SERVICE
         ) as CameraManager
-        val cameraId = cameraManager.cameraIdList[0]
         try {
-            cameraManager.setTorchMode(cameraId, true)
+            cameraManager.setTorchMode(
+                cameraManager.cameraIdList[0],
+                flashLightStatus.swap { true }
+            )
         } catch (e: CameraAccessException) {
+            throw e
         }
-//        else {
-//            try {
-//                cameraManager.setTorchMode(cameraId, false)
-//                flashLightStatus = false
-//            } catch (e: CameraAccessException) {
-//            }
-//        }
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return super.onBind(intent)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -48,18 +45,9 @@ class AlarmListener : NotificationListenerService() {
         if (sbn.notification.category == "alarm") {
             flash(application)
         }
-//        if (sbn != null && sbn.groupKey == "ALARM_GROUP_KEY") {
-//            Log.i("AlarmListener", "$sbn")
-//        }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {
         super.onNotificationRemoved(sbn)
-
-//        Log.i("AlarmListener", "$sbn")
-    }
-
-    override fun onListenerConnected() {
-        super.onListenerConnected()
     }
 }
