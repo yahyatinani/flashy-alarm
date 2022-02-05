@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FlashlightOff
 import androidx.compose.material.icons.filled.FlashlightOn
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.github.whyrising.flashyalarm.Ids
 import com.github.whyrising.flashyalarm.Ids.flashLight
 import com.github.whyrising.flashyalarm.Ids.format_screen_title
 import com.github.whyrising.flashyalarm.Ids.isDark
@@ -40,5 +41,11 @@ fun regGlobalSubs() {
             isDarkMode -> Icons.Default.FlashlightOff
             else -> Icons.Default.FlashlightOn
         }
+    }
+
+    regSub<DbSchema, Boolean>(
+        queryId = Ids.is_alarm_listener_up,
+    ) { db, _ ->
+        db.isAlarmListenerRunning
     }
 }

@@ -1,16 +1,10 @@
 package com.github.whyrising.flashyalarm.global
 
-import com.github.whyrising.flashyalarm.home.DbHomeSchema
-import com.github.whyrising.flashyalarm.home.defaultDbHomeSchema
-
 data class DbSchema(
     val screenTitle: String,
-    val home: DbHomeSchema,
     val isDark: Boolean = false,
-    val isNotifAccessEnabled: Boolean = false
+    val isNotifAccessEnabled: Boolean = false,
+    val isAlarmListenerRunning: Boolean = false
 )
 
-val defaultDb = DbSchema(
-    screenTitle = "",
-    home = defaultDbHomeSchema,
-)
+val defaultDb = DbSchema(screenTitle = "")
