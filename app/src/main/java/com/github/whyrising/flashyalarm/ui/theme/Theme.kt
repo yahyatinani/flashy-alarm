@@ -15,14 +15,14 @@ import com.github.whyrising.recompose.w
 import com.github.whyrising.y.collections.core.v
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
+    primary = Yellow200,
+    primaryVariant = Yellow700,
     secondary = Teal200
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
+    primary = Yellow500,
+    primaryVariant = Yellow700,
     onPrimary = Black,
     secondary = Teal200,
 

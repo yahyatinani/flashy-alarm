@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Switch
+import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -35,6 +37,7 @@ const val route = "/home"
 
 @Composable
 fun HomeScreen() {
+    val colors = MaterialTheme.colors
     val title = stringResource(R.string.home_screen_title)
     dispatch(v(update_screen_title, title))
     Surface {
@@ -59,6 +62,12 @@ fun HomeScreen() {
                         else -> dispatch(v(Ids.stop_alarm_listener))
                     }
                 },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = colors.primaryVariant,
+                    checkedTrackColor = colors.primary,
+//                    uncheckedThumbColor = colors.primaryVariant,
+//                    uncheckedTrackColor = colors.primary,
+                )
             )
         }
     }

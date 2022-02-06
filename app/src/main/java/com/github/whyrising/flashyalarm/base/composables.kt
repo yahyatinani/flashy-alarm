@@ -5,10 +5,12 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,10 +23,23 @@ import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
 import com.github.whyrising.y.collections.core.v
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
     FlashyAlarmTheme {
+        val systemUiController = rememberSystemUiController()
+        val colors = MaterialTheme.colors
+
+        SideEffect {
+            // Update all of the system bar colors to be transparent, and use
+            // dark icons if we're in light theme
+            systemUiController.setSystemBarsColor(
+                color = colors.primary,
+                darkIcons = true
+            )
+        }
+
         Scaffold(
             topBar = {
                 TopAppBar(
