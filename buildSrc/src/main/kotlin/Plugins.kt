@@ -4,12 +4,9 @@ object Plugins {
         const val id = "org.jlleitschuh.gradle.ktlint"
     }
 
-    object Kotlin {
-        const val gradle =
+    object Gradle {
+        const val android = "com.android.tools.build:gradle:7.1.1"
+        const val kotlin =
             "org.jetbrains.kotlin:kotlin-gradle-plugin:${Libs.kotlinVersion}"
-    }
-
-    object Android {
-        const val gradle = "com.android.tools.build:gradle:7.1.1"
     }
 }
