@@ -1,10 +1,6 @@
 package com.github.whyrising.flashyalarm.home
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,8 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.github.whyrising.flashyalarm.Ids
 import com.github.whyrising.flashyalarm.Ids.is_notif_access_enabled
 import com.github.whyrising.flashyalarm.Ids.update_screen_title
@@ -38,33 +32,6 @@ import com.github.whyrising.recompose.w
 import com.github.whyrising.y.collections.core.v
 
 const val route = "/home"
-
-fun sendNotification(
-    context: Context,
-    title: String = "Sup!",
-    body: String = "Body"
-) {
-    val manager = NotificationManagerCompat.from(context)
-    val channelId = "notification_channel_firing_alarm_and_timer"
-    val CHANNEL_NAME = "whychan"
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-        manager.createNotificationChannel(
-            NotificationChannel(
-                channelId, CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-        )
-    }
-
-    val notificationBuilder = NotificationCompat.Builder(context, channelId)
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentTitle(title)
-        .setContentText(body)
-        .setCategory("alarm")
-
-    manager.notify(578454, notificationBuilder.build())
-}
 
 @Composable
 fun HomeScreen() {

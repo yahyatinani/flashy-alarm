@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.whyrising.flashyalarm.Ids.flashLight
+import com.github.whyrising.flashyalarm.Ids.flashlight
 import com.github.whyrising.flashyalarm.Ids.format_screen_title
 import com.github.whyrising.flashyalarm.Ids.toggle_theme
 import com.github.whyrising.flashyalarm.initAppDb
@@ -36,7 +36,7 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
                         IconButton(
                             onClick = { dispatch(v(toggle_theme)) },
                         ) {
-                            val ic = subscribe<ImageVector>(v(flashLight)).w()
+                            val ic = subscribe<ImageVector>(v(flashlight)).w()
                             Icon(
                                 imageVector = ic,
                                 contentDescription = "Theme button"
