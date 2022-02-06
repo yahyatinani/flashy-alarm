@@ -75,9 +75,12 @@ object Libs {
     }
 
     object Accompanist {
-        private const val version = "0.22.1-rc"
+        private const val version = "0.24.1-alpha"
         const val navAnimation =
             "com.google.accompanist:accompanist-navigation-animation:$version"
+
+        const val uiController =
+            "com.google.accompanist:accompanist-systemuicontroller:$version"
     }
 
     object LayoutInspector {
