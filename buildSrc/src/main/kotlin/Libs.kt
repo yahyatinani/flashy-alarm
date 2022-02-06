@@ -1,6 +1,6 @@
 object Libs {
     const val kotlinVersion = "1.6.10"
-    const val jvmTarget = "1.8"
+    const val jvmTarget = "11"
 
     object Compose {
         private const val gr = "androidx.compose"
