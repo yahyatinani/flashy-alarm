@@ -42,7 +42,7 @@ fun FlashyAlarmTheme(
 ) {
     val uiMode = LocalConfiguration.current.uiMode
     LaunchedEffect(uiMode) {
-        dispatch(v(Ids.setDarkMode, uiMode))
+        dispatch(v(Ids.uiMode, uiMode))
     }
 
     MaterialTheme(

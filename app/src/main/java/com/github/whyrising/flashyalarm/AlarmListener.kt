@@ -32,7 +32,6 @@ import com.github.whyrising.y.collections.core.v
 
 class AlarmListener : NotificationListenerService() {
     private fun createOngoingNotification(): Notification {
-        // TODO: make notification sticky
         val nm = NotificationManagerCompat.from(application)
         val channelId = "NOTIFICATION_CHANNEL_ID"
         val channel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -53,7 +52,7 @@ class AlarmListener : NotificationListenerService() {
             .setContentTitle(getString(R.string.notif_ongo_title))
             .setContentText(getString(R.string.notif_ongo_content))
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            //                .setContentIntent(pendingIntent)
+            // TODO: .setContentIntent(pendingIntent)
             .setTicker(getText(R.string.app_name))
             .addAction(
                 R.drawable.ic_anim_splash,
@@ -61,7 +60,7 @@ class AlarmListener : NotificationListenerService() {
                 getService(
                     application,
                     955421,
-                    Intent(),
+                    Intent(), // TODO: turn off action
                     FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
                 )
             )

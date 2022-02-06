@@ -52,7 +52,7 @@ enum class Ids {
     update_screen_title,
     navigate,
     toggle_theme,
-    setDarkMode,
+    uiMode,
     isDark,
     enable_notification_access,
     exit_app,
@@ -63,8 +63,7 @@ enum class Ids {
     screen_title,
     format_screen_title,
     is_notif_access_enabled,
-    flashLight,
-    is_alarm_listener_up,
+    flashlight,
 
     // Fx
     navigateFx,

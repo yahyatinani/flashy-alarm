@@ -5,8 +5,8 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import com.github.whyrising.flashyalarm.Ids.exit_app
 import com.github.whyrising.flashyalarm.Ids.navigate
 import com.github.whyrising.flashyalarm.Ids.navigateFx
-import com.github.whyrising.flashyalarm.Ids.setDarkMode
 import com.github.whyrising.flashyalarm.Ids.toggle_theme
+import com.github.whyrising.flashyalarm.Ids.uiMode
 import com.github.whyrising.flashyalarm.Ids.update_screen_title
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
@@ -24,7 +24,7 @@ fun regGlobalEvents() {
         db.copy(isDark = !db.isDark)
     }
 
-    regEventDb<DbSchema>(id = setDarkMode) { db, (_, uiMode) ->
+    regEventDb<DbSchema>(id = uiMode) { db, (_, uiMode) ->
         db.copy(isDark = isSystemDarkMode(uiMode as Int))
     }
 
