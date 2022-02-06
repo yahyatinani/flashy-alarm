@@ -1,12 +1,11 @@
 package com.github.whyrising.flashyalarm
 
 import android.app.ActivityManager
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
-import android.app.PendingIntent.getService
 import android.content.Context
 import android.content.Intent
 import android.hardware.camera2.CameraAccessException
@@ -15,7 +14,6 @@ import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -31,40 +29,37 @@ import com.github.whyrising.y.collections.core.m
 import com.github.whyrising.y.collections.core.v
 
 class AlarmListener : NotificationListenerService() {
-    private fun createOngoingNotification(): Notification {
-        val nm = NotificationManagerCompat.from(application)
-        val channelId = "NOTIFICATION_CHANNEL_ID"
-        val channel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel(
-                channelId,
-                "channelName",
+    private fun showNotification() {
+        val mNM = NotificationManagerCompat.from(application)
+
+        val text = getText(R.string.notif_ongo_content)
+        val contentIntent = PendingIntent.getActivity(
+            this,
+            0,
+            Intent(this, MainActivity::class.java),
+            FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT,
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-        } else {
-            TODO("VERSION.SDK_INT < O")
+            notificationChannel.description = "TODO: Fix-me!"
+            mNM.createNotificationChannel(notificationChannel)
         }
-        channel.description = "TODO: Fix-me!"
-        nm.createNotificationChannel(channel)
 
-        return NotificationCompat
-            .Builder(this, channelId)
-            .setOngoing(true) // TODO: control this by the service status
-            .setContentTitle(getString(R.string.notif_ongo_title))
-            .setContentText(getString(R.string.notif_ongo_content))
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            // TODO: .setContentIntent(pendingIntent)
-            .setTicker(getText(R.string.app_name))
-            .addAction(
-                R.drawable.ic_anim_splash,
-                "Turn off",
-                getService(
-                    application,
-                    955421,
-                    Intent(), // TODO: turn off action
-                    FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
-                )
-            )
+            .setTicker(text)
+            .setWhen(System.currentTimeMillis())
+            .setContentTitle(getText(R.string.notif_flashlight_service_title))
+            .setContentText(text)
+            .setContentIntent(contentIntent)
             .build()
+
+        mNM.notify(NOTIFICATION_ID, notification)
     }
 
     override fun onCreate() {
@@ -93,22 +88,21 @@ class AlarmListener : NotificationListenerService() {
         }
 
         regFx(id = stop_alarm_listener) {
-            stopForeground(true)
             (getSystemService(ACTIVITY_SERVICE) as ActivityManager)
                 .clearApplicationUserData()
-            Toast.makeText(this, "Service stopped", Toast.LENGTH_SHORT).show()
         }
 
         regEventFx(id = stop_alarm_listener) { cofx, _ ->
             val appDb = cofx[Schema.db] as DbSchema
             m(
                 Schema.db to appDb.copy(
-                    isAlarmListenerRunning = false,
                     isNotifAccessEnabled = false,
                 ),
                 stop_alarm_listener to true
             )
         }
+
+        showNotification()
     }
 
     override fun onDestroy() {
@@ -124,9 +118,6 @@ class AlarmListener : NotificationListenerService() {
         startId: Int
     ): Int {
         Log.i(TAG, "onStartCommand() ${hashCode()}")
-        startForeground(R.string.app_name, createOngoingNotification())
-        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show()
-
         return START_STICKY
     }
 
@@ -142,5 +133,8 @@ class AlarmListener : NotificationListenerService() {
 
     companion object {
         private val TAG = this::class.java.simpleName
+        private const val NOTIFICATION_ID = R.string.app_name
+        private const val CHANNEL_ID = "flashlight_service_notification_channel"
+        private const val CHANNEL_NAME = "Flashy Alarm Notification Channel"
     }
 }
