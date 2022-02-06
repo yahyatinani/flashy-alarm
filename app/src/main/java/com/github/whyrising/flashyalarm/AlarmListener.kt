@@ -8,6 +8,8 @@ import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.os.Build
@@ -33,10 +35,12 @@ class AlarmListener : NotificationListenerService() {
         val mNM = NotificationManagerCompat.from(application)
 
         val text = getText(R.string.notif_ongo_content)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_SINGLE_TOP
         val contentIntent = PendingIntent.getActivity(
             this,
             0,
-            Intent(this, MainActivity::class.java),
+            intent,
             FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT,
         )
 
