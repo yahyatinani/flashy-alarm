@@ -21,8 +21,8 @@ import com.github.whyrising.flashyalarm.Ids
 import com.github.whyrising.flashyalarm.Ids.is_notif_access_enabled
 import com.github.whyrising.flashyalarm.Ids.update_screen_title
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.global.DbSchema
-import com.github.whyrising.flashyalarm.global.regGlobalSubs
+import com.github.whyrising.flashyalarm.base.DbSchema
+import com.github.whyrising.flashyalarm.base.regBaseSubs
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
@@ -68,7 +68,7 @@ fun HomeScreen() {
 
 private fun initPreview() {
     initAppDb()
-    regGlobalSubs()
+    regBaseSubs()
     regSub<DbSchema, Boolean>(
         queryId = is_notif_access_enabled,
     ) { _, _ ->

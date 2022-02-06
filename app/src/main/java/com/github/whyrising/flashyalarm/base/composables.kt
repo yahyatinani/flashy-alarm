@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.global
+package com.github.whyrising.flashyalarm.base
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -55,7 +55,7 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
 
 private fun init() {
     initAppDb()
-    regGlobalSubs()
+    regBaseSubs()
 }
 
 @ExperimentalAnimationApi

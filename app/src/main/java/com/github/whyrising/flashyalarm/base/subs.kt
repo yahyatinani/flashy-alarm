@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.global
+package com.github.whyrising.flashyalarm.base
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FlashlightOff
@@ -12,7 +12,7 @@ import com.github.whyrising.recompose.regSub
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.y.collections.core.v
 
-fun regGlobalSubs() {
+fun regBaseSubs() {
     regSub<DbSchema, String>(
         queryId = screen_title,
     ) { db, _ ->

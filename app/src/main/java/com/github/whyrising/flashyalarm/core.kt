@@ -17,10 +17,10 @@ import com.github.whyrising.flashyalarm.Ids.exit_app
 import com.github.whyrising.flashyalarm.Ids.fx_enable_notif_access
 import com.github.whyrising.flashyalarm.Ids.is_notif_access_enabled
 import com.github.whyrising.flashyalarm.Ids.navigateFx
-import com.github.whyrising.flashyalarm.global.HostScreen
-import com.github.whyrising.flashyalarm.global.defaultDb
-import com.github.whyrising.flashyalarm.global.regGlobalEvents
-import com.github.whyrising.flashyalarm.global.regGlobalSubs
+import com.github.whyrising.flashyalarm.base.HostScreen
+import com.github.whyrising.flashyalarm.base.defaultDb
+import com.github.whyrising.flashyalarm.base.regBaseEvents
+import com.github.whyrising.flashyalarm.base.regBaseSubs
 import com.github.whyrising.flashyalarm.home.HomeScreen
 import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogCofx
 import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogEvents
@@ -113,8 +113,8 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
 
         initAppDb()
-        regGlobalEvents()
-        regGlobalSubs()
+        regBaseEvents()
+        regBaseSubs()
 
         regNotifDialogEvents()
         regNotifDialogCofx(context = this)

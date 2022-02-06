@@ -3,7 +3,7 @@ package com.github.whyrising.flashyalarm.notificationdialog
 import com.github.whyrising.flashyalarm.Ids.enable_notification_access
 import com.github.whyrising.flashyalarm.Ids.fx_enable_notif_access
 import com.github.whyrising.flashyalarm.Ids.is_notif_access_enabled
-import com.github.whyrising.flashyalarm.global.DbSchema
+import com.github.whyrising.flashyalarm.base.DbSchema
 import com.github.whyrising.recompose.cofx.injectCofx
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.recompose.schemas.Schema.db

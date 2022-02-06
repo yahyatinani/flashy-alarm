@@ -21,7 +21,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.github.whyrising.flashyalarm.Ids.flash_on
 import com.github.whyrising.flashyalarm.Ids.stop_alarm_listener
-import com.github.whyrising.flashyalarm.global.DbSchema
+import com.github.whyrising.flashyalarm.base.DbSchema
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.recompose.regFx
