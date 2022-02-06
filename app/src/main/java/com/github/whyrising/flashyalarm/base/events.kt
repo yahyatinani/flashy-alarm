@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.global
+package com.github.whyrising.flashyalarm.base
 
 import android.content.res.Configuration.UI_MODE_NIGHT_MASK
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -15,7 +15,7 @@ import com.github.whyrising.y.collections.core.m
 fun isSystemDarkMode(uiMode: Int) =
     uiMode and UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
 
-fun regGlobalEvents() {
+fun regBaseEvents() {
     regEventDb<DbSchema>(id = update_screen_title) { db, (_, title) ->
         db.copy(screenTitle = title as String)
     }

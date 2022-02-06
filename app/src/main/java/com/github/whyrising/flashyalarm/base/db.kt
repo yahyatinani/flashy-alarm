@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.global
+package com.github.whyrising.flashyalarm.base
 
 data class DbSchema(
     val screenTitle: String,
