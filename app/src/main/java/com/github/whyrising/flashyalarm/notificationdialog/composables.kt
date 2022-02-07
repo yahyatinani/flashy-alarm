@@ -6,13 +6,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.github.whyrising.flashyalarm.Ids
-import com.github.whyrising.flashyalarm.Ids.enable_notification_access
+import com.github.whyrising.flashyalarm.Ids.stop_alarm_listener
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.collections.core.v
 
 @Composable
-fun EnableNotificationAlertDialog() {
+fun DisableServiceAlertDialog() {
     AlertDialog(
         onDismissRequest = { /*TODO*/ },
         title = { Text(text = "Important") },
@@ -23,13 +23,19 @@ fun EnableNotificationAlertDialog() {
             )
         },
         confirmButton = {
-            Button(onClick = { dispatch(v(enable_notification_access)) }) {
-                Text(text = "Enable")
+            Button(onClick = {
+                dispatch(v(stop_alarm_listener))
+            }) {
+                Text(text = "Yes!")
             }
         },
         dismissButton = {
-            Button(onClick = { dispatch(v(Ids.exit_app)) }) {
-                Text(text = "Exit App")
+            Button(
+                onClick = {
+                    dispatch(v(Ids.show_dialog, false))
+                },
+            ) {
+                Text(text = "Nope")
             }
         }
     )

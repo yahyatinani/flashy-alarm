@@ -1,31 +1,16 @@
 package com.github.whyrising.flashyalarm.base
 
-import android.content.res.Configuration.UI_MODE_NIGHT_MASK
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import com.github.whyrising.flashyalarm.Ids.exit_app
 import com.github.whyrising.flashyalarm.Ids.navigate
 import com.github.whyrising.flashyalarm.Ids.navigateFx
-import com.github.whyrising.flashyalarm.Ids.toggle_theme
-import com.github.whyrising.flashyalarm.Ids.uiMode
 import com.github.whyrising.flashyalarm.Ids.update_screen_title
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.y.collections.core.m
 
-fun isSystemDarkMode(uiMode: Int) =
-    uiMode and UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
-
 fun regBaseEvents() {
     regEventDb<DbSchema>(id = update_screen_title) { db, (_, title) ->
         db.copy(screenTitle = title as String)
-    }
-
-    regEventDb<DbSchema>(id = toggle_theme) { db, _ ->
-        db.copy(isDark = !db.isDark)
-    }
-
-    regEventDb<DbSchema>(id = uiMode) { db, (_, uiMode) ->
-        db.copy(isDark = isSystemDarkMode(uiMode as Int))
     }
 
     regEventFx(id = navigate) { _, (_, route) ->

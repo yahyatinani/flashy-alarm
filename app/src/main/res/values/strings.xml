@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Flashy Alarm</string>
     <string name="home_screen_title">Flashy Alarm</string>
-    <string name="notif_alert_msg">Please, enable `Notification Access` for %1$s to work.</string>
+    <string name="notif_alert_msg">
+        This act will disable the alarm alert listener and close the application.\n
+        Would you like to proceed?
+    </string>
     <string name="notif_ongo_content">It turns on the flashlight whenever an alarm goes off</string>
     <string name="notif_flashlight_service_title">Alarm listener turned on</string>
-    <string name="service_switch_label">Enable the background Alarm listener service by toggling the switch</string>
+    <string name="service_switch_label">
+        Toggle the switch to enable/disable the background alarm listener service.
+    </string>
 </resources>
