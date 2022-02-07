@@ -63,10 +63,8 @@ fun HomeScreen() {
                     }
                 },
                 colors = SwitchDefaults.colors(
-                    checkedThumbColor = colors.primaryVariant,
+                    checkedThumbColor = colors.primary,
                     checkedTrackColor = colors.primary,
-//                    uncheckedThumbColor = colors.primaryVariant,
-//                    uncheckedTrackColor = colors.primary,
                 )
             )
         }

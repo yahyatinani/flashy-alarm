@@ -8,8 +8,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavGraphBuilder
@@ -35,6 +37,7 @@ import com.github.whyrising.y.collections.core.v
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlin.system.exitProcess
 import com.github.whyrising.flashyalarm.home.route as home_route
 
@@ -43,9 +46,6 @@ enum class Ids {
     // Events
     update_screen_title,
     navigate,
-    toggle_theme,
-    uiMode,
-    isDark,
     enable_notification_access,
     exit_app,
     stop_alarm_listener,
@@ -54,7 +54,6 @@ enum class Ids {
     screen_title,
     format_screen_title,
     is_notif_access_enabled,
-    flashlight,
 
     // Fx
     navigateFx,
@@ -131,7 +130,16 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
+            val systemUiController = rememberSystemUiController()
+
             HostScreen {
+                val colors = MaterialTheme.colors
+                SideEffect {
+                    systemUiController.setSystemBarsColor(
+                        color = colors.primary,
+                        darkIcons = true
+                    )
+                }
                 Navigation(padding = it)
             }
         }
