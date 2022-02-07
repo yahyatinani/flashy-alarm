@@ -24,6 +24,8 @@ import com.github.whyrising.flashyalarm.base.defaultDb
 import com.github.whyrising.flashyalarm.base.regBaseEvents
 import com.github.whyrising.flashyalarm.base.regBaseSubs
 import com.github.whyrising.flashyalarm.home.HomeScreen
+import com.github.whyrising.flashyalarm.home.regHomeEvents
+import com.github.whyrising.flashyalarm.home.regHomeSubs
 import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogCofx
 import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogEvents
 import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogSubs
@@ -54,6 +56,7 @@ enum class Ids {
     screen_title,
     format_screen_title,
     is_notif_access_enabled,
+    show_dialog,
 
     // Fx
     navigateFx,
@@ -128,6 +131,8 @@ class MainActivity : ComponentActivity() {
             )
             userAllowsAccess.launch(intent)
         }
+        regHomeEvents()
+        regHomeSubs()
 
         setContent {
             val systemUiController = rememberSystemUiController()

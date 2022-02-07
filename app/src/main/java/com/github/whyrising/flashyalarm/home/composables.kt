@@ -21,11 +21,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.whyrising.flashyalarm.Ids
 import com.github.whyrising.flashyalarm.Ids.is_notif_access_enabled
+import com.github.whyrising.flashyalarm.Ids.show_dialog
 import com.github.whyrising.flashyalarm.Ids.update_screen_title
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.base.DbSchema
 import com.github.whyrising.flashyalarm.base.regBaseSubs
 import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.notificationdialog.DisableServiceAlertDialog
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.regSub
@@ -59,7 +61,9 @@ fun HomeScreen() {
                 onCheckedChange = {
                     when {
                         it -> dispatch(v(Ids.enable_notification_access))
-                        else -> dispatch(v(Ids.stop_alarm_listener))
+                        else -> {
+                            dispatch(v(show_dialog, true))
+                        }
                     }
                 },
                 colors = SwitchDefaults.colors(
@@ -67,6 +71,9 @@ fun HomeScreen() {
                     checkedTrackColor = colors.primary,
                 )
             )
+
+            if (subscribe<Boolean>(v(show_dialog)).w())
+                DisableServiceAlertDialog()
         }
     }
 }
