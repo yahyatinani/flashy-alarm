@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
-import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -23,6 +22,7 @@ import com.github.whyrising.flashyalarm.Ids.flash_on
 import com.github.whyrising.flashyalarm.Ids.stop_alarm_listener
 import com.github.whyrising.flashyalarm.base.DbSchema
 import com.github.whyrising.recompose.dispatch
+import com.github.whyrising.recompose.fx.Effects
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.recompose.regFx
 import com.github.whyrising.recompose.schemas.Schema
@@ -30,7 +30,18 @@ import com.github.whyrising.y.collections.core.get
 import com.github.whyrising.y.collections.core.m
 import com.github.whyrising.y.collections.core.v
 
+internal fun flashlightOn(
+    category: String?,
+    groupKey: String?
+): Effects = when {
+    category != "alarm" -> m()
+    groupKey != "ALARM_GROUP_KEY" -> m()
+    else -> m(flash_on to true)
+}
+
 class AlarmListener : NotificationListenerService() {
+    internal val TAG: String = this::class.java.simpleName
+
     private fun showNotification() {
         val mNM = NotificationManagerCompat.from(application)
 
@@ -71,8 +82,8 @@ class AlarmListener : NotificationListenerService() {
 
         Log.i(TAG, "onCreate() ${hashCode()}")
 
-        regFx(flash_on) { context ->
-            val cameraManager = (context as Context).getSystemService(
+        regFx(flash_on) {
+            val cameraManager = application.getSystemService(
                 ComponentActivity.CAMERA_SERVICE
             ) as CameraManager
             try {
@@ -82,13 +93,9 @@ class AlarmListener : NotificationListenerService() {
             }
         }
 
-        regEventFx(id = flash_on) { _, (_, context, stBarNotif) ->
-            // TODO: Fix, turn with alarm only, not timer
-            val statusBarNotification = stBarNotif as StatusBarNotification
-            when (statusBarNotification.notification.category) {
-                "alarm" -> m(flash_on to context)
-                else -> m()
-            }
+        regEventFx(id = flash_on) { _, (_, statBarNotif) ->
+            val n = (statBarNotif as StatusBarNotification).notification
+            flashlightOn(n.category, n.group)
         }
 
         regFx(id = stop_alarm_listener) {
@@ -99,9 +106,7 @@ class AlarmListener : NotificationListenerService() {
         regEventFx(id = stop_alarm_listener) { cofx, _ ->
             val appDb = cofx[Schema.db] as DbSchema
             m(
-                Schema.db to appDb.copy(
-                    isNotifAccessEnabled = false,
-                ),
+                Schema.db to appDb.copy(isNotifAccessEnabled = false),
                 stop_alarm_listener to true
             )
         }
@@ -132,11 +137,10 @@ class AlarmListener : NotificationListenerService() {
         //  in 0.0.7
         if (sbn == null) return
 
-        dispatch(v<Any>(flash_on, application, sbn))
+        dispatch(v(flash_on, sbn))
     }
 
     companion object {
-        private val TAG = this::class.java.simpleName
         private const val NOTIFICATION_ID = R.string.app_name
         private const val CHANNEL_ID = "flashlight_service_notification_channel"
         private const val CHANNEL_NAME = "Flashy Alarm Notification Channel"
