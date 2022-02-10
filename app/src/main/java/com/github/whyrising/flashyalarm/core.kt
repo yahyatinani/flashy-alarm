@@ -103,12 +103,12 @@ fun initAppDb() {
     dispatchSync(v(":init-db"))
 }
 
+@ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
     private val userAllowsAccess = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {}
 
-    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

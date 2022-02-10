@@ -16,6 +16,7 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.github.whyrising.flashyalarm.Ids.flash_on
@@ -39,6 +40,7 @@ internal fun flashlightOn(
     else -> m(flash_on to true)
 }
 
+@ExperimentalAnimationApi
 class AlarmListener : NotificationListenerService() {
     internal val TAG: String = this::class.java.simpleName
 
