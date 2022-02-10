@@ -1,6 +1,7 @@
 package com.github.whyrising.flashyalarm.base
 
 import com.github.whyrising.flashyalarm.Ids.format_screen_title
+import com.github.whyrising.flashyalarm.Ids.is_flash_available
 import com.github.whyrising.flashyalarm.Ids.screen_title
 import com.github.whyrising.recompose.regSub
 import com.github.whyrising.recompose.subscribe
@@ -18,5 +19,11 @@ fun regBaseSubs() {
         signalsFn = { subscribe(v(screen_title)) }
     ) { title, _ ->
         title.replaceFirstChar { it.uppercase() }
+    }
+
+    regSub<DbSchema, Boolean>(
+        queryId = is_flash_available,
+    ) { db, _ ->
+        db.isFlashSupported
     }
 }
