@@ -1,10 +1,12 @@
 package com.github.whyrising.flashyalarm
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import com.github.whyrising.flashyalarm.Ids.flash_on
 import com.github.whyrising.y.collections.core.m
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
+@ExperimentalAnimationApi
 class AlarmListenerTest : FreeSpec({
     "TAG" {
         AlarmListener().TAG shouldBe "AlarmListener"
