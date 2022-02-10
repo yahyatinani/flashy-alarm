@@ -29,7 +29,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: cache-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: devel-cache-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -50,12 +50,3 @@ jobs:
         with:
           name: error-report
           path: build-reports.zip
-
-#      - name: Build Android App Bundle (.aab)
-#        run: ./gradlew bundle
-#
-#      - name: Upload AAB Artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: app-bundle
-#          path: app/build/outputs/bundle/**/*.aab
