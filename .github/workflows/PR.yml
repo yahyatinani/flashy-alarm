@@ -43,11 +43,11 @@ jobs:
           name: error-report
           path: build-reports.zip
 
-      - name: Build Android App Bundle (.aab)
-        run: ./gradlew bundle
-
-      - name: Upload AAB Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-bundle
-          path: app/build/outputs/bundle/**/*.aab
+#      - name: Build Android App Bundle (.aab)
+#        run: ./gradlew bundle
+#
+#      - name: Upload AAB Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: app-bundle
+#          path: app/build/outputs/bundle/**/*.aab
