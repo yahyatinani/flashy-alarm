@@ -68,7 +68,7 @@ class AlarmListener : NotificationListenerService() {
         }
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_status_notification)
             .setTicker(text)
             .setWhen(System.currentTimeMillis())
             .setContentTitle(getText(R.string.notif_flashlight_service_title))
