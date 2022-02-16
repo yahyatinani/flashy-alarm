@@ -58,7 +58,7 @@ jobs:
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: debug-apk
+          name: artifacts
           path: |
             app/build/outputs/bundle/debug/app-debug.aab
             app/build/outputs/bundle/debug/app-release.aab
