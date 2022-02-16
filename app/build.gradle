@@ -104,5 +104,9 @@ dependencies {
 
     implementation Libs.Y.concurrency
 
+    implementation Libs.Kotest.runner
+    implementation Libs.Kotest.assertions
+    implementation Libs.Kotest.property
+
     coreLibraryDesugaring Libs.jdkDesugar
 }
