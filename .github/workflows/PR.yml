@@ -36,7 +36,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build project
-        run: ./gradlew spotlessCheck bundle lintDebug --stacktrace
+        run: ./gradlew spotlessCheck lintDebug --stacktrace
 
       - name: Run unit tests
         run: ./gradlew check --stacktrace
@@ -51,6 +51,9 @@ jobs:
         with:
           name: error-report
           path: build-reports.zip
+
+      - name: Generate android app bundle
+        run: ./gradlew bundle
 
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v2
