@@ -1,3 +1,5 @@
+package com.github.whyrising.flashyalarm
+
 object Plugins {
     object Ktlint {
         const val version = "10.2.1"

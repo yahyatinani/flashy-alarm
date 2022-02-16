@@ -88,11 +88,13 @@ private fun initPreview() {
     ) { _, _ ->
         true
     }
+    regHomeEvents()
+    regHomeSubs()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ScreenPreview() {
+fun HomePreview() {
     initPreview()
     FlashyAlarmTheme {
         HomeScreen()
@@ -101,7 +103,7 @@ fun ScreenPreview() {
 
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun ScreenDarkPreview() {
+fun HomeDarkPreview() {
     initPreview()
     FlashyAlarmTheme(darkTheme = true) {
         HomeScreen()
