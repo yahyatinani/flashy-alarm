@@ -1,42 +1,53 @@
+package com.github.whyrising.flashyalarm
+
 object Libs {
     const val kotlinVersion = "1.6.10"
     const val jvmTarget = "11"
+    const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.1.5"
 
     object Compose {
-        private const val gr = "androidx.compose"
-        const val version = "1.1.0-rc03"
+        const val version = "1.1.0"
 
-        const val ui = "$gr.ui:ui:$version"
+        const val ui = "androidx.compose.ui:ui:$version"
 
         // Tooling support (Previews, etc.)
-        const val uiTooling = "$gr.ui:ui-tooling:$version"
+        const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
+        const val uiToolingPreview =
+            "androidx.compose.ui:ui-tooling-preview:$version"
 
         // Foundation (Border, Background, Box, Image, shapes, animations, etc.)
-        const val foundation = "$gr.foundation:foundation:$version"
+        const val foundation = "androidx.compose.foundation:foundation:$version"
 
         // Material design
-        const val material = "$gr.material:material:$version"
+        const val material = "androidx.compose.material:material:$version"
 
         // Material design icons
-        const val iconsCore = "$gr.material:material-icons-core:$version"
-        const val iconsExt = "$gr.material:material-icons-extended:$version"
+        const val iconsCore =
+            "androidx.compose.material:material-icons-core:$version"
+        const val iconsExt =
+            "androidx.compose.material:material-icons-extended:$version"
+
+        const val constraintLayoutCompose =
+            "androidx.constraintlayout:constraintlayout-compose:1.0.0"
+
+        const val runtime = "androidx.compose.runtime:runtime:$version"
 
         // UI Testing
-        const val uiTestJUnit = "$gr.ui:ui-test-junit4:$version"
+        const val uiTesting = "androidx.compose.ui:ui-test-junit4:$version"
     }
 
     object Lifecycle {
-        private const val version = "2.4.0"
+        private const val version = "2.4.1"
         private const val gr = "androidx.lifecycle"
 
         // ViewModel
         const val vm = "$gr:lifecycle-viewmodel-ktx:$version"
 
         // ViewModel utilities for Compose
-        const val viewModelCompose = "$gr:lifecycle-viewmodel-compose:$version"
+        const val vmCompose = "$gr:lifecycle-viewmodel-compose:$version"
 
         // Lifecycles only (without ViewModel or LiveData)
-        const val lifecycles = "$gr:lifecycle-runtime-ktx:$version"
+        const val runtime = "$gr:lifecycle-runtime-ktx:$version"
 
         // Saved state module for ViewModel
         const val savedState = "$gr:lifecycle-viewmodel-savedstate:$version"
@@ -50,7 +61,7 @@ object Libs {
     }
 
     object Navigation {
-        private const val version = "2.4.0"
+        private const val version = "2.4.1"
 
         const val compose = "androidx.navigation:navigation-compose:$version"
     }
@@ -59,33 +70,19 @@ object Libs {
         // Appcompat is needed for themes.xml resource
         const val appcompat = "androidx.appcompat:appcompat:1.4.1"
 
-        const val constraintLayoutCompose =
-            "androidx.constraintlayout:constraintlayout-compose:1.0.0"
-
-        const val coreSplashscreen =
-            "androidx.core:core-splashscreen:1.0.0-beta01"
-
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
-    }
 
-    object Material {
-        private const val version = "1.5.0"
-
-        const val material = "com.google.android.material:material:$version"
+        const val splash =
+            "androidx.core:core-splashscreen:1.0.0-beta01"
     }
 
     object Accompanist {
-        private const val version = "0.24.1-alpha"
+        private const val version = "0.24.2-alpha"
         const val navAnimation =
             "com.google.accompanist:accompanist-navigation-animation:$version"
 
-        const val uiController =
+        const val systemUi =
             "com.google.accompanist:accompanist-systemuicontroller:$version"
-    }
-
-    object LayoutInspector {
-        const val uiTooling = Compose.uiTooling
-        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     }
 
     object Kotest {
