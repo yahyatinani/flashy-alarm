@@ -60,5 +60,5 @@ jobs:
         with:
           name: debug-apk
           path: |
-            android/build/outputs/bundle/debug/android-debug.aab
-            android/build/outputs/bundle/debug/android-release.aab
+            app/build/outputs/bundle/debug/app-debug.aab
+            app/build/outputs/bundle/debug/app-release.aab
