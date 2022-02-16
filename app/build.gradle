@@ -57,14 +57,10 @@ android {
 
     testOptions {
         animationsDisabled = true
-        unitTests {
-            returnDefaultValues = true
+        unitTests.all {
+            useJUnitPlatform()
+            testLogging { events("passed", "skipped", "failed") }
         }
-    }
-
-    tasks.withType(Test) {
-        useJUnitPlatform()
-        testLogging { events("passed", "skipped", "failed") }
     }
 }
 
@@ -104,9 +100,9 @@ dependencies {
 
     implementation Libs.Y.concurrency
 
-    implementation Libs.Kotest.runner
-    implementation Libs.Kotest.assertions
-    implementation Libs.Kotest.property
+    testImplementation Libs.Kotest.runner
+    testImplementation Libs.Kotest.property
+    testImplementation Libs.Kotest.assertions
 
     coreLibraryDesugaring Libs.jdkDesugar
 }

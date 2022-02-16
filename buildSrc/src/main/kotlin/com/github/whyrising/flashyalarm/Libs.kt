@@ -88,14 +88,14 @@ object Libs {
     object Kotest {
         private const val version = "5.1.0"
 
-        const val runner = "io.kotest:kotest-runner-junit5:$version"
-        const val assertions = "io.kotest:kotest-assertions-core:$version"
-        const val property = "io.kotest:kotest-property:$version"
+        const val runner = "io.kotest:kotest-runner-junit5-jvm:$version"
+        const val assertions = "io.kotest:kotest-assertions-core-jvm:$version"
+        const val property = "io.kotest:kotest-property-jvm:$version"
     }
 
     object Y {
         private const val group = "com.github.whyrising.y"
-        private const val version = "0.0.7"
+        private const val version = "0.0.10"
 
         const val core = "$group:y-core:$version"
         const val collections = "$group:y-collections:$version"

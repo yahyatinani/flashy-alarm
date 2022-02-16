@@ -15,7 +15,6 @@ buildscript {
 
 plugins {
     id 'com.diffplug.spotless' version '6.2.2'
-    id 'org.jlleitschuh.gradle.ktlint' version '10.2.0'
     id 'maven-publish'
     id 'signing'
 }
@@ -31,7 +30,6 @@ subprojects {
         mavenLocal()
     }
 
-    apply plugin: 'org.jlleitschuh.gradle.ktlint'
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
     apply plugin: 'com.diffplug.spotless'
@@ -45,9 +43,5 @@ subprojects {
             ktlint('0.43.2')
 //            licenseHeaderFile rootProject.file('spotless/copyright.kt')
         }
-    }
-
-    ktlint {
-        debug = true
     }
 }
