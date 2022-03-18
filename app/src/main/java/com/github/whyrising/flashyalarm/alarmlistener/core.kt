@@ -1,30 +1,19 @@
 package com.github.whyrising.flashyalarm.alarmlistener
 
 import android.app.ActivityManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_IMMUTABLE
-import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
-import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import com.github.whyrising.flashyalarm.MainActivity
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.alarmlistener.Ids.flashOn
 import com.github.whyrising.flashyalarm.alarmlistener.Ids.stopAlarmListener
 import com.github.whyrising.flashyalarm.base.AppDb
+import com.github.whyrising.flashyalarm.base.Ids.pushNotification
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.fx.Effects
 import com.github.whyrising.recompose.regEventFx
@@ -39,7 +28,6 @@ import com.github.whyrising.y.collections.core.v
  *
  * @param context passed by a lifecycle aware component.
  */
-@ExperimentalAnimationApi
 fun init(context: Context) {
     regFx(context = context)
     regCofx(context = context)
@@ -56,44 +44,8 @@ internal fun flashlightOn(
     else -> m(flashOn to true)
 }
 
-@ExperimentalAnimationApi
 class AlarmListener : NotificationListenerService() {
     internal val TAG: String = this::class.java.simpleName
-
-    private fun showNotification() {
-        val mNM = NotificationManagerCompat.from(application)
-
-        val text = getText(R.string.notif_ongo_content)
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_SINGLE_TOP
-        val contentIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intent,
-            FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT,
-        )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                CHANNEL_ID,
-                CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            notificationChannel.description = "TODO: Fix-me!"
-            mNM.createNotificationChannel(notificationChannel)
-        }
-
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_status_notification)
-            .setTicker(text)
-            .setWhen(System.currentTimeMillis())
-            .setContentTitle(getText(R.string.notif_flashlight_service_title))
-            .setContentText(text)
-            .setContentIntent(contentIntent)
-            .build()
-
-        mNM.notify(NOTIFICATION_ID, notification)
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -131,7 +83,10 @@ class AlarmListener : NotificationListenerService() {
             )
         }
 
-        showNotification()
+        val notifId = R.string.app_name
+        val content = getText(R.string.notif_flashlight_service_content)
+        val title = getText(R.string.notif_flashlight_service_title)
+        dispatch(v(pushNotification, notifId, title, content))
     }
 
     override fun onDestroy() {
@@ -154,11 +109,5 @@ class AlarmListener : NotificationListenerService() {
         if (sbn == null) return
 
         dispatch(v(flashOn, sbn))
-    }
-
-    companion object {
-        private const val NOTIFICATION_ID = R.string.app_name
-        const val CHANNEL_ID = "flashlight_service_notification_channel"
-        private const val CHANNEL_NAME = "Flashy Alarm Notification Channel"
     }
 }

@@ -3,6 +3,7 @@ package com.github.whyrising.flashyalarm.alarmlistener
 import com.github.whyrising.flashyalarm.alarmlistener.Ids.fxEnableNotifAccess
 import com.github.whyrising.flashyalarm.alarmlistener.Ids.isNotifAccessEnabled
 import com.github.whyrising.flashyalarm.base.AppDb
+import com.github.whyrising.flashyalarm.base.Ids.pushNotification
 import com.github.whyrising.recompose.cofx.injectCofx
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.recompose.schemas.Schema.db
@@ -40,5 +41,15 @@ fun regEvents() {
 
     regEventFx(id = Ids.enableNotificationAccess) { _, _ ->
         m(fxEnableNotifAccess to true)
+    }
+
+    regEventFx(id = pushNotification) { _, (_, id, title, content) ->
+        m(
+            pushNotification to m(
+                "id" to id,
+                "title" to title,
+                "content" to content
+            )
+        )
     }
 }

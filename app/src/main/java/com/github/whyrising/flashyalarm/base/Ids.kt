@@ -7,6 +7,7 @@ enum class Ids {
     updateScreenTitle,
     navigate,
     exitApp,
+    pushNotification,
 
     // Subs
     screenTitle,

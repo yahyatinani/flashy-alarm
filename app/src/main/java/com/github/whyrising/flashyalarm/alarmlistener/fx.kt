@@ -3,7 +3,6 @@ package com.github.whyrising.flashyalarm.alarmlistener
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.compose.animation.ExperimentalAnimationApi
 import com.github.whyrising.recompose.regFx
 
 const val ACTION_NOTIFICATION_LISTENER_SETTINGS =
@@ -16,7 +15,6 @@ const val EXTRA_SHOW_FRAGMENT_ARGUMENTS = ":settings:show_fragment_args"
  * [AlarmListener] service effects.
  * @param context passed by an activity or application.
  */
-@ExperimentalAnimationApi
 fun regFx(context: Context) {
     regFx(id = Ids.fxEnableNotifAccess) {
         val intent = Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS)

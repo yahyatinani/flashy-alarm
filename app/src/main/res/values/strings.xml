@@ -5,7 +5,9 @@
         This act will disable the alarm alert listener and close the application.\n
         Would you like to proceed?
     </string>
-    <string name="notif_ongo_content">It turns on the flashlight whenever an alarm goes off</string>
+    <string name="notif_flashlight_service_content">
+        It turns on the flashlight whenever an alarm goes off
+    </string>
     <string name="notif_flashlight_service_title">Alarm listener turned on</string>
     <string name="service_switch_label">
         Toggle the switch to enable/disable the background flash service.

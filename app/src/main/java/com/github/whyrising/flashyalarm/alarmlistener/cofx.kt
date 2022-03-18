@@ -7,12 +7,10 @@ import android.content.pm.PackageManager.FEATURE_CAMERA_FLASH
 import android.os.Build
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.app.NotificationManagerCompat
 import com.github.whyrising.flashyalarm.BuildConfig
 import com.github.whyrising.recompose.cofx.regCofx
 
-@ExperimentalAnimationApi
 fun regCofx(context: Context) {
     regCofx(id = Ids.isFlashAvailable) { coeffects ->
         coeffects.assoc(

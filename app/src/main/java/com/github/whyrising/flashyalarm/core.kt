@@ -86,10 +86,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        
+
         initAlarmListener(context = this)
         dispatch(v(checkDeviceFlashlight))
-        initBase()
+        initBase(this, MainActivity::class.java)
         initHome()
 
         setContent {
