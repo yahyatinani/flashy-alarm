@@ -1,13 +1,13 @@
-package com.github.whyrising.flashyalarm.notificationdialog
+package com.github.whyrising.flashyalarm.home
 
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.github.whyrising.flashyalarm.Ids.show_dialog
-import com.github.whyrising.flashyalarm.Ids.stop_alarm_listener
 import com.github.whyrising.flashyalarm.R
+import com.github.whyrising.flashyalarm.alarmlistener.Ids
+import com.github.whyrising.flashyalarm.home.Ids.hideDisableServiceDialog
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.collections.core.v
 
@@ -25,19 +25,17 @@ fun DisableServiceAlertDialog() {
             )
         },
         confirmButton = {
-            Button(onClick = {
-                dispatch(v(stop_alarm_listener))
-            }) {
+            Button(onClick = { dispatch(v(Ids.stopAlarmListener)) }) {
                 Text(text = stringResource(R.string.alert_btn_yes))
             }
         },
         dismissButton = {
             Button(
                 onClick = {
-                    dispatch(v(show_dialog, false))
+                    dispatch(v(hideDisableServiceDialog))
                 },
             ) {
-                Text(text = stringResource(R.string.alert_btn_exit))
+                Text(text = stringResource(R.string.alert_btn_no))
             }
         }
     )

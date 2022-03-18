@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm
+package com.github.whyrising.flashyalarm.alarmlistener
 
 import android.app.ActivityManager
 import android.app.NotificationChannel
@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -19,9 +20,11 @@ import androidx.activity.ComponentActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.github.whyrising.flashyalarm.Ids.flash_on
-import com.github.whyrising.flashyalarm.Ids.stop_alarm_listener
-import com.github.whyrising.flashyalarm.base.DbSchema
+import com.github.whyrising.flashyalarm.MainActivity
+import com.github.whyrising.flashyalarm.R
+import com.github.whyrising.flashyalarm.alarmlistener.Ids.flashOn
+import com.github.whyrising.flashyalarm.alarmlistener.Ids.stopAlarmListener
+import com.github.whyrising.flashyalarm.base.AppDb
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.fx.Effects
 import com.github.whyrising.recompose.regEventFx
@@ -31,13 +34,26 @@ import com.github.whyrising.y.collections.core.get
 import com.github.whyrising.y.collections.core.m
 import com.github.whyrising.y.collections.core.v
 
+/**
+ * Initialize [AlarmListener] module.
+ *
+ * @param context passed by a lifecycle aware component.
+ */
+@ExperimentalAnimationApi
+fun init(context: Context) {
+    regFx(context = context)
+    regCofx(context = context)
+    regEvents()
+    regSubs()
+}
+
 internal fun flashlightOn(
     category: String?,
     groupKey: String?
 ): Effects = when {
     category != "alarm" -> m()
     groupKey != "ALARM_GROUP_KEY" -> m()
-    else -> m(flash_on to true)
+    else -> m(flashOn to true)
 }
 
 @ExperimentalAnimationApi
@@ -82,9 +98,7 @@ class AlarmListener : NotificationListenerService() {
     override fun onCreate() {
         super.onCreate()
 
-        Log.i(TAG, "onCreate() ${hashCode()}")
-
-        regFx(flash_on) {
+        regFx(id = flashOn) {
             val cameraManager = application.getSystemService(
                 ComponentActivity.CAMERA_SERVICE
             ) as CameraManager
@@ -95,21 +109,25 @@ class AlarmListener : NotificationListenerService() {
             }
         }
 
-        regEventFx(id = flash_on) { _, (_, statBarNotif) ->
+        regEventFx(id = flashOn) { _, (_, statBarNotif) ->
             val n = (statBarNotif as StatusBarNotification).notification
             flashlightOn(n.category, n.group)
         }
 
-        regFx(id = stop_alarm_listener) {
+        regFx(id = stopAlarmListener) {
             (getSystemService(ACTIVITY_SERVICE) as ActivityManager)
                 .clearApplicationUserData()
         }
 
-        regEventFx(id = stop_alarm_listener) { cofx, _ ->
-            val appDb = cofx[Schema.db] as DbSchema
+        regEventFx(id = stopAlarmListener) { cofx, _ ->
+            val appDb = cofx[Schema.db] as AppDb
             m(
-                Schema.db to appDb.copy(isNotifAccessEnabled = false),
-                stop_alarm_listener to true
+                Schema.db to appDb.copy(
+                    alarmListenerDb = appDb.alarmListenerDb.copy(
+                        isNotifAccessEnabled = false
+                    )
+                ),
+                stopAlarmListener to true
             )
         }
 
@@ -119,18 +137,14 @@ class AlarmListener : NotificationListenerService() {
     override fun onDestroy() {
         super.onDestroy()
 
-        Log.i(TAG, "onDestroy() ${hashCode()}")
-        dispatch(v(stop_alarm_listener))
+        dispatch(v(stopAlarmListener))
     }
 
     override fun onStartCommand(
         intent: Intent?,
         flags: Int,
         startId: Int
-    ): Int {
-        Log.i(TAG, "onStartCommand() ${hashCode()}")
-        return START_STICKY
-    }
+    ): Int = START_STICKY
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
@@ -139,12 +153,12 @@ class AlarmListener : NotificationListenerService() {
         //  in 0.0.7
         if (sbn == null) return
 
-        dispatch(v(flash_on, sbn))
+        dispatch(v(flashOn, sbn))
     }
 
     companion object {
         private const val NOTIFICATION_ID = R.string.app_name
-        private const val CHANNEL_ID = "flashlight_service_notification_channel"
+        const val CHANNEL_ID = "flashlight_service_notification_channel"
         private const val CHANNEL_NAME = "Flashy Alarm Notification Channel"
     }
 }

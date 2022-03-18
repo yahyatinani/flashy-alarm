@@ -1,10 +1,9 @@
 package com.github.whyrising.flashyalarm
 
-import android.content.Intent
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.AlertDialog
@@ -17,22 +16,15 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.github.whyrising.flashyalarm.Ids.check_device_flashlight
-import com.github.whyrising.flashyalarm.Ids.exit_app
-import com.github.whyrising.flashyalarm.Ids.fx_enable_notif_access
-import com.github.whyrising.flashyalarm.Ids.is_notif_access_enabled
-import com.github.whyrising.flashyalarm.Ids.navigateFx
+import com.github.whyrising.flashyalarm.alarmlistener.Ids
+import com.github.whyrising.flashyalarm.alarmlistener.Ids.checkDeviceFlashlight
+import com.github.whyrising.flashyalarm.alarmlistener.Ids.isNotifAccessEnabled
 import com.github.whyrising.flashyalarm.base.HostScreen
-import com.github.whyrising.flashyalarm.base.defaultDb
-import com.github.whyrising.flashyalarm.base.regBaseCofx
-import com.github.whyrising.flashyalarm.base.regBaseEvents
-import com.github.whyrising.flashyalarm.base.regBaseSubs
+import com.github.whyrising.flashyalarm.base.Ids.exitApp
+import com.github.whyrising.flashyalarm.base.Ids.initAppDb
+import com.github.whyrising.flashyalarm.base.Ids.navigateFx
+import com.github.whyrising.flashyalarm.base.appDb
 import com.github.whyrising.flashyalarm.home.home
-import com.github.whyrising.flashyalarm.home.regHomeEvents
-import com.github.whyrising.flashyalarm.home.regHomeSubs
-import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogCofx
-import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogEvents
-import com.github.whyrising.flashyalarm.notificationdialog.regNotifDialogSubs
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.dispatchSync
 import com.github.whyrising.recompose.regEventDb
@@ -43,38 +35,12 @@ import com.github.whyrising.y.collections.core.v
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import kotlin.system.exitProcess
-import com.github.whyrising.flashyalarm.home.route as home_route
-
-@Suppress("EnumEntryName")
-enum class Ids {
-    // Events
-    update_screen_title,
-    navigate,
-    enable_notification_access,
-    exit_app,
-    stop_alarm_listener,
-    check_device_flashlight,
-
-    // Subs
-    screen_title,
-    format_screen_title,
-    is_notif_access_enabled,
-    show_dialog,
-    is_flash_available,
-
-    // Fx
-    navigateFx,
-    fx_enable_notif_access,
-    flash_on,
-}
+import com.github.whyrising.flashyalarm.alarmlistener.init as initAlarmListener
+import com.github.whyrising.flashyalarm.base.init as initBase
+import com.github.whyrising.flashyalarm.home.homeRoute as home_route
+import com.github.whyrising.flashyalarm.home.init as initHome
 
 // -- Entry Point --------------------------------------------------------------
-
-fun initAppDb() {
-    regEventDb<Any>(":init-db") { _, _ -> defaultDb }
-    dispatchSync(v(":init-db"))
-}
 
 @Composable
 fun NoFlashAlertDialog() {
@@ -92,7 +58,7 @@ fun NoFlashAlertDialog() {
         dismissButton = {
             Button(
                 onClick = {
-                    dispatch(v(exit_app, true))
+                    dispatch(v(exitApp, true))
                 },
             ) {
                 Text(text = stringResource(R.string.alert_btn_exit))
@@ -101,40 +67,34 @@ fun NoFlashAlertDialog() {
     )
 }
 
-@ExperimentalAnimationApi
-class MainActivity : ComponentActivity() {
-    private val userAllowsAccess = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {}
+fun initAppDb() {
+    regEventDb<Any>(initAppDb) { _, _ -> appDb }
+    dispatchSync(v(initAppDb))
+}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        installSplashScreen()
+class MyApplication : Application() {
+    @OptIn(ExperimentalAnimationApi::class)
+    override fun onCreate() {
+        super.onCreate()
 
         initAppDb()
-        regBaseCofx(this)
-        regBaseEvents()
-        regBaseSubs()
-        regNotifDialogEvents()
-        regNotifDialogCofx(context = this)
-        regNotifDialogSubs()
-        regFx(id = exit_app) { value ->
-            exitProcess(value as Int)
-        }
-        regFx(id = fx_enable_notif_access) {
-            val intent = Intent(
-                "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
-            )
-            userAllowsAccess.launch(intent)
-        }
-        regHomeEvents()
-        regHomeSubs()
-        dispatch(v(check_device_flashlight))
+    }
+}
+
+@ExperimentalAnimationApi
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        super.onCreate(savedInstanceState)
+        
+        initAlarmListener(context = this)
+        dispatch(v(checkDeviceFlashlight))
+        initBase()
+        initHome()
 
         setContent {
             HostScreen {
-                if (!subscribe<Boolean>(v(Ids.is_flash_available)).w())
+                if (!subscribe<Boolean>(v(Ids.isFlashAvailable)).w())
                     NoFlashAlertDialog()
                 else {
                     val systemUiController = rememberSystemUiController()
@@ -168,6 +128,6 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
 
-        dispatch(v(is_notif_access_enabled))
+        dispatch(v(isNotifAccessEnabled))
     }
 }

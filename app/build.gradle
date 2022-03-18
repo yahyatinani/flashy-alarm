@@ -60,6 +60,14 @@ android {
         unitTests.all {
             useJUnitPlatform()
             testLogging { events("passed", "skipped", "failed") }
+            if (name == "testDebugUnitTest") {
+                kover {
+                    disabled = false
+                    binaryReportFile.set(file("$buildDir/custom/debug-report.bin"))
+                    includes = ['com.github.whyrising.flashyalarm.*']
+                    excludes = ['com.example.subpackage.*']
+                }
+            }
         }
     }
 }

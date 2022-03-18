@@ -17,6 +17,7 @@ plugins {
     id 'com.diffplug.spotless' version '6.2.2'
     id 'maven-publish'
     id 'signing'
+    id 'org.jetbrains.kotlinx.kover' version '0.5.0'
 }
 
 allprojects {
@@ -40,8 +41,7 @@ subprojects {
             targetExclude("$buildDir/**/*.kt")
             targetExclude('bin/**/*.kt')
 
-            ktlint('0.43.2')
-//            licenseHeaderFile rootProject.file('spotless/copyright.kt')
+            ktlint('0.43.2').userData([max_line_length: "80"])
         }
     }
 }

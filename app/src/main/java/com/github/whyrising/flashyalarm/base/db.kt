@@ -1,10 +1,12 @@
 package com.github.whyrising.flashyalarm.base
 
-data class DbSchema(
+import com.github.whyrising.flashyalarm.alarmlistener.AlarmListenerDb
+import com.github.whyrising.flashyalarm.alarmlistener.moduleDb
+
+data class AppDb(
     val screenTitle: String,
-    val isNotifAccessEnabled: Boolean = false,
-    val showAlertDialog: Boolean = false,
-    val isFlashSupported: Boolean = false,
+    val isDisableServiceDialogVisible: Boolean = false,
+    val alarmListenerDb: AlarmListenerDb = moduleDb
 )
 
-val defaultDb = DbSchema(screenTitle = "")
+val appDb = AppDb(screenTitle = "")
