@@ -1,29 +1,22 @@
 package com.github.whyrising.flashyalarm.base
 
-import com.github.whyrising.flashyalarm.Ids.format_screen_title
-import com.github.whyrising.flashyalarm.Ids.is_flash_available
-import com.github.whyrising.flashyalarm.Ids.screen_title
+import com.github.whyrising.flashyalarm.base.Ids.formatScreenTitle
+import com.github.whyrising.flashyalarm.base.Ids.screenTitle
 import com.github.whyrising.recompose.regSub
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.y.collections.core.v
 
 fun regBaseSubs() {
-    regSub<DbSchema, String>(
-        queryId = screen_title,
+    regSub<AppDb, String>(
+        queryId = screenTitle,
     ) { db, _ ->
         db.screenTitle
     }
 
     regSub<String, String>(
-        queryId = format_screen_title,
-        signalsFn = { subscribe(v(screen_title)) }
+        queryId = formatScreenTitle,
+        signalsFn = { subscribe(v(screenTitle)) }
     ) { title, _ ->
         title.replaceFirstChar { it.uppercase() }
-    }
-
-    regSub<DbSchema, Boolean>(
-        queryId = is_flash_available,
-    ) { db, _ ->
-        db.isFlashSupported
     }
 }

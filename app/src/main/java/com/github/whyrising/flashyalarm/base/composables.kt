@@ -1,7 +1,6 @@
 package com.github.whyrising.flashyalarm.base
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -9,7 +8,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.whyrising.flashyalarm.Ids.format_screen_title
+import com.github.whyrising.flashyalarm.base.Ids.formatScreenTitle
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.subscribe
@@ -23,7 +22,7 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
             topBar = {
                 TopAppBar(
                     title = {
-                        Text(subscribe<String>(v(format_screen_title)).w())
+                        Text(subscribe<String>(v(formatScreenTitle)).w())
                     },
                     elevation = 1.dp
                 )
@@ -36,26 +35,19 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
 
 // -- Previews -----------------------------------------------------------------
 
-private fun init() {
-    initAppDb()
-    regBaseSubs()
-}
-
-@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable
 fun ScreenPreview() {
-    init()
+    initAppDb()
+    regBaseSubs()
     FlashyAlarmTheme {
         HostScreen()
     }
 }
 
-@ExperimentalAnimationApi
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun ScreenDarkPreview() {
-    init()
     FlashyAlarmTheme {
         HostScreen()
     }
