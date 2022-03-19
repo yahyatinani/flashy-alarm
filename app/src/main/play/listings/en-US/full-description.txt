@@ -1,0 +1,8 @@
+You may want to turn on your camera's flashlight (android.hardware.camera.flash) automatically when your alarm goes off early in the morning to help your body fully wake up. This app does just that.
+Currently it only works with Samsung Alarm App.
+
+Toggle the switch to turn the service on or off. That's all!
+
+Permissions:
+- It needs android.permission.FLASHLIGHT to turn on the flashlight.
+- It runs a notification listener service (android.permission.BIND_NOTIFICATION_LISTENER_SERVICE) in order to catch the alarm notification when it goes off to turn on the flashlight.
