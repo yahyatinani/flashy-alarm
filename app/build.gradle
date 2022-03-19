@@ -1,10 +1,13 @@
-import com.github.whyrising.flashyalarm.Ci
 import com.github.whyrising.flashyalarm.Libs
 
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
 
 android {
     compileSdkVersion 32
@@ -13,8 +16,8 @@ android {
         applicationId 'com.github.whyrising.flashyalarm'
         minSdkVersion 23
         targetSdkVersion 32
-        versionCode 1
-        versionName Ci.publishVersion
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         vectorDrawables {
