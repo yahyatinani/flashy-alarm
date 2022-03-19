@@ -73,7 +73,6 @@ fun initAppDb() {
 }
 
 class MyApplication : Application() {
-    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate() {
         super.onCreate()
 
