@@ -35,30 +35,34 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build project
-        run: ./gradlew spotlessCheck lintDebug --stacktrace
+      - name: Check spotless
+        run: ./gradlew spotlessCheck --stacktrace
 
-      - name: Run unit tests
-        run: ./gradlew check --stacktrace
+      - name: Check lint
+        run: ./gradlew lintDebug --stacktrace
 
-      - name: Bundle build reports
+      - name: Assemble debug
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Assemble release
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Run tests
+        run: ./gradlew testDebug --stacktrace
+
+      - name: Bundle the build report
         if: failure()
         run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
 
-      - name: Upload build reports
+      - name: Upload the build report
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@master
         with:
           name: error-report
           path: build-reports.zip
 
-      - name: Generate android app bundle
-        run: ./gradlew bundle
-
-      - name: Upload AAB Artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: artifacts
-          path: |
-            app/build/outputs/bundle/debug/app-debug.aab
-            app/build/outputs/bundle/debug/app-release.aab
+          name: build-outputs
+          path: app/build/outputs
