@@ -16,7 +16,7 @@ android {
         applicationId 'com.github.whyrising.flashyalarm'
         minSdkVersion 23
         targetSdkVersion 32
-        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionCode 1
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
