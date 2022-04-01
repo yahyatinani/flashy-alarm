@@ -39,8 +39,8 @@ const val SAMSUNG_ALARM_PKG = "com.sec.android.app.clockpackage"
 
 internal fun flashlightEffect(
     pkgName: String,
-    group: String,
-    category: String
+    group: String?,
+    category: String?
 ): Effects {
     return when (category) {
         "alarm" -> {

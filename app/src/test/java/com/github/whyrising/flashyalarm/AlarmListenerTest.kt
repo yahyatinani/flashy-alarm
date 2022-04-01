@@ -28,6 +28,24 @@ class AlarmListenerTest : FreeSpec({
                 category = "alarm",
                 group = "TIMER_GROUP_KEY"
             ) shouldBe m()
+
+            flashlightEffect(
+                pkgName = SAMSUNG_ALARM_PKG,
+                category = null,
+                group = "TIMER_GROUP_KEY"
+            ) shouldBe m()
+
+            flashlightEffect(
+                pkgName = SAMSUNG_ALARM_PKG,
+                category = "alarm",
+                group = null
+            ) shouldBe m()
+
+            flashlightEffect(
+                pkgName = SAMSUNG_ALARM_PKG,
+                category = null,
+                group = null
+            ) shouldBe m()
         }
 
         "when category, groupKey are of alarm alert, return `flash_on` effect" {
