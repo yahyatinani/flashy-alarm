@@ -49,9 +49,9 @@ android {
         release {
             storeFile keyStoreBase64ToStoreFile(
                     System.getenv('SIGNING_KEY_BASE64'))
-            storePassword System.getenv('KEY_PASSWORD')
+            storePassword System.getenv('KEYSTORE_PASSWORD')
             keyAlias System.getenv('KEY_ALIAS')
-            keyPassword System.getenv('KEYSTORE_PASSWORD')
+            keyPassword System.getenv('KEY_PASSWORD')
         }
     }
 

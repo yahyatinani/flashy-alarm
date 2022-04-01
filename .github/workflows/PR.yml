@@ -46,6 +46,11 @@ jobs:
 
       - name: Assemble release
         run: ./gradlew assembleRelease --stacktrace
+        env:
+          SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
 
       - name: Run tests
         run: ./gradlew testDebug --stacktrace
