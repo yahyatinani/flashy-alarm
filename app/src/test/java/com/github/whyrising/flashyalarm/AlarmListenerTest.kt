@@ -2,8 +2,9 @@ package com.github.whyrising.flashyalarm
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import com.github.whyrising.flashyalarm.alarmlistener.AlarmListener
-import com.github.whyrising.flashyalarm.alarmlistener.Ids
-import com.github.whyrising.flashyalarm.alarmlistener.flashlightOn
+import com.github.whyrising.flashyalarm.alarmlistener.Ids.flashOn
+import com.github.whyrising.flashyalarm.alarmlistener.SAMSUNG_ALARM_PKG
+import com.github.whyrising.flashyalarm.alarmlistener.flashlightEffect
 import com.github.whyrising.y.collections.core.m
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -14,19 +15,33 @@ class AlarmListenerTest : FreeSpec({
         AlarmListener().TAG shouldBe "AlarmListener"
     }
 
-    "flashlightOn()" - {
+    "flashlightEffect()" - {
         "when category, groupKey not of alarm alert, return empty effects map" {
-            flashlightOn("timer", "TIMER_GROUP_KEY") shouldBe m()
-            flashlightOn("timer", "ALARM_GROUP_KEY") shouldBe m()
-            flashlightOn("alarm", "TIMER_GROUP_KEY") shouldBe m()
-            flashlightOn(null, null) shouldBe m()
+            flashlightEffect(
+                pkgName = SAMSUNG_ALARM_PKG,
+                group = "TIMER_GROUP_KEY",
+                category = "timer"
+            ) shouldBe m()
+
+            flashlightEffect(
+                pkgName = SAMSUNG_ALARM_PKG,
+                category = "alarm",
+                group = "TIMER_GROUP_KEY"
+            ) shouldBe m()
         }
 
         "when category, groupKey are of alarm alert, return `flash_on` effect" {
-            flashlightOn(
-                "alarm",
-                "ALARM_GROUP_KEY"
-            ) shouldBe m(Ids.flashOn to true)
+            flashlightEffect(
+                pkgName = SAMSUNG_ALARM_PKG,
+                group = "ALARM_GROUP_KEY",
+                category = "alarm",
+            ) shouldBe m(flashOn to true)
+
+            flashlightEffect(
+                pkgName = "com.android.deskclock",
+                group = "",
+                category = "alarm",
+            ) shouldBe m(flashOn to true)
         }
     }
 
