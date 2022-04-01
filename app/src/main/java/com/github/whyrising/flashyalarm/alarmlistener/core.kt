@@ -35,13 +35,22 @@ fun init(context: Context) {
     regSubs()
 }
 
-internal fun flashlightOn(
-    category: String?,
-    groupKey: String?
-): Effects = when {
-    category != "alarm" -> m()
-    groupKey != "ALARM_GROUP_KEY" -> m()
-    else -> m(flashOn to true)
+const val SAMSUNG_ALARM_PKG = "com.sec.android.app.clockpackage"
+
+internal fun flashlightEffect(
+    pkgName: String,
+    group: String,
+    category: String
+): Effects {
+    return when (category) {
+        "alarm" -> {
+            if (pkgName == SAMSUNG_ALARM_PKG)
+                if (group != "ALARM_GROUP_KEY")
+                    return m()
+            m(flashOn to true)
+        }
+        else -> m()
+    }
 }
 
 class AlarmListener : NotificationListenerService() {
@@ -61,9 +70,17 @@ class AlarmListener : NotificationListenerService() {
             }
         }
 
-        regEventFx(id = flashOn) { _, (_, statBarNotif) ->
-            val n = (statBarNotif as StatusBarNotification).notification
-            flashlightOn(n.category, n.group)
+        regEventFx(id = flashOn) { _, (_, sbn) ->
+            sbn as StatusBarNotification
+            val pkgName = sbn.packageName
+            val notification = sbn.notification
+            val category = notification.category
+            val group = notification.group
+            flashlightEffect(
+                pkgName = pkgName,
+                group = group,
+                category = category
+            )
         }
 
         regFx(id = stopAlarmListener) {
