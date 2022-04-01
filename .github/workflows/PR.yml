@@ -46,6 +46,11 @@ jobs:
 
       - name: Assemble release
         run: ./gradlew assembleRelease --stacktrace
+        env:
+          SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
 
       - name: Run tests
         run: ./gradlew testDebug --stacktrace
@@ -61,20 +66,8 @@ jobs:
           name: error-report
           path: build-reports.zip
 
-      - name: Sign app APK
-        uses: r0adkll/sign-android-release@v1
-        id: sign_app
-        with:
-          releaseDirectory: app/build/outputs/apk/release
-          alias: ${{ secrets.KEYALIAS }}
-          signingKeyBase64: ${{ secrets.KEYSTORE }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-        env:
-          BUILD_TOOLS_VERSION: "32.0.0"
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Signed app apk
-          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+          name: apks
+          path: app/build/outputs
