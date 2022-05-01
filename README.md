@@ -14,6 +14,12 @@ Flashy Alarm
 * [y](https://github.com/whyrising/y)
 * [re-compose](https://github.com/whyrising/re-compose)
 
+#### Download:
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="70">](https://f-droid.org/packages/com.github.whyrising.flashyalarm/)
+
 #### MAD SCORECARD:
 
 ![summary](docs/mad_scorecard/summary.png)
