@@ -1,11 +1,13 @@
 import com.github.whyrising.flashyalarm.Build.APP_ID
 import com.github.whyrising.flashyalarm.Build.COMPOSE_VERSION
 import com.github.whyrising.flashyalarm.Build.keyStoreBase64ToStoreFile
+import com.github.whyrising.flashyalarm.Build.versionMajor
+import com.github.whyrising.flashyalarm.Build.versionMinor
+import com.github.whyrising.flashyalarm.Build.versionPatch
 
 plugins {
   id("kotlin-conventions")
   id("com.android.application")
-//  id("recompose.publishing-conventions")
 }
 
 android {
@@ -15,8 +17,8 @@ android {
     applicationId = APP_ID
     minSdk = 22
     targetSdk = 32
-    versionCode = 1
-    versionName = "0.0.1"
+    versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
+    versionName = "$versionMajor.$versionMinor.$versionPatch"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables {
       useSupportLibrary = true
@@ -34,6 +36,12 @@ android {
 
   buildTypes {
     debug {
+      versionNameSuffix = "-debug"
+      resValue(
+        type = "string",
+        name = "app_version",
+        value = "${defaultConfig.versionName}$versionNameSuffix"
+      )
       if (System.getenv("SIGNING_KEY_BASE64") != null)
         signingConfig = signingConfigs.getByName("debug")
     }
@@ -44,6 +52,11 @@ android {
         "proguard-rules.pro"
       )
       signingConfig = signingConfigs.getByName("release")
+      resValue(
+        type = "string",
+        name = "app_version",
+        value = "${defaultConfig.versionName}"
+      )
     }
   }
 

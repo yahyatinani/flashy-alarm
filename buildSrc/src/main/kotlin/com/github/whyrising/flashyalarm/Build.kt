@@ -8,6 +8,10 @@ object Build {
   const val APP_ID = "com.github.whyrising.flashyalarm"
   const val COMPOSE_VERSION = "1.2.0-rc02"
 
+  const val versionMajor = 0
+  const val versionMinor = 0
+  const val versionPatch = 1
+
   fun keyStoreBase64ToStoreFile(keyStoreBase64: String?): File? {
     if (keyStoreBase64 == null) return null
 
