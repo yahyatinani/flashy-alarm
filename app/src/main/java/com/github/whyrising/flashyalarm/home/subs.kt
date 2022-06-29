@@ -4,9 +4,9 @@ import com.github.whyrising.flashyalarm.base.AppDb
 import com.github.whyrising.recompose.regSub
 
 fun regHomeSubs() {
-    regSub<AppDb, Boolean>(
-        queryId = Ids.isDisableServiceDialogVisible,
-    ) { db, _ ->
-        db.isDisableServiceDialogVisible
-    }
+  regSub<AppDb, Boolean>(
+    queryId = Ids.isDisableServiceDialogVisible,
+  ) { db, _ ->
+    db.isDisableServiceDialogVisible
+  }
 }

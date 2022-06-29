@@ -16,7 +16,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.github.whyrising.flashyalarm.alarmlistener.Ids
 import com.github.whyrising.flashyalarm.alarmlistener.Ids.checkDeviceFlashlight
 import com.github.whyrising.flashyalarm.alarmlistener.Ids.isNotifAccessEnabled
 import com.github.whyrising.flashyalarm.base.HostScreen
@@ -29,9 +28,7 @@ import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.dispatchSync
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regFx
-import com.github.whyrising.recompose.subscribe
-import com.github.whyrising.recompose.w
-import com.github.whyrising.y.collections.core.v
+import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -44,89 +41,85 @@ import com.github.whyrising.flashyalarm.home.init as initHome
 
 @Composable
 fun NoFlashAlertDialog() {
-    AlertDialog(
-        onDismissRequest = { /*TODO*/ },
-        title = {
-            Text(text = stringResource(R.string.alert_title_important))
+  AlertDialog(
+    onDismissRequest = { /*TODO*/ },
+    title = {
+      Text(text = stringResource(R.string.alert_title_important))
+    },
+    text = {
+      Text(
+        text = stringResource(R.string.alert_msg_no_flashlight)
+      )
+    },
+    confirmButton = {},
+    dismissButton = {
+      Button(
+        onClick = {
+          dispatch(v(exitApp))
         },
-        text = {
-            Text(
-                text = stringResource(R.string.alert_msg_no_flashlight)
-            )
-        },
-        confirmButton = {},
-        dismissButton = {
-            Button(
-                onClick = {
-                    dispatch(v(exitApp, true))
-                },
-            ) {
-                Text(text = stringResource(R.string.alert_btn_exit))
-            }
-        }
-    )
+      ) {
+        Text(text = stringResource(R.string.alert_btn_exit))
+      }
+    }
+  )
 }
 
 fun initAppDb() {
-    regEventDb<Any>(initAppDb) { _, _ -> appDb }
-    dispatchSync(v(initAppDb))
+  regEventDb<Any>(initAppDb) { _, _ -> appDb }
+  dispatchSync(v(initAppDb))
 }
 
 class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        initAppDb()
-    }
+    initAppDb()
+  }
 }
 
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    installSplashScreen()
+    super.onCreate(savedInstanceState)
 
-        initAlarmListener(context = this)
-        dispatch(v(checkDeviceFlashlight))
-        initBase(this, MainActivity::class.java)
-        initHome()
+    initAlarmListener(context = this)
+    dispatch(v(checkDeviceFlashlight))
+    initBase(this, MainActivity::class.java)
+    initHome()
 
-        setContent {
-            HostScreen {
-                if (!subscribe<Boolean>(v(Ids.isFlashAvailable)).w())
-                    NoFlashAlertDialog()
-                else {
-                    val systemUiController = rememberSystemUiController()
-                    val colors = MaterialTheme.colors
-                    SideEffect {
-                        systemUiController.setSystemBarsColor(
-                            color = colors.primary,
-                            darkIcons = true
-                        )
-                    }
-                    val navCtrl = rememberAnimatedNavController()
-                    LaunchedEffect(navCtrl) {
-                        regFx(id = navigateFx) { route ->
-                            if (route == null) return@regFx
-                            navCtrl.navigate("$route")
-                        }
-                    }
-
-                    AnimatedNavHost(
-                        modifier = Modifier.padding(it),
-                        navController = navCtrl,
-                        startDestination = home_route
-                    ) {
-                        home(animOffSetX = 300)
-                    }
-                }
-            }
+    setContent {
+      HostScreen {
+        val systemUiController = rememberSystemUiController()
+        val colors = MaterialTheme.colors
+        SideEffect {
+          systemUiController.setSystemBarsColor(
+            color = colors.primary,
+            darkIcons = true
+          )
         }
-    }
+        val navCtrl = rememberAnimatedNavController()
+        LaunchedEffect(navCtrl) {
+          regFx(id = navigateFx) { route ->
+            if (route == null) return@regFx
+            navCtrl.navigate("$route")
+          }
+        }
 
-    override fun onResume() {
-        super.onResume()
-
-        dispatch(v(isNotifAccessEnabled))
+        AnimatedNavHost(
+          modifier = Modifier.padding(it),
+          navController = navCtrl,
+          startDestination = home_route
+        ) {
+          home(animOffSetX = 300)
+        }
+      }
     }
+  }
+
+  override fun onResume() {
+    super.onResume()
+
+    dispatch(v(isNotifAccessEnabled))
+  }
 }

@@ -1,47 +1,34 @@
-import com.github.whyrising.flashyalarm.Plugins
-
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath Plugins.Gradle.android
-        classpath Plugins.Gradle.kotlin
-    }
+plugins {
+  alias deps.plugins.spotless
+  alias deps.plugins.kotlinx.kover
+  //    id 'com.diffplug.spotless' version '6.4.1'
+  //    id 'maven-publish'
+  //    id 'signing'
+  //    id 'org.jetbrains.kotlinx.kover' version '0.5.0'
 }
 
-plugins {
-    id 'com.diffplug.spotless' version '6.4.1'
-    id 'maven-publish'
-    id 'signing'
-    id 'org.jetbrains.kotlinx.kover' version '0.5.0'
+spotless {
+  groovyGradle {
+    target "**/*.gradle"
+    trimTrailingWhitespace()
+    endWithNewline()
+    greclipse().configFile('./greclipse.properties')
+  }
+  kotlin {
+    target "**/*.kt"
+    targetExclude "buildSrc/build/"
+    ktlint(deps.versions.ktlint.get()).userData([
+      "indent_size"    : "2",
+      "max_line_length": "80"
+    ])
+    trimTrailingWhitespace()
+    endWithNewline()
+  }
+  kotlinGradle {
+    ktlint()
+  }
 }
 
 allprojects {
-    group = 'com.github.whyrising.flashyalarm'
-}
-
-subprojects {
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
-    apply plugin: 'com.diffplug.spotless'
-
-    spotless {
-        kotlin {
-            target '**/*.kt'
-            targetExclude("$buildDir/**/*.kt")
-            targetExclude('bin/**/*.kt')
-
-            ktlint('0.45.1').userData([max_line_length: "80"])
-        }
-    }
+  group = 'com.github.whyrising.flashyalarm'
 }

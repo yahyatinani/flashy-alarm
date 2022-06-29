@@ -6,18 +6,18 @@ import com.github.whyrising.flashyalarm.base.Ids.navigateFx
 import com.github.whyrising.flashyalarm.base.Ids.updateScreenTitle
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
-import com.github.whyrising.y.collections.core.m
+import com.github.whyrising.y.core.m
 
 fun regBaseEvents() {
-    regEventDb<AppDb>(id = updateScreenTitle) { db, (_, title) ->
-        db.copy(screenTitle = title as String)
-    }
+  regEventDb<AppDb>(id = updateScreenTitle) { db, (_, title) ->
+    db.copy(screenTitle = title as String)
+  }
 
-    regEventFx(id = navigate) { _, (_, route) ->
-        m(navigateFx to route)
-    }
+  regEventFx(id = navigate) { _, (_, route) ->
+    m(navigateFx to route)
+  }
 
-    regEventFx(id = exitApp) { _, _ ->
-        m(exitApp to -1)
-    }
+  regEventFx(id = exitApp) { _, _ ->
+    m(exitApp to -1)
+  }
 }
