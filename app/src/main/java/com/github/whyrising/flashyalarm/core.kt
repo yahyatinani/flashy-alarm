@@ -23,6 +23,7 @@ import com.github.whyrising.flashyalarm.base.Ids.exitApp
 import com.github.whyrising.flashyalarm.base.Ids.initAppDb
 import com.github.whyrising.flashyalarm.base.Ids.navigateFx
 import com.github.whyrising.flashyalarm.base.appDb
+import com.github.whyrising.flashyalarm.flashpattern.flashPatterns
 import com.github.whyrising.flashyalarm.home.home
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.dispatchSync
@@ -112,6 +113,7 @@ class MainActivity : ComponentActivity() {
           startDestination = home_route
         ) {
           home(animOffSetX = 300)
+          flashPatterns(animOffSetX = 300)
         }
       }
     }
