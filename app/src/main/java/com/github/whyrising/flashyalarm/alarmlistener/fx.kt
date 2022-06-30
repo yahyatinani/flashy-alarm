@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.github.whyrising.recompose.regFx
 
 const val ACTION_NOTIFICATION_LISTENER_SETTINGS =
-    "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
+  "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
 const val EXTRA_FRAGMENT_ARG_KEY = ":settings:fragment_args_key"
 const val EXTRA_SHOW_FRAGMENT_ARGUMENTS = ":settings:show_fragment_args"
 
@@ -16,14 +16,14 @@ const val EXTRA_SHOW_FRAGMENT_ARGUMENTS = ":settings:show_fragment_args"
  * @param context passed by an activity or application.
  */
 fun regFx(context: Context) {
-    regFx(id = Ids.fxEnableNotifAccess) {
-        val intent = Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS)
-        val packageName = context.packageName
-        val toHighlight = "$packageName/${AlarmListener::class.java.name}"
-        val bundle = Bundle()
-        bundle.putString(EXTRA_FRAGMENT_ARG_KEY, toHighlight)
-        intent.putExtra(EXTRA_FRAGMENT_ARG_KEY, toHighlight)
-        intent.putExtra(EXTRA_SHOW_FRAGMENT_ARGUMENTS, bundle)
-        context.startActivity(intent)
-    }
+  regFx(id = Ids.fxEnableNotifAccess) {
+    val intent = Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS)
+    val packageName = context.packageName
+    val toHighlight = "$packageName/${AlarmListener::class.java.name}"
+    val bundle = Bundle()
+    bundle.putString(EXTRA_FRAGMENT_ARG_KEY, toHighlight)
+    intent.putExtra(EXTRA_FRAGMENT_ARG_KEY, toHighlight)
+    intent.putExtra(EXTRA_SHOW_FRAGMENT_ARGUMENTS, bundle)
+    context.startActivity(intent)
+  }
 }

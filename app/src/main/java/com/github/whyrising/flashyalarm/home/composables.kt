@@ -34,7 +34,7 @@ import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.recompose.w
-import com.github.whyrising.y.collections.core.v
+import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
 import com.github.whyrising.flashyalarm.home.init as initHome
 
@@ -42,50 +42,50 @@ const val homeRoute = "/home"
 
 @ExperimentalAnimationApi
 fun NavGraphBuilder.home(animOffSetX: Int) {
-    composable(
-        route = homeRoute,
-        exitTransition = { exitAnimation(targetOffsetX = -animOffSetX) },
-        popEnterTransition = { enterAnimation(initialOffsetX = -animOffSetX) }
-    ) {
-        HomeScreen()
-    }
+  composable(
+    route = homeRoute,
+    exitTransition = { exitAnimation(targetOffsetX = -animOffSetX) },
+    popEnterTransition = { enterAnimation(initialOffsetX = -animOffSetX) }
+  ) {
+    HomeScreen()
+  }
 }
 
 @Composable
 fun HomeScreen() {
-    dispatch(v(updateScreenTitle, stringResource(R.string.home_screen_title)))
+  dispatch(v(updateScreenTitle, stringResource(R.string.home_screen_title)))
 
-    if (subscribe<Boolean>(v(isDisableServiceDialogVisible)).w())
-        DisableServiceAlertDialog()
+  if (subscribe<Boolean>(v(isDisableServiceDialogVisible)).w())
+    DisableServiceAlertDialog()
 
-    val colors = MaterialTheme.colors
-    Surface {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            dispatch(v(isNotifAccessEnabled))
-            Text(
-                text = stringResource(R.string.service_switch_label),
-                textAlign = TextAlign.Center,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Switch(
-                checked = subscribe<Boolean>(v(isNotifAccessEnabled)).w(),
-                onCheckedChange = {
-                    when {
-                        it -> dispatch(v(Ids.enableNotificationAccess))
-                        else -> dispatch(v(showDisableServiceDialog))
-                    }
-                },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = colors.primary,
-                    checkedTrackColor = colors.primary,
-                )
-            )
-        }
+  val colors = MaterialTheme.colors
+  Surface {
+    Column(
+      modifier = Modifier.fillMaxSize(),
+      verticalArrangement = Arrangement.Center,
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+      dispatch(v(isNotifAccessEnabled))
+      Text(
+        text = stringResource(R.string.service_switch_label),
+        textAlign = TextAlign.Center,
+      )
+      Spacer(modifier = Modifier.height(8.dp))
+      Switch(
+        checked = subscribe<Boolean>(v(isNotifAccessEnabled)).w(),
+        onCheckedChange = {
+          when {
+            it -> dispatch(v(Ids.enableNotificationAccess))
+            else -> dispatch(v(showDisableServiceDialog))
+          }
+        },
+        colors = SwitchDefaults.colors(
+          checkedThumbColor = colors.primary,
+          checkedTrackColor = colors.primary,
+        )
+      )
     }
+  }
 }
 
 // -- Previews -----------------------------------------------------------------
@@ -93,19 +93,19 @@ fun HomeScreen() {
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    initAppDb()
-    initHome()
-    regSubs()
+  initAppDb()
+  initHome()
+  regSubs()
 
-    FlashyAlarmTheme {
-        HomeScreen()
-    }
+  FlashyAlarmTheme {
+    HomeScreen()
+  }
 }
 
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun HomeDarkPreview() {
-    FlashyAlarmTheme(darkTheme = true) {
-        HomeScreen()
-    }
+  FlashyAlarmTheme(darkTheme = true) {
+    HomeScreen()
+  }
 }

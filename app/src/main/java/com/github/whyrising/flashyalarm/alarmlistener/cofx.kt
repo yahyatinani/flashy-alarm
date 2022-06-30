@@ -12,29 +12,29 @@ import com.github.whyrising.flashyalarm.BuildConfig
 import com.github.whyrising.recompose.cofx.regCofx
 
 fun regCofx(context: Context) {
-    regCofx(id = Ids.isFlashAvailable) { coeffects ->
-        coeffects.assoc(
-            Ids.isFlashAvailable,
-            context.packageManager.hasSystemFeature(FEATURE_CAMERA_FLASH)
-        )
-    }
+  regCofx(id = Ids.isFlashAvailable) { coeffects ->
+    coeffects.assoc(
+      Ids.isFlashAvailable,
+      context.packageManager.hasSystemFeature(FEATURE_CAMERA_FLASH)
+    )
+  }
 
-    regCofx(id = Ids.isNotifAccessEnabled) { coeffects ->
-        val b = when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
-                val name = ComponentName(context, AlarmListener::class.java)
-                val notificationManager = context.getSystemService(
-                    ComponentActivity.NOTIFICATION_SERVICE
-                ) as NotificationManager
-                notificationManager.isNotificationListenerAccessGranted(name)
-            }
-            else -> {
-                val packages = NotificationManagerCompat
-                    .getEnabledListenerPackages(context)
-                Log.i("enabledListener", "$packages")
-                packages.contains(BuildConfig.APPLICATION_ID)
-            }
-        }
-        coeffects.assoc(Ids.isNotifAccessEnabled, b)
+  regCofx(id = Ids.isNotifAccessEnabled) { coeffects ->
+    val b = when {
+      Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
+        val name = ComponentName(context, AlarmListener::class.java)
+        val notificationManager = context.getSystemService(
+          ComponentActivity.NOTIFICATION_SERVICE
+        ) as NotificationManager
+        notificationManager.isNotificationListenerAccessGranted(name)
+      }
+      else -> {
+        val packages = NotificationManagerCompat
+          .getEnabledListenerPackages(context)
+        Log.i("enabledListener", "$packages")
+        packages.contains(BuildConfig.APPLICATION_ID)
+      }
     }
+    coeffects.assoc(Ids.isNotifAccessEnabled, b)
+  }
 }

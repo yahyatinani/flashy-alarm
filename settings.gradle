@@ -1,9 +1,21 @@
+pluginManagement {
+  repositories {
+    mavenCentral()
+    google()
+    gradlePluginPortal()
+  }
+}
+
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
+  defaultLibrariesExtensionName.set('deps')
+
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+    mavenLocal()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+  }
 }
 
 rootProject.name = "Flashy Alarm"
