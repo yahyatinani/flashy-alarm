@@ -1,4 +1,3 @@
-//import com.github.whyrising.recompose.Ci
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -6,8 +5,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   kotlin("android")
 }
-
-//version = Ci.publishVersion
 
 tasks.withType<Test> {
   useJUnitPlatform()

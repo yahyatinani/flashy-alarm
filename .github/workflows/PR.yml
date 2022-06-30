@@ -47,3 +47,9 @@ jobs:
         with:
           name: error-report
           path: build-reports.zip
+
+env:
+  SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
+  KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+  KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+  KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
