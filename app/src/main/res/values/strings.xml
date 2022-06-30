@@ -9,9 +9,6 @@
         It turns on the flashlight whenever an alarm goes off
     </string>
     <string name="notif_flashlight_service_title">Alarm listener turned on</string>
-    <string name="service_switch_label">
-        Toggle the switch to enable/disable the background flash service.
-    </string>
     <string name="alert_title_important">Important</string>
     <string name="alert_msg_no_flashlight">
         Unfortunately, your device doesn\'t have a flashlight to run this app : (
@@ -19,4 +16,5 @@
     <string name="alert_btn_exit">Exit</string>
     <string name="alert_btn_yes">Yes</string>
     <string name="alert_btn_no">Nope!</string>
+    <string name="flashlight_service_switch_desc">Enable the background service that turns on/off the flash light when an alarm goes off.</string>
 </resources>

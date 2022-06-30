@@ -2,23 +2,20 @@ package com.github.whyrising.flashyalarm.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.alarmlistener.Ids
@@ -51,6 +48,7 @@ fun NavGraphBuilder.home(animOffSetX: Int) {
   }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen() {
   dispatch(v(updateScreenTitle, stringResource(R.string.home_screen_title)))
@@ -60,30 +58,33 @@ fun HomeScreen() {
 
   val colors = MaterialTheme.colors
   Surface {
-    Column(
-      modifier = Modifier.fillMaxSize(),
-      verticalArrangement = Arrangement.Center,
-      horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Column(modifier = Modifier.fillMaxSize()) {
       dispatch(v(isNotifAccessEnabled))
-      Text(
-        text = stringResource(R.string.service_switch_label),
-        textAlign = TextAlign.Center,
-      )
-      Spacer(modifier = Modifier.height(8.dp))
-      Switch(
-        checked = subscribe<Boolean>(v(isNotifAccessEnabled)).w(),
-        onCheckedChange = {
-          when {
-            it -> dispatch(v(Ids.enableNotificationAccess))
-            else -> dispatch(v(showDisableServiceDialog))
-          }
+
+      ListItem(
+        secondaryText = {
+          Text(text = stringResource(R.string.flashlight_service_switch_desc))
         },
-        colors = SwitchDefaults.colors(
-          checkedThumbColor = colors.primary,
-          checkedTrackColor = colors.primary,
-        )
-      )
+        overlineText = { Text(text = "Service") },
+        trailing = {
+          Switch(
+            checked = subscribe<Boolean>(v(isNotifAccessEnabled)).w(),
+            onCheckedChange = {
+              when {
+                it -> dispatch(v(Ids.enableNotificationAccess))
+                else -> dispatch(v(showDisableServiceDialog))
+              }
+            },
+            colors = SwitchDefaults.colors(
+              checkedThumbColor = colors.primary,
+              checkedTrackColor = colors.primary,
+            )
+          )
+        }
+      ) {
+        Text(text = "Flashlight Service")
+      }
+
     }
   }
 }
