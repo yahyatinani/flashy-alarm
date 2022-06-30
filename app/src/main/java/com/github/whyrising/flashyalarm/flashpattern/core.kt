@@ -16,11 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.base.Ids
+import com.github.whyrising.flashyalarm.flashpattern.Ids.select_pattern
+import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
+import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
+import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.dispatch
+import com.github.whyrising.recompose.subscribe
+import com.github.whyrising.recompose.w
 import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
 
@@ -40,6 +46,8 @@ fun NavGraphBuilder.flashPatterns(animOffSetX: Int) {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FlashlightPatterns() {
+  regLightPatternsEvents()
+  regLightPatternsSubs()
   SideEffect {
     dispatch(v(Ids.updateScreenTitle, "Flash Patterns"))
   }
@@ -49,7 +57,10 @@ fun FlashlightPatterns() {
       ListItem(
         overlineText = { Text(text = "Select") },
         trailing = {
-          RadioButton(selected = true, onClick = { /*TODO*/ })
+          RadioButton(
+            selected = subscribe<Boolean>(v(selected_pattern, STATIC)).w(),
+            onClick = { dispatch(v(select_pattern, STATIC)) },
+          )
         }
       ) {
         Text(text = "Static")
@@ -62,7 +73,10 @@ fun FlashlightPatterns() {
           Text(text = "Tap to customize")
         },
         trailing = {
-          RadioButton(selected = false, onClick = { /*TODO*/ })
+          RadioButton(
+            selected = subscribe<Boolean>(v(selected_pattern, BLINK)).w(),
+            onClick = { dispatch(v(select_pattern, BLINK)) },
+          )
         }
       ) {
         Text(text = "Blink")
