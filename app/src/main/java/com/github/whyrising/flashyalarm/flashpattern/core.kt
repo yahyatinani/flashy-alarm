@@ -89,7 +89,7 @@ fun FlashlightPatterns() {
 
 @Preview(showBackground = true)
 @Composable
-fun HomePreview() {
+fun FlashlightPatternsPreview() {
   initAppDb()
   FlashyAlarmTheme {
     FlashlightPatterns()
@@ -98,7 +98,7 @@ fun HomePreview() {
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun HomeDarkPreview() {
+fun FlashlightPatternsDarkPreview() {
   FlashyAlarmTheme(darkTheme = true) {
     FlashlightPatterns()
   }
