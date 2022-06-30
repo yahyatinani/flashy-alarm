@@ -22,6 +22,7 @@ android {
 dependencies {
   implementation deps.androidx.core.ktx
   implementation deps.bundles.compose
+  implementation deps.androidx.appcompat
   implementation deps.androidx.navigation.compose
   implementation deps.accompanist.nav.anim
   implementation deps.accompanist.systemuicontroller
