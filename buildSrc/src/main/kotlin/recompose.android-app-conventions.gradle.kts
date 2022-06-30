@@ -15,7 +15,7 @@ android {
 
   defaultConfig {
     applicationId = APP_ID
-    minSdk = 22
+    minSdk = 23
     targetSdk = 32
     versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
     versionName = "$versionMajor.$versionMinor.$versionPatch"
