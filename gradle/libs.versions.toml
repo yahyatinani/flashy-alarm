@@ -17,7 +17,7 @@ appcompat = "1.4.2"
 lifecycle = "2.5.0-rc01"
 coroutines = "1.6.2"
 mockk = "1.12.0"
-recompose = "0.1.0-LOCAL"
+recompose = "0.1.0.13-SNAPSHOT" # todo: release the new recompose version.
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
