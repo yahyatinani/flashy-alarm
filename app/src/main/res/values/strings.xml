@@ -6,7 +6,7 @@
         Would you like to proceed?
     </string>
     <string name="notif_flashlight_service_content">
-        It turns on the flashlight whenever an alarm goes off
+        The alarm listener service has been started and it\'s running in the background.
     </string>
     <string name="notif_flashlight_service_title">Alarm listener turned on</string>
     <string name="alert_title_important">Important</string>
