@@ -11,18 +11,17 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.alarmlistener.Ids
-import com.github.whyrising.flashyalarm.alarmlistener.Ids.isNotifAccessEnabled
-import com.github.whyrising.flashyalarm.alarmlistener.regSubs
+import com.github.whyrising.flashyalarm.alarmservice.Ids
+import com.github.whyrising.flashyalarm.alarmservice.Ids.isFlashServiceRunning
+import com.github.whyrising.flashyalarm.alarmservice.regSubs
 import com.github.whyrising.flashyalarm.base.Ids.navigate
 import com.github.whyrising.flashyalarm.base.Ids.updateScreenTitle
 import com.github.whyrising.flashyalarm.flashpattern.patternsRoute
-import com.github.whyrising.flashyalarm.home.Ids.isDisableServiceDialogVisible
-import com.github.whyrising.flashyalarm.home.Ids.showDisableServiceDialog
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
@@ -53,12 +52,12 @@ fun NavGraphBuilder.home(animOffSetX: Int) {
 fun HomeScreen() {
   dispatch(v(updateScreenTitle, stringResource(R.string.home_screen_title)))
 
-  if (subscribe<Boolean>(v(isDisableServiceDialogVisible)).w())
-    DisableServiceAlertDialog()
+//  if (subscribe<Boolean>(v(isDisableServiceDialogVisible)).w())
+//    DisableServiceAlertDialog()
 
   Surface {
     Column(modifier = Modifier.fillMaxSize()) {
-      dispatch(v(isNotifAccessEnabled))
+      dispatch(v(isFlashServiceRunning))
 
       ListItem(
         secondaryText = {
@@ -67,12 +66,9 @@ fun HomeScreen() {
         overlineText = { Text(text = "Service") },
         trailing = {
           SwitchStyled(
-            checked = subscribe<Boolean>(v(isNotifAccessEnabled)).w(),
+            checked = subscribe<Boolean>(v(isFlashServiceRunning)).w(),
             onCheckedChange = {
-              when {
-                it -> dispatch(v(Ids.enableNotificationAccess))
-                else -> dispatch(v(showDisableServiceDialog))
-              }
+              dispatch(v(Ids.toggleFlashyAlarmService, it))
             }
           )
         }
@@ -99,7 +95,7 @@ fun HomeScreen() {
 @Composable
 fun HomePreview() {
   initAppDb()
-  initHome()
+  initHome(LocalContext.current)
   regSubs()
 
   FlashyAlarmTheme {

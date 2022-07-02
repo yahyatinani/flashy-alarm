@@ -2,6 +2,7 @@ package com.github.whyrising.flashyalarm
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -16,8 +17,9 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.github.whyrising.flashyalarm.alarmlistener.Ids.checkDeviceFlashlight
-import com.github.whyrising.flashyalarm.alarmlistener.Ids.isNotifAccessEnabled
+import com.github.whyrising.flashyalarm.alarmservice.FlashyAlarmService
+import com.github.whyrising.flashyalarm.alarmservice.Ids.checkDeviceFlashlight
+import com.github.whyrising.flashyalarm.alarmservice.Ids.isFlashServiceRunning
 import com.github.whyrising.flashyalarm.base.HostScreen
 import com.github.whyrising.flashyalarm.base.Ids.exitApp
 import com.github.whyrising.flashyalarm.base.Ids.initAppDb
@@ -33,7 +35,7 @@ import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.github.whyrising.flashyalarm.alarmlistener.init as initAlarmListener
+import com.github.whyrising.flashyalarm.alarmservice.init as initAlarmListener
 import com.github.whyrising.flashyalarm.base.init as initBase
 import com.github.whyrising.flashyalarm.home.homeRoute as home_route
 import com.github.whyrising.flashyalarm.home.init as initHome
@@ -84,10 +86,11 @@ class MainActivity : ComponentActivity() {
     installSplashScreen()
     super.onCreate(savedInstanceState)
 
+    Log.i("FlashyAlarmService", "${FlashyAlarmService.isRunning}")
     initAlarmListener(context = this)
     dispatch(v(checkDeviceFlashlight))
-    initBase(this, MainActivity::class.java)
-    initHome()
+    initBase()
+    initHome(this)
 
     setContent {
       HostScreen {
@@ -122,6 +125,6 @@ class MainActivity : ComponentActivity() {
   override fun onResume() {
     super.onResume()
 
-    dispatch(v(isNotifAccessEnabled))
+    dispatch(v(isFlashServiceRunning))
   }
 }

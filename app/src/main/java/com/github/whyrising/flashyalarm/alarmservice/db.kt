@@ -1,7 +1,7 @@
-package com.github.whyrising.flashyalarm.alarmlistener
+package com.github.whyrising.flashyalarm.alarmservice
 
 data class AlarmListenerDb(
-  val isNotifAccessEnabled: Boolean = false,
+  val isFlashServiceRunning: Boolean = false,
   val isFlashSupported: Boolean = false,
 )
 
