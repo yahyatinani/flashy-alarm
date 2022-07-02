@@ -14,6 +14,6 @@ fun regCofx(context: Context) {
   }
 
   regCofx(id = isFlashServiceRunning) { coeffects ->
-    coeffects.assoc(isFlashServiceRunning, FlashyAlarmService.isRunning)
+    coeffects.assoc(isFlashServiceRunning, FlashyAlarmService.isServiceRunning)
   }
 }

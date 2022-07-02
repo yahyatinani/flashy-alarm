@@ -86,7 +86,7 @@ class MainActivity : ComponentActivity() {
     installSplashScreen()
     super.onCreate(savedInstanceState)
 
-    Log.i("FlashyAlarmService", "${FlashyAlarmService.isRunning}")
+    Log.i("FlashyAlarmService", "${FlashyAlarmService.isServiceRunning}")
     initAlarmListener(context = this)
     dispatch(v(checkDeviceFlashlight))
     initBase()

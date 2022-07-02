@@ -4,7 +4,10 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.os.Build
@@ -25,77 +28,91 @@ import com.github.whyrising.recompose.regFx
 import com.github.whyrising.y.core.m
 import com.github.whyrising.y.core.v
 
+private fun registerFlashlightFxs(context: Context) {
+  regFx(id = turnOnLED) {
+    val cm = context.getSystemService(Service.CAMERA_SERVICE) as CameraManager
+    try {
+      cm.setTorchMode(cm.cameraIdList[0], true)
+    } catch (e: CameraAccessException) {
+      throw e
+    }
+  }
+
+  regFx(id = turnOffLED) {
+    val cm = context.getSystemService(Service.CAMERA_SERVICE) as CameraManager
+    try {
+      cm.setTorchMode(cm.cameraIdList[0], false)
+    } catch (e: CameraAccessException) {
+      throw e
+    }
+  }
+
+  regEventFx(id = turnOnLED) { _, _ ->
+    m(fx to v(v(turnOnLED, null)))
+  }
+
+  regEventFx(id = turnOffLED) { _, _ ->
+    m(fx to v(v(turnOffLED, null)))
+  }
+}
+
+fun createNotificationChannelIfNeeded(context: Context) {
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    val notificationChannel = NotificationChannel(
+      CHANNEL_ID,
+      CHANNEL_NAME,
+      NotificationManager.IMPORTANCE_DEFAULT
+    ).apply {
+      description = "TODO: Fix-me!"
+    }
+    NotificationManagerCompat.from(context).apply {
+      createNotificationChannel(notificationChannel)
+    }
+  }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
 class FlashyAlarmService : Service() {
+  private val contentIntent: PendingIntent? by lazy {
+    PendingIntent.getActivity(
+      application,
+      0,
+      Intent(application, MainActivity::class.java).apply {
+        flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_SINGLE_TOP
+      },
+      PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+    )
+  }
+
+  private val notifBuilder by lazy {
+    NotificationCompat.Builder(
+      application,
+      CHANNEL_ID
+    ).apply {
+      setSmallIcon(R.drawable.ic_status_notification)
+      setTicker(getText(R.string.notif_flashlight_service_content))
+      setContentTitle(getText(R.string.notif_flashlight_service_title))
+      setContentText(getText(R.string.notif_flashlight_service_content))
+      setWhen(System.currentTimeMillis())
+      setContentIntent(contentIntent)
+    }
+  }
+
+  private val alarmBroadcastReceiver by lazy { AlarmBroadcastReceiver() }
+
   override fun onCreate() {
     super.onCreate()
     Log.i(TAG, "Created.")
 
-    regFx(id = turnOnLED) {
-      val cm = application.getSystemService(CAMERA_SERVICE) as CameraManager
-      try {
-        cm.setTorchMode(cm.cameraIdList[0], true)
-      } catch (e: CameraAccessException) {
-        throw e
-      }
-    }
-
-    regFx(id = turnOffLED) {
-      val cm = application.getSystemService(CAMERA_SERVICE) as CameraManager
-      try {
-        cm.setTorchMode(cm.cameraIdList[0], false)
-      } catch (e: CameraAccessException) {
-        throw e
-      }
-    }
-
-    regEventFx(id = turnOnLED) { _, _ ->
-      m(fx to v(v(turnOnLED, null)))
-    }
-
-    regEventFx(id = turnOffLED) { _, _ ->
-      m(fx to v(v(turnOffLED, null)))
-    }
+    registerFlashlightFxs(context = application)
+    createNotificationChannelIfNeeded(application)
   }
 
-  @OptIn(ExperimentalAnimationApi::class)
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
     Log.i(TAG, "Started.")
     serviceOn()
-
-    val context = applicationContext
-    val intentNotif = Intent(context, MainActivity::class.java)
-    intentNotif.flags =
-      Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-    val contentIntent = PendingIntent.getActivity(
-      context,
-      0,
-      intentNotif,
-      PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
-    )
-
-    val mNM = NotificationManagerCompat.from(context)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      val notificationChannel = NotificationChannel(
-        CHANNEL_ID,
-        CHANNEL_NAME,
-        NotificationManager.IMPORTANCE_DEFAULT
-      )
-      notificationChannel.description = "TODO: Fix-me!"
-      mNM.createNotificationChannel(notificationChannel)
-    }
-
-    val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-      .setSmallIcon(R.drawable.ic_status_notification)
-      .setTicker(getText(R.string.notif_flashlight_service_content))
-      .setWhen(System.currentTimeMillis())
-      .setContentTitle(getText(R.string.notif_flashlight_service_title))
-      .setContentText(getText(R.string.notif_flashlight_service_content))
-      .setContentIntent(contentIntent)
-      .build()
-
-    startForeground(R.string.app_name, notification)
-
-    registerReceiver(AlarmBroadcastReceiver(), AlarmBroadcastReceiver.filter)
+    startForeground(R.string.app_name, notifBuilder.build())
+    registerReceiver(alarmBroadcastReceiver, AlarmBroadcastReceiver.filter)
     return START_STICKY
   }
 
@@ -103,30 +120,29 @@ class FlashyAlarmService : Service() {
     return null
   }
 
-  override fun stopService(name: Intent?): Boolean {
-    Log.i(TAG, "Stopped.")
+  private fun halt() {
     serviceOff()
-    return super.stopService(name)
+    unregisterReceiver(alarmBroadcastReceiver)
   }
 
   override fun onDestroy() {
     super.onDestroy()
     Log.i(TAG, "Destroyed.")
 
-    serviceOff()
+    halt()
   }
 
   companion object {
     val TAG = FlashyAlarmService::class.java.simpleName
-    var isRunning = false
+    var isServiceRunning = false
       private set
 
     private fun serviceOff() {
-      isRunning = false
+      isServiceRunning = false
     }
 
     private fun serviceOn() {
-      isRunning = true
+      isServiceRunning = true
     }
   }
 }
