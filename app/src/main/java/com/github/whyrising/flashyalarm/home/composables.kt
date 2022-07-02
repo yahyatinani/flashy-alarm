@@ -55,9 +55,6 @@ fun NavGraphBuilder.home(animOffSetX: Int) {
 fun HomeScreen() {
   dispatch(v(updateScreenTitle, stringResource(R.string.home_screen_title)))
 
-//  if (subscribe<Boolean>(v(isDisableServiceDialogVisible)).w())
-//    DisableServiceAlertDialog()
-
   Column(
     modifier = Modifier
       .fillMaxSize()
