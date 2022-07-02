@@ -5,15 +5,17 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ListItem
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.alarmservice.Ids
@@ -26,6 +28,7 @@ import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
+import com.github.whyrising.flashyalarm.ui.theme.SectionTitle
 import com.github.whyrising.flashyalarm.ui.theme.SwitchStyled
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
@@ -55,15 +58,18 @@ fun HomeScreen() {
 //  if (subscribe<Boolean>(v(isDisableServiceDialogVisible)).w())
 //    DisableServiceAlertDialog()
 
-  Surface {
-    Column(modifier = Modifier.fillMaxSize()) {
-      dispatch(v(isFlashServiceRunning))
-
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(horizontal = 8.dp)
+  ) {
+    dispatch(v(isFlashServiceRunning))
+    SectionTitle("Service")
+    Card {
       ListItem(
         secondaryText = {
           Text(text = stringResource(R.string.flashlight_service_switch_desc))
         },
-        overlineText = { Text(text = "Service") },
         trailing = {
           SwitchStyled(
             checked = subscribe<Boolean>(v(isFlashServiceRunning)).w(),
@@ -75,13 +81,16 @@ fun HomeScreen() {
       ) {
         Text(text = "Flashlight Service")
       }
+    }
 
+    SectionTitle("Configuration")
+
+    Card {
       ListItem(
         modifier = Modifier.clickable {
           dispatch(v(navigate, patternsRoute))
         },
         secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) },
-        overlineText = { Text(text = "Configuration") }
       ) {
         Text(text = "Flashlight Pattern")
       }

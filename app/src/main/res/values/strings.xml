@@ -16,6 +16,6 @@
     <string name="alert_btn_exit">Exit</string>
     <string name="alert_btn_yes">Yes</string>
     <string name="alert_btn_no">Nope!</string>
-    <string name="flashlight_service_switch_desc">Enable the background service that turns on/off the flash light when an alarm goes off.</string>
+    <string name="flashlight_service_switch_desc">Enable the foreground service that turns on the flashlight whenever an alarm goes off.</string>
     <string name="flash_pattern_desc">Control the LED light\'s blinking pattern</string>
 </resources>
