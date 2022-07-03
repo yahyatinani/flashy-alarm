@@ -5,11 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOffLED
 import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOnLED
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.core.hs
 import com.github.whyrising.y.core.v
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+  name = "settings"
+)
 
 class AlarmBroadcastReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context?, intent: Intent?) {

@@ -27,6 +27,7 @@ dependencies {
   implementation deps.accompanist.nav.anim
   implementation deps.accompanist.systemuicontroller
   implementation deps.androidx.core.splashscreen
+  implementation deps.androidx.datastore.prefrences
   implementation deps.recompose
 
   androidTestImplementation deps.androidx.compose.ui.test

@@ -18,6 +18,7 @@ lifecycle = "2.5.0-rc01"
 coroutines = "1.6.2"
 mockk = "1.12.0"
 recompose = "0.1.0.13-SNAPSHOT" # todo: release the new recompose version.
+data-store = "1.0.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -53,6 +54,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockkjvm = { module = "io.mockk:mockk-agent-jvm", version.ref = "mockk" }
+androidx-datastore-prefrences = { module = "androidx.datastore:datastore-preferences", version.ref = "data-store" }
 
 [bundles]
 compose = ["androidx-compose-ui-ui", "androidx-compose-ui-tooling", "androidx-compose-material-material"]
