@@ -8,7 +8,7 @@ const val CHANNEL_ID = "flashlight_service_notification_channel"
 const val CHANNEL_NAME = "Flashy Alarm Notification Channel"
 
 fun regBaseFx() {
-  regFx(id = exitApp) { value ->
-    exitProcess(value as Int)
+  regFx(id = exitApp) {
+    exitProcess(-1)
   }
 }
