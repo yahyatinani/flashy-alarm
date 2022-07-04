@@ -20,12 +20,14 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.github.whyrising.flashyalarm.alarmservice.FlashyAlarmService
 import com.github.whyrising.flashyalarm.alarmservice.Ids.checkDeviceFlashlight
 import com.github.whyrising.flashyalarm.alarmservice.Ids.isFlashServiceRunning
+import com.github.whyrising.flashyalarm.alarmservice.registerFlashlightFxs
 import com.github.whyrising.flashyalarm.base.HostScreen
 import com.github.whyrising.flashyalarm.base.Ids.exitApp
 import com.github.whyrising.flashyalarm.base.Ids.initAppDb
 import com.github.whyrising.flashyalarm.base.Ids.navigateFx
 import com.github.whyrising.flashyalarm.base.appDb
 import com.github.whyrising.flashyalarm.flashpattern.flashPatterns
+import com.github.whyrising.flashyalarm.flashpattern.initFlashPatternsModule
 import com.github.whyrising.flashyalarm.home.home
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.dispatchSync
@@ -90,7 +92,9 @@ class MainActivity : ComponentActivity() {
     initAlarmListener(context = this)
     dispatch(v(checkDeviceFlashlight))
     initBase()
+    registerFlashlightFxs(this)
     initHome(this)
+    initFlashPatternsModule(this)
 
     setContent {
       HostScreen {

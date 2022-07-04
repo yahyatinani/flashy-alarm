@@ -23,6 +23,7 @@ import com.github.whyrising.flashyalarm.alarmservice.Ids.isFlashServiceRunning
 import com.github.whyrising.flashyalarm.alarmservice.regSubs
 import com.github.whyrising.flashyalarm.base.Ids.navigate
 import com.github.whyrising.flashyalarm.base.Ids.updateScreenTitle
+import com.github.whyrising.flashyalarm.flashpattern.Ids.previous_frequency_pattern
 import com.github.whyrising.flashyalarm.flashpattern.Ids.select_previous_pattern
 import com.github.whyrising.flashyalarm.flashpattern.patternsRoute
 import com.github.whyrising.flashyalarm.initAppDb
@@ -55,7 +56,8 @@ fun NavGraphBuilder.home(animOffSetX: Int) {
 @Composable
 fun HomeScreen() {
   dispatch(v(updateScreenTitle, stringResource(R.string.home_screen_title)))
-//  dispatch(v(select_previous_pattern))
+  dispatch(v(select_previous_pattern))
+  dispatch(v(previous_frequency_pattern))
 
   Column(
     modifier = Modifier

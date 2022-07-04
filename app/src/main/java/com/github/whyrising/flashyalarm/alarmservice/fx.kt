@@ -5,6 +5,8 @@ import android.content.Context
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.util.Log
+import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOffLED
+import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOnLED
 import com.github.whyrising.flashyalarm.base.AppDb
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
@@ -21,8 +23,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-interface LedController {
+interface FrequencyLedController {
+  fun on(frequency: Long)
+}
+
+interface StaticLedController {
   fun on()
+}
+
+interface LedController {
   fun off()
 }
 
@@ -43,17 +52,17 @@ private fun enableTorch(cameraManager: CameraManager) {
 }
 
 class BlinkController(private val cameraManager: CameraManager) :
-  LedController {
+  LedController, FrequencyLedController {
   private var isOn = false
 
   private val scope = CoroutineScope(Dispatchers.IO)
 
-  override fun on() {
+  override fun on(frequency: Long) {
     isOn = true
     scope.launch {
       while (isOn) {
         enableTorch(cameraManager)
-        delay(300)
+        delay(frequency)
         disableTorch(cameraManager)
       }
     }.invokeOnCompletion {
@@ -67,8 +76,8 @@ class BlinkController(private val cameraManager: CameraManager) :
   }
 }
 
-class StaticController(private val cameraManager: CameraManager) :
-  LedController {
+class StaticControllerImp(private val cameraManager: CameraManager) :
+  LedController, StaticLedController {
   override fun on() {
     enableTorch(cameraManager)
   }
@@ -81,28 +90,34 @@ class StaticController(private val cameraManager: CameraManager) :
 fun registerFlashlightFxs(context: Context) {
   val cm = context.getSystemService(Service.CAMERA_SERVICE) as CameraManager
   val blinkController = BlinkController(cm)
-  val staticController = StaticController(cm)
-  regFx(id = Ids.turnOnLED) { pattern ->
-    when (pattern as LightPattern) {
+  val staticController = StaticControllerImp(cm)
+  regFx(id = turnOnLED) { pair ->
+    val (pattern, frequency) = pair as Pair<LightPattern, Long>
+    when (pattern) {
       STATIC -> staticController.on()
-      BLINK -> blinkController.on()
+      BLINK -> blinkController.on(frequency)
     }
   }
 
-  regFx(id = Ids.turnOffLED) { pattern ->
+  regFx(id = turnOffLED) { pattern ->
     when (pattern as LightPattern) {
       STATIC -> staticController.off()
       BLINK -> blinkController.off()
     }
   }
 
-  regEventFx(id = Ids.turnOnLED) { cofx, _ ->
+  regEventFx(id = turnOnLED) { cofx, _ ->
     val appDp = cofx[Schema.db] as AppDb
-    m(FxIds.fx to v(v(Ids.turnOnLED, appDp.selectedLightPattern)))
+    val lightPatternsDb = appDp.lightPatternsDb
+    val pair = Pair(
+      lightPatternsDb.selectedLightPattern,
+      lightPatternsDb.blinkFrequency
+    )
+    m(FxIds.fx to v(v(turnOnLED, pair)))
   }
 
-  regEventFx(id = Ids.turnOffLED) { cofx, _ ->
+  regEventFx(id = turnOffLED) { cofx, _ ->
     val appDp = cofx[Schema.db] as AppDb
-    m(FxIds.fx to v(v(Ids.turnOffLED, appDp.selectedLightPattern)))
+    m(FxIds.fx to v(v(turnOffLED, appDp.lightPatternsDb.selectedLightPattern)))
   }
 }

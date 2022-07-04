@@ -2,6 +2,7 @@ package com.github.whyrising.flashyalarm.flashpattern
 
 import android.content.Context
 import com.github.whyrising.flashyalarm.alarmservice.dataStore
+import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequency
 import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
 import com.github.whyrising.recompose.cofx.regCofx
 import kotlinx.coroutines.flow.first
@@ -17,5 +18,15 @@ fun regLightCofx(context: Context) {
     } ?: LightPattern.STATIC.name
 
     coeffects.assoc(selected_pattern, LightPattern.patternBy(name))
+  }
+
+  regCofx(id = blinkFrequency) { coeffects ->
+    val frequency = runBlocking {
+      context.dataStore.data.map { preferences ->
+        preferences[BLINK_FREQUENCY]
+      }.first()
+    } ?: 300
+
+    coeffects.assoc(blinkFrequency, frequency)
   }
 }
