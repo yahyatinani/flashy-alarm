@@ -11,12 +11,14 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.base.Ids
 import com.github.whyrising.flashyalarm.flashpattern.Ids.select_pattern
+import com.github.whyrising.flashyalarm.flashpattern.Ids.select_previous_pattern
 import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
@@ -46,10 +48,14 @@ fun NavGraphBuilder.flashPatterns(animOffSetX: Int) {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FlashlightPatterns() {
+  regLightFx(LocalContext.current)
+  regLightCofx(LocalContext.current)
   regLightPatternsEvents()
   regLightPatternsSubs()
-  SideEffect {
+
+  LaunchedEffect(true) {
     dispatch(v(Ids.updateScreenTitle, "Flash Patterns"))
+    dispatch(v(select_previous_pattern))
   }
 
   Surface {
