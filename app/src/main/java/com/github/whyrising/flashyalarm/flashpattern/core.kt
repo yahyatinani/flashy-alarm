@@ -43,6 +43,7 @@ import com.github.whyrising.flashyalarm.flashpattern.Ids.isTestingFrequency
 import com.github.whyrising.flashyalarm.flashpattern.Ids.select_pattern
 import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
+import com.github.whyrising.flashyalarm.flashpattern.LightPattern.SIGNAL
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
@@ -136,9 +137,7 @@ fun FlashingSpeedDialog() {
               stopTesting()
             },
             colors = ButtonDefaults.textButtonColors(
-              contentColor = MaterialTheme.colors.onSurface.copy(
-                alpha = .4f
-              )
+              contentColor = MaterialTheme.colors.onSurface.copy(alpha = .4f)
             )
           ) {
             Text(text = "Stop")
@@ -190,6 +189,25 @@ fun FlashlightPatterns() {
         }
       ) {
         Text(text = "Blink")
+      }
+      ListItem(
+        modifier = Modifier.clickable(
+          enabled = subscribe<Boolean>(v(selected_pattern, SIGNAL)).w(),
+        ) {
+          dispatch(v(blinkConfigDialog, true))
+        },
+        secondaryText = {
+          if (subscribe<Boolean>(v(selected_pattern, SIGNAL)).w())
+            Text(text = "Tap to customize")
+        },
+        trailing = {
+          RadioButton(
+            selected = subscribe<Boolean>(v(selected_pattern, SIGNAL)).w(),
+            onClick = { dispatch(v(select_pattern, SIGNAL)) },
+          )
+        }
+      ) {
+        Text(text = "Signal")
       }
     }
   }
