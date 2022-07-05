@@ -3,12 +3,7 @@ package com.github.whyrising.flashyalarm.home
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ListItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,6 +24,10 @@ import com.github.whyrising.flashyalarm.flashpattern.patternsRoute
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
+import com.github.whyrising.flashyalarm.ui.theme.ConfigColumn
+import com.github.whyrising.flashyalarm.ui.theme.ConfigDivider
+import com.github.whyrising.flashyalarm.ui.theme.ConfigItem
+import com.github.whyrising.flashyalarm.ui.theme.ConfigSection
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.flashyalarm.ui.theme.SectionTitle
 import com.github.whyrising.flashyalarm.ui.theme.SwitchStyled
@@ -52,22 +51,18 @@ fun NavGraphBuilder.home(animOffSetX: Int) {
   }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen() {
   dispatch(v(updateScreenTitle, stringResource(R.string.home_screen_title)))
   dispatch(v(select_previous_pattern))
   dispatch(v(previous_frequency_pattern))
+  dispatch(v(isFlashServiceRunning))
 
-  Column(
-    modifier = Modifier
-      .fillMaxSize()
-      .padding(horizontal = 8.dp)
-  ) {
-    dispatch(v(isFlashServiceRunning))
+  ConfigColumn {
     SectionTitle("Service")
-    Card {
-      ListItem(
+    ConfigSection {
+      ConfigItem(
+        modifier = Modifier.padding(bottom = 8.dp),
         secondaryText = {
           Text(text = stringResource(R.string.flashlight_service_switch_desc))
         },
@@ -78,22 +73,29 @@ fun HomeScreen() {
               dispatch(v(Ids.toggleFlashyAlarmService, it))
             }
           )
-        }
+        },
       ) {
         Text(text = "Flashlight Service")
       }
     }
 
     SectionTitle("Configuration")
-
-    Card {
-      ListItem(
+    ConfigSection {
+      ConfigItem(
         modifier = Modifier.clickable {
           dispatch(v(navigate, patternsRoute))
         },
         secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) },
       ) {
         Text(text = "Flashlight Pattern")
+      }
+      ConfigDivider()
+      ConfigItem(
+        modifier = Modifier.clickable {
+          // TODO: show About dialog.
+        }
+      ) {
+        Text(text = "About")
       }
     }
   }
