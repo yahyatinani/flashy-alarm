@@ -3,36 +3,31 @@ package com.github.whyrising.flashyalarm.flashpattern
 import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Slider
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavGraphBuilder
+import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOffLED
 import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOnLED
 import com.github.whyrising.flashyalarm.base.Ids
@@ -48,7 +43,12 @@ import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
+import com.github.whyrising.flashyalarm.ui.theme.ConfigColumn
+import com.github.whyrising.flashyalarm.ui.theme.ConfigDivider
+import com.github.whyrising.flashyalarm.ui.theme.ConfigItem
+import com.github.whyrising.flashyalarm.ui.theme.ConfigSection
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
+import com.github.whyrising.flashyalarm.ui.theme.SectionTitle
 import com.github.whyrising.flashyalarm.ui.theme.Yellow700
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.subscribe
@@ -89,20 +89,22 @@ fun FlashingSpeedDialog() {
       stopTesting()
     },
   ) {
-    Card(
-      shape = RoundedCornerShape(12.dp),
-      elevation = 8.dp
-    ) {
+    Card {
       Column(
         modifier = Modifier
-          .background(MaterialTheme.colors.background)
-          .padding(16.dp),
+          .padding(
+            start = dimensionResource(id = R.dimen.normal_100),
+            end = dimensionResource(id = R.dimen.normal_100),
+            top = dimensionResource(id = R.dimen.normal_100),
+          ),
       ) {
         Text(
           text = "Flashing Speed",
           style = MaterialTheme.typography.subtitle2
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(
+          modifier = Modifier.height(dimensionResource(id = R.dimen.normal_100))
+        )
         Text(
           text = subscribe<String>(v(blinkFrequencyStr)).w(),
           style = MaterialTheme.typography.caption,
@@ -131,7 +133,9 @@ fun FlashingSpeedDialog() {
           ) {
             Text(text = "Test")
           }
-          Spacer(modifier = Modifier.width(8.dp))
+          Spacer(
+            modifier = Modifier.width(dimensionResource(id = R.dimen.small_100))
+          )
           TextButton(
             onClick = {
               stopTesting()
@@ -148,7 +152,6 @@ fun FlashingSpeedDialog() {
   }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FlashlightPatterns() {
   LaunchedEffect(true) {
@@ -158,25 +161,27 @@ fun FlashlightPatterns() {
   if (subscribe<Boolean>(v(blinkConfigDialog)).w())
     FlashingSpeedDialog()
 
-  Surface {
-    Column(modifier = Modifier.fillMaxSize()) {
-      ListItem(
-        overlineText = { Text(text = "Select") },
+  ConfigColumn {
+    SectionTitle("Select")
+    ConfigSection {
+      ConfigItem(
         trailing = {
           RadioButton(
             selected = subscribe<Boolean>(v(selected_pattern, STATIC)).w(),
             onClick = { dispatch(v(select_pattern, STATIC)) },
           )
-        }
+        },
       ) {
         Text(text = "Static")
       }
-      ListItem(
-        modifier = Modifier.clickable(
-          enabled = subscribe<Boolean>(v(selected_pattern, BLINK)).w(),
-        ) {
-          dispatch(v(blinkConfigDialog, true))
-        },
+      ConfigDivider()
+      ConfigItem(
+        modifier = Modifier
+          .clickable(
+            enabled = subscribe<Boolean>(v(selected_pattern, BLINK)).w()
+          ) {
+            dispatch(v(blinkConfigDialog, true))
+          },
         secondaryText = {
           if (subscribe<Boolean>(v(selected_pattern, BLINK)).w())
             Text(text = "Tap to customize")
@@ -190,12 +195,14 @@ fun FlashlightPatterns() {
       ) {
         Text(text = "Blink")
       }
-      ListItem(
-        modifier = Modifier.clickable(
-          enabled = subscribe<Boolean>(v(selected_pattern, SIGNAL)).w(),
-        ) {
-          dispatch(v(blinkConfigDialog, true))
-        },
+      ConfigDivider()
+      ConfigItem(
+        modifier = Modifier
+          .clickable(
+            enabled = subscribe<Boolean>(v(selected_pattern, SIGNAL)).w(),
+          ) {
+            dispatch(v(blinkConfigDialog, true))
+          },
         secondaryText = {
           if (subscribe<Boolean>(v(selected_pattern, SIGNAL)).w())
             Text(text = "Tap to customize")
