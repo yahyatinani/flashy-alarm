@@ -5,4 +5,5 @@
 
     <dimen name="normal_100">16dp</dimen>
     <dimen name="normal_125">20dp</dimen>
+    <dimen name="normal_150">24dp</dimen>
 </resources>

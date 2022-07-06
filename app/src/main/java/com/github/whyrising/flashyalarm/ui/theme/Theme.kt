@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Card
 import androidx.compose.material.Colors
 import androidx.compose.material.Divider
@@ -24,8 +25,13 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.github.whyrising.flashyalarm.R
 
 private val LightColorPalette = lightColors(
@@ -138,5 +144,45 @@ fun ConfigItem(
     secondaryText = secondaryText,
     trailing = trailing,
     text = title
+  )
+}
+
+@Composable
+fun Label(name: String) {
+  Text(
+    text = name,
+    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.small_50)),
+    style = MaterialTheme.typography.overline.copy(fontSize = 10.sp)
+  )
+}
+
+@Composable
+fun Label2(name: String) {
+  Text(
+    text = name,
+    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.normal_100)),
+    fontSize = 12.sp,
+  )
+}
+
+@Composable
+fun Hyperlink(url: String) {
+  val uriHandler = LocalUriHandler.current
+  ClickableText(
+    text = buildAnnotatedString {
+      append(url)
+      addStyle(
+        style = SpanStyle(
+          color = Blue300,
+          fontSize = 12.sp,
+          textDecoration = TextDecoration.Underline
+        ),
+        start = 0,
+        end = url.length
+      )
+    },
+    onClick = {
+      uriHandler.openUri(url)
+    }
   )
 }

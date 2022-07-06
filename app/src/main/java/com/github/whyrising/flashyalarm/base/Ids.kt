@@ -8,6 +8,7 @@ enum class Ids {
   navigate,
   exitApp,
   pushNotification,
+  isAboutDialogVisible,
 
   // Subs
   screenTitle,
