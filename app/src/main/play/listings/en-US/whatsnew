@@ -1,2 +1,6 @@
-### Added
-- Flashlight background service toggle.
+- Now you can configure flashlight pattern: static/fixed, blinking or signal.
+- Also, you can set the flash speed/frequency: [100ms ~ 1000ms.].
+- When the service is on, a permanent notification is always present to remind/assure the user that the app is functioning.
+- The app is even more easier to use by reducing the number of steps to enable the service from 2 to 1.
+- Complete rework of the app: new UI.
+- Reduced the size of the app from 10 MiB to 1.5 MiB.
