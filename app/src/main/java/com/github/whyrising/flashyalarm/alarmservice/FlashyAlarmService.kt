@@ -3,6 +3,8 @@ package com.github.whyrising.flashyalarm.alarmservice
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -28,7 +30,7 @@ class FlashyAlarmService : Service() {
       Intent(application, MainActivity::class.java).apply {
         flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_SINGLE_TOP
       },
-      PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+      FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT,
     )
   }
 
@@ -43,6 +45,16 @@ class FlashyAlarmService : Service() {
       setContentText(getText(R.string.notif_flashlight_service_content))
       setWhen(System.currentTimeMillis())
       setContentIntent(contentIntent)
+      val intent = Intent(application, OnBootServiceStarter::class.java).apply {
+        putExtra(DISABLE_SERVICE, true)
+      }
+      val pendingIntent = PendingIntent.getBroadcast(
+        application,
+        0,
+        intent,
+        FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
+      )
+      addAction(R.drawable.ic_status_notification, "Disable", pendingIntent)
     }
   }
 
