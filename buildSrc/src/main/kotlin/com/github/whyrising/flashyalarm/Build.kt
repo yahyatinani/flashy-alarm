@@ -6,7 +6,6 @@ import java.util.Base64
 
 object Build {
   const val APP_ID = "com.github.whyrising.flashyalarm"
-  const val COMPOSE_VERSION = "1.2.0-rc02"
 
   const val versionMajor = 0
   const val versionMinor = 0
@@ -26,5 +25,11 @@ object Build {
     }
 
     return tempKeyStoreFile
+  }
+
+  object Versions {
+    const val COMPOSE_COMPILER = "1.2.0"
+    const val KOTLIN = "1.7"
+    const val JVM = "1.8"
   }
 }

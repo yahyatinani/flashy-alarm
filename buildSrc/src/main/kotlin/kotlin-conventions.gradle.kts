@@ -1,3 +1,5 @@
+import com.github.whyrising.flashyalarm.Build
+import com.github.whyrising.flashyalarm.Build.Versions.KOTLIN
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -27,9 +29,9 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile>().configureEach {
   kotlinOptions {
     freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-    jvmTarget = "1.8"
-    apiVersion = "1.6"
-    languageVersion = "1.6"
+    jvmTarget = Build.Versions.JVM
+    apiVersion = KOTLIN
+    languageVersion = KOTLIN
   }
 }
 

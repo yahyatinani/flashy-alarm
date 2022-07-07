@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.6.21"
+kotlin = "1.7.0"
 ylib = "0.2.0"
 kotest = "5.3.2"
 ktlint = "0.43.0"
@@ -17,7 +17,7 @@ appcompat = "1.4.2"
 lifecycle = "2.5.0-rc01"
 coroutines = "1.6.2"
 mockk = "1.12.0"
-recompose = "0.1.0.13-SNAPSHOT" # todo: release the new recompose version.
+recompose = "0.1.0.15-SNAPSHOT" # todo: release the new recompose version.
 data-store = "1.0.0"
 
 [libraries]

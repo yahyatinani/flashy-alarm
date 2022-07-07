@@ -1,9 +1,10 @@
 import com.github.whyrising.flashyalarm.Build.APP_ID
-import com.github.whyrising.flashyalarm.Build.COMPOSE_VERSION
+import com.github.whyrising.flashyalarm.Build.Versions.COMPOSE_COMPILER
 import com.github.whyrising.flashyalarm.Build.keyStoreBase64ToStoreFile
 import com.github.whyrising.flashyalarm.Build.versionMajor
 import com.github.whyrising.flashyalarm.Build.versionMinor
 import com.github.whyrising.flashyalarm.Build.versionPatch
+import org.gradle.api.JavaVersion.VERSION_1_8
 
 plugins {
   id("kotlin-conventions")
@@ -73,22 +74,18 @@ android {
 
 
   composeOptions {
-    kotlinCompilerExtensionVersion = COMPOSE_VERSION
+    kotlinCompilerExtensionVersion = COMPOSE_COMPILER
   }
 
   compileOptions {
     isCoreLibraryDesugaringEnabled = true
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = VERSION_1_8
+    targetCompatibility = VERSION_1_8
   }
 
   testOptions {
     animationsDisabled = true
     unitTests.isReturnDefaultValues = true
-  }
-
-  composeOptions {
-    kotlinCompilerExtensionVersion = COMPOSE_VERSION
   }
 
   publishing {
