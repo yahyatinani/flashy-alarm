@@ -1,10 +1,6 @@
 plugins {
   alias deps.plugins.spotless
   alias deps.plugins.kotlinx.kover
-  //    id 'com.diffplug.spotless' version '6.4.1'
-  //    id 'maven-publish'
-  //    id 'signing'
-  //    id 'org.jetbrains.kotlinx.kover' version '0.5.0'
 }
 
 spotless {
@@ -27,8 +23,4 @@ spotless {
   kotlinGradle {
     ktlint()
   }
-}
-
-allprojects {
-  group = 'com.github.whyrising.flashyalarm'
 }
