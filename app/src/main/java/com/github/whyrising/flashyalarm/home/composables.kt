@@ -19,15 +19,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.alarmservice.Ids
-import com.github.whyrising.flashyalarm.alarmservice.Ids.isFlashServiceRunning
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
 import com.github.whyrising.flashyalarm.alarmservice.regSubs
-import com.github.whyrising.flashyalarm.base.Ids.isAboutDialogVisible
-import com.github.whyrising.flashyalarm.base.Ids.navigate
-import com.github.whyrising.flashyalarm.base.Ids.updateScreenTitle
-import com.github.whyrising.flashyalarm.flashpattern.Ids.previous_frequency_pattern
-import com.github.whyrising.flashyalarm.flashpattern.Ids.select_previous_pattern
-import com.github.whyrising.flashyalarm.flashpattern.patternsRoute
+import com.github.whyrising.flashyalarm.base.base.isAboutDialogVisible
+import com.github.whyrising.flashyalarm.base.base.navigate
+import com.github.whyrising.flashyalarm.flashpattern.patterns
+import com.github.whyrising.flashyalarm.flashpattern.patterns.previous_frequency_pattern
+import com.github.whyrising.flashyalarm.flashpattern.patterns.select_previous_pattern
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
@@ -48,12 +47,10 @@ import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
 import com.github.whyrising.flashyalarm.home.init as initHome
 
-const val homeRoute = "/home"
-
 @ExperimentalAnimationApi
 fun NavGraphBuilder.home(animOffSetX: Int) {
   composable(
-    route = homeRoute,
+    route = home.homeRoute.name,
     exitTransition = { exitAnimation(targetOffsetX = -animOffSetX) },
     popEnterTransition = { enterAnimation(initialOffsetX = -animOffSetX) }
   ) {
@@ -101,7 +98,6 @@ fun AboutDialog() {
 
 @Composable
 fun HomeScreen() {
-  dispatch(v(updateScreenTitle, stringResource(R.string.home_screen_title)))
   dispatch(v(select_previous_pattern))
   dispatch(v(previous_frequency_pattern))
   dispatch(v(isFlashServiceRunning))
@@ -122,7 +118,7 @@ fun HomeScreen() {
           SwitchStyled(
             checked = subscribe<Boolean>(v(isFlashServiceRunning)).w(),
             onCheckedChange = {
-              dispatch(v(Ids.toggleFlashyAlarmService, it))
+              dispatch(v(AlarmService.toggleFlashyAlarmService, it))
             }
           )
         },
@@ -135,7 +131,7 @@ fun HomeScreen() {
     ConfigSection {
       ConfigItem(
         modifier = Modifier.clickable {
-          dispatch(v(navigate, patternsRoute))
+          dispatch(v(navigate, patterns.patternsRoute))
         },
         secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) },
       ) {

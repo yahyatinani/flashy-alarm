@@ -1,8 +1,9 @@
 package com.github.whyrising.flashyalarm.home
 
 @Suppress("EnumEntryName")
-enum class Ids {
+enum class home {
   isDisableServiceDialogVisible,
   showDisableServiceDialog,
   hideDisableServiceDialog,
+  homeRoute,
 }

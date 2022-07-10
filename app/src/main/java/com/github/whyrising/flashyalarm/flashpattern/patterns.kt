@@ -1,7 +1,7 @@
 package com.github.whyrising.flashyalarm.flashpattern
 
 @Suppress("EnumEntryName")
-enum class Ids {
+enum class patterns {
   selected_pattern,
   select_pattern,
   savePattern,
@@ -12,4 +12,5 @@ enum class Ids {
   saveBlinkFrequency,
   previous_frequency_pattern,
   isTestingFrequency,
+  patternsRoute,
 }

@@ -1,8 +1,8 @@
 package com.github.whyrising.flashyalarm.home
 
-import com.github.whyrising.flashyalarm.alarmservice.Ids.toggleFlashyAlarmService
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.toggleFlashyAlarmService
 import com.github.whyrising.flashyalarm.base.AppDb
-import com.github.whyrising.flashyalarm.base.Ids.isAboutDialogVisible
+import com.github.whyrising.flashyalarm.base.base.isAboutDialogVisible
 import com.github.whyrising.recompose.fx.FxIds
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
@@ -12,10 +12,10 @@ import com.github.whyrising.y.core.m
 import com.github.whyrising.y.core.v
 
 fun regHomeEvents() {
-  regEventDb<AppDb>(id = Ids.showDisableServiceDialog) { db, _ ->
+  regEventDb<AppDb>(id = home.showDisableServiceDialog) { db, _ ->
     db.copy(isDisableServiceDialogVisible = true)
   }
-  regEventDb<AppDb>(id = Ids.hideDisableServiceDialog) { db, _ ->
+  regEventDb<AppDb>(id = home.hideDisableServiceDialog) { db, _ ->
     db.copy(isDisableServiceDialogVisible = false)
   }
   regEventFx(id = toggleFlashyAlarmService) { cofx, (_, flag) ->

@@ -18,7 +18,7 @@ class OnBootServiceStarter : BroadcastReceiver() {
     if (context == null || intent == null) return
 
     if (intent.extras?.get(DISABLE_SERVICE) as Boolean? == true)
-      dispatch(v(Ids.toggleFlashyAlarmService, false))
+      dispatch(v(AlarmService.toggleFlashyAlarmService, false))
     else if (intent.action == BOOT_COMPLETED_ACTION) {
       val isEnabled = runBlocking {
         context.dataStore.data.map { preferences ->

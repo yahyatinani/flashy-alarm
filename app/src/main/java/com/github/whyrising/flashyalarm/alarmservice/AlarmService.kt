@@ -1,7 +1,7 @@
 package com.github.whyrising.flashyalarm.alarmservice
 
 @Suppress("EnumEntryName")
-enum class Ids {
+enum class AlarmService {
   checkDeviceFlashlight,
   isFlashServiceRunning,
   isFlashHardwareAvailable,

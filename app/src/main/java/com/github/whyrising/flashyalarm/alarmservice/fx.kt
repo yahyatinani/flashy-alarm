@@ -3,8 +3,8 @@ package com.github.whyrising.flashyalarm.alarmservice
 import android.app.Service
 import android.content.Context
 import android.hardware.camera2.CameraManager
-import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOffLED
-import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOnLED
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
 import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.BlinkController
 import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.SignalController
 import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.StaticControllerImp

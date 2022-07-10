@@ -15,12 +15,16 @@ import androidx.compose.material.Card
 import androidx.compose.material.Colors
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.darkColors
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,6 +37,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.whyrising.flashyalarm.R
+import com.github.whyrising.flashyalarm.base.base
+import com.github.whyrising.recompose.dispatch
+import com.github.whyrising.y.core.v
 
 private val LightColorPalette = lightColors(
   primary = Yellow500,
@@ -185,4 +192,18 @@ fun Hyperlink(url: String) {
       uriHandler.openUri(url)
     }
   )
+}
+
+@Composable
+fun BackArrow() {
+  IconButton(
+    onClick = {
+      dispatch(v(base.navigate, base.goBack))
+    },
+  ) {
+    Icon(
+      imageVector = Icons.Filled.ArrowBack,
+      contentDescription = "Back"
+    )
+  }
 }

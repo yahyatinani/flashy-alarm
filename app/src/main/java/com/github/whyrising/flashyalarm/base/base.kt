@@ -1,7 +1,7 @@
 package com.github.whyrising.flashyalarm.base
 
 @Suppress("EnumEntryName")
-enum class Ids {
+enum class base {
   // Events
   initAppDb,
   updateScreenTitle,
@@ -9,10 +9,13 @@ enum class Ids {
   exitApp,
   pushNotification,
   isAboutDialogVisible,
+  setBackstackStatus,
+  goBack,
 
   // Subs
   screenTitle,
   formatScreenTitle,
+  isBackstackAvailable,
 
   // Fx
   navigateFx,

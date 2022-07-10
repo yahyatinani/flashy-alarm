@@ -20,7 +20,6 @@ import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
@@ -28,18 +27,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOffLED
-import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOnLED
-import com.github.whyrising.flashyalarm.base.Ids
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkConfigDialog
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequency
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequencyStr
-import com.github.whyrising.flashyalarm.flashpattern.Ids.isTestingFrequency
-import com.github.whyrising.flashyalarm.flashpattern.Ids.select_pattern
-import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.SIGNAL
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
+import com.github.whyrising.flashyalarm.flashpattern.patterns.blinkConfigDialog
+import com.github.whyrising.flashyalarm.flashpattern.patterns.blinkFrequency
+import com.github.whyrising.flashyalarm.flashpattern.patterns.blinkFrequencyStr
+import com.github.whyrising.flashyalarm.flashpattern.patterns.isTestingFrequency
+import com.github.whyrising.flashyalarm.flashpattern.patterns.select_pattern
+import com.github.whyrising.flashyalarm.flashpattern.patterns.selected_pattern
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
@@ -56,8 +54,6 @@ import com.github.whyrising.recompose.w
 import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
 
-const val patternsRoute = "flashlight_patterns"
-
 fun initFlashPatternsModule(context: Context) {
   regLightFx(context)
   regLightCofx(context)
@@ -68,7 +64,7 @@ fun initFlashPatternsModule(context: Context) {
 @ExperimentalAnimationApi
 fun NavGraphBuilder.flashPatterns(animOffSetX: Int) {
   composable(
-    route = patternsRoute,
+    route = patterns.patternsRoute.name,
     exitTransition = { exitAnimation(targetOffsetX = -animOffSetX) },
     popEnterTransition = { enterAnimation(initialOffsetX = -animOffSetX) }
   ) {
@@ -154,10 +150,6 @@ fun FlashingSpeedDialog() {
 
 @Composable
 fun FlashlightPatterns() {
-  LaunchedEffect(true) {
-    dispatch(v(Ids.updateScreenTitle, "Flash Patterns"))
-  }
-
   if (subscribe<Boolean>(v(blinkConfigDialog)).w())
     FlashingSpeedDialog()
 

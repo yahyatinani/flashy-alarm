@@ -1,8 +1,9 @@
 package com.github.whyrising.flashyalarm.alarmservice
 
-import com.github.whyrising.flashyalarm.alarmservice.Ids.isFlashServiceRunning
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashHardwareAvailable
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
 import com.github.whyrising.flashyalarm.base.AppDb
-import com.github.whyrising.flashyalarm.base.Ids.pushNotification
+import com.github.whyrising.flashyalarm.base.base.pushNotification
 import com.github.whyrising.recompose.cofx.injectCofx
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.recompose.schemas.Schema.db
@@ -12,14 +13,14 @@ import com.github.whyrising.y.core.v
 
 fun regEvents() {
   regEventFx(
-    id = Ids.checkDeviceFlashlight,
-    interceptors = v(injectCofx(Ids.isFlashHardwareAvailable)),
+    id = AlarmService.checkDeviceFlashlight,
+    interceptors = v(injectCofx(isFlashHardwareAvailable)),
   ) { cofx, _ ->
     val appDb = cofx[db] as AppDb
     m(
       db to appDb.copy(
         alarmListenerDb = appDb.alarmListenerDb.copy(
-          isFlashSupported = cofx[Ids.isFlashHardwareAvailable] as Boolean
+          isFlashSupported = cofx[isFlashHardwareAvailable] as Boolean
         )
       )
     )

@@ -10,7 +10,8 @@ data class AppDb(
   val isDisableServiceDialogVisible: Boolean = false,
   val alarmListenerDb: AlarmListenerDb = moduleDb,
   val lightPatternsDb: LightPatternsDb = defaultLightPatternsDb,
-  val isAboutDialogVisible: Boolean = false
+  val isAboutDialogVisible: Boolean = false,
+  val isBackstackAvailable: Boolean = false,
 )
 
 val appDb = AppDb(screenTitle = "")

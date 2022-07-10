@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService
 import com.github.whyrising.flashyalarm.alarmservice.FlashyAlarmService
-import com.github.whyrising.flashyalarm.alarmservice.Ids
 import com.github.whyrising.flashyalarm.alarmservice.dataStore
 import com.github.whyrising.recompose.regFx
 import kotlinx.coroutines.runBlocking
@@ -21,7 +21,7 @@ fun saveServiceStatus(context: Context, b: Boolean) {
 }
 
 fun init(context: Context) {
-  regFx(id = Ids.toggleFlashyAlarmService) { serviceFlag ->
+  regFx(id = AlarmService.toggleFlashyAlarmService) { serviceFlag ->
     val serviceIntent = Intent(context, FlashyAlarmService::class.java)
     when (serviceFlag as Boolean) {
       true -> serviceIntent.also { intent ->

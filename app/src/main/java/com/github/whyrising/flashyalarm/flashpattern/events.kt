@@ -1,14 +1,14 @@
 package com.github.whyrising.flashyalarm.flashpattern
 
 import com.github.whyrising.flashyalarm.base.AppDb
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkConfigDialog
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequency
-import com.github.whyrising.flashyalarm.flashpattern.Ids.isTestingFrequency
-import com.github.whyrising.flashyalarm.flashpattern.Ids.saveBlinkFrequency
-import com.github.whyrising.flashyalarm.flashpattern.Ids.savePattern
-import com.github.whyrising.flashyalarm.flashpattern.Ids.select_pattern
-import com.github.whyrising.flashyalarm.flashpattern.Ids.select_previous_pattern
-import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
+import com.github.whyrising.flashyalarm.flashpattern.patterns.blinkConfigDialog
+import com.github.whyrising.flashyalarm.flashpattern.patterns.blinkFrequency
+import com.github.whyrising.flashyalarm.flashpattern.patterns.isTestingFrequency
+import com.github.whyrising.flashyalarm.flashpattern.patterns.saveBlinkFrequency
+import com.github.whyrising.flashyalarm.flashpattern.patterns.savePattern
+import com.github.whyrising.flashyalarm.flashpattern.patterns.select_pattern
+import com.github.whyrising.flashyalarm.flashpattern.patterns.select_previous_pattern
+import com.github.whyrising.flashyalarm.flashpattern.patterns.selected_pattern
 import com.github.whyrising.recompose.cofx.injectCofx
 import com.github.whyrising.recompose.fx.FxIds.fx
 import com.github.whyrising.recompose.regEventDb
@@ -86,7 +86,7 @@ fun regLightPatternsEvents() {
   }
 
   regEventFx(
-    id = Ids.previous_frequency_pattern,
+    id = patterns.previous_frequency_pattern,
     interceptors = v(injectCofx(blinkFrequency))
   ) { cofx, _ ->
     val appDb = cofx[db] as AppDb

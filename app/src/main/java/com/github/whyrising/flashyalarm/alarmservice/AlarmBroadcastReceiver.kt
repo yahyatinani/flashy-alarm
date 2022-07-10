@@ -8,8 +8,8 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOffLED
-import com.github.whyrising.flashyalarm.alarmservice.Ids.turnOnLED
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.core.hs
 import com.github.whyrising.y.core.v

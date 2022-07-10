@@ -12,21 +12,21 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.checkDeviceFlashlight
+import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
 import com.github.whyrising.flashyalarm.alarmservice.FlashyAlarmService
-import com.github.whyrising.flashyalarm.alarmservice.Ids
-import com.github.whyrising.flashyalarm.alarmservice.Ids.checkDeviceFlashlight
-import com.github.whyrising.flashyalarm.alarmservice.Ids.isFlashServiceRunning
 import com.github.whyrising.flashyalarm.alarmservice.registerFlashlightFxs
 import com.github.whyrising.flashyalarm.base.HostScreen
-import com.github.whyrising.flashyalarm.base.Ids.exitApp
-import com.github.whyrising.flashyalarm.base.Ids.initAppDb
-import com.github.whyrising.flashyalarm.base.Ids.navigateFx
 import com.github.whyrising.flashyalarm.base.appDb
+import com.github.whyrising.flashyalarm.base.base
+import com.github.whyrising.flashyalarm.base.base.exitApp
+import com.github.whyrising.flashyalarm.base.base.initAppDb
+import com.github.whyrising.flashyalarm.base.base.navigateFx
 import com.github.whyrising.flashyalarm.flashpattern.flashPatterns
 import com.github.whyrising.flashyalarm.flashpattern.initFlashPatternsModule
 import com.github.whyrising.flashyalarm.home.home
@@ -42,7 +42,6 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.github.whyrising.flashyalarm.alarmservice.init as initAlarmListener
 import com.github.whyrising.flashyalarm.base.init as initBase
-import com.github.whyrising.flashyalarm.home.homeRoute as home_route
 import com.github.whyrising.flashyalarm.home.init as initHome
 
 // -- Entry Point --------------------------------------------------------------
@@ -94,14 +93,14 @@ class MainActivity : ComponentActivity() {
     Log.i("FlashyAlarmService", "${FlashyAlarmService.isServiceRunning}")
     initAlarmListener(context = this)
     dispatch(v(checkDeviceFlashlight))
-    initBase()
+    initBase(this)
     registerFlashlightFxs(this)
     initHome(this)
     initFlashPatternsModule(this)
 
     setContent {
       HostScreen {
-        if (subscribe<Boolean>(v(Ids.isFlashHardwareAvailable)).w()) {
+        if (subscribe<Boolean>(v(AlarmService.isFlashHardwareAvailable)).w()) {
           val systemUiController = rememberSystemUiController()
           val colors = MaterialTheme.colors
           SideEffect {
@@ -110,17 +109,25 @@ class MainActivity : ComponentActivity() {
               darkIcons = true
             )
           }
-          val navCtrl = rememberAnimatedNavController()
-          LaunchedEffect(navCtrl) {
-            regFx(id = navigateFx) { route ->
-              if (route == null) return@regFx
-              navCtrl.navigate("$route")
+          val navCtrl = rememberAnimatedNavController().apply {
+            addOnDestinationChangedListener { controller, navDestination, _ ->
+              val flag = controller.previousBackStackEntry != null
+              dispatch(v(base.setBackstackStatus, flag))
+              val route = navDestination.route
+              if (route != null)
+                dispatch(v(base.updateScreenTitle, route))
+            }
+          }
+          regFx(navigateFx) { route ->
+            when (val r = "$route") {
+              base.goBack.name -> navCtrl.popBackStack()
+              else -> navCtrl.navigate(r)
             }
           }
           AnimatedNavHost(
             modifier = Modifier.padding(it),
             navController = navCtrl,
-            startDestination = home_route
+            startDestination = home.homeRoute.name
           ) {
             home(animOffSetX = 300)
             flashPatterns(animOffSetX = 300)

@@ -1,7 +1,9 @@
 package com.github.whyrising.flashyalarm.base
 
-fun init() {
+import android.content.Context
+
+fun init(context: Context) {
   regBaseFx()
-  regBaseEvents()
+  regBaseEvents(context)
   regBaseSubs()
 }
