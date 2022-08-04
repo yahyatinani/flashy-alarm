@@ -1,0 +1,69 @@
+name: build
+
+on:
+  push:
+    paths-ignore:
+      - 'doc/**'
+      - 'docs/**'
+      - '*.md'
+      - '*.yml'
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Prepare Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+
+      - name: Grant permission for Gradle to execute
+        run: chmod +x gradlew
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build --scan
+
+      - name: Spotless check
+        run: ./gradlew spotlessCheck lintDebug --stacktrace
+
+      - name: Run unit tests
+        run: ./gradlew check --stacktrace
+
+      - name: Assemble debug
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Assemble release
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Bundle the build report
+        if: failure()
+        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
+
+      - name: Upload the build report
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: error-report
+          path: build-reports.zip
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: apks
+          path: app/build/outputs
+
+env:
+  SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
+  KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+  KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+  KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}

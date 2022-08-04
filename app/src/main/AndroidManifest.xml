@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.whyrising.flashyalarm">
+          package="com.github.whyrising.flashyalarm">
 
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-feature
         android:name="android.hardware.camera.flash"
         android:required="true" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".MyApplication"
@@ -26,20 +29,15 @@
         </activity>
 
         <service
-            android:name="com.github.whyrising.flashyalarm.alarmlistener.AlarmListener"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
+            android:name=".alarmservice.FlashyAlarmService"
+            android:exported="false" />
 
-            <meta-data
-                android:name="android.service.notification.default_filter_types"
-                android:value="conversations|alerting" />
-            <meta-data
-                android:name="android.service.notification.disabled_filter_types"
-                android:value="ongoing|silent" />
-        </service>
+        <receiver
+            android:name=".alarmservice.OnBootServiceStarter"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
