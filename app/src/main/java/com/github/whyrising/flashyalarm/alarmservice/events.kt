@@ -5,8 +5,8 @@ import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashService
 import com.github.whyrising.flashyalarm.base.AppDb
 import com.github.whyrising.flashyalarm.base.base.pushNotification
 import com.github.whyrising.recompose.cofx.injectCofx
+import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventFx
-import com.github.whyrising.recompose.schemas.Schema.db
 import com.github.whyrising.y.core.get
 import com.github.whyrising.y.core.m
 import com.github.whyrising.y.core.v

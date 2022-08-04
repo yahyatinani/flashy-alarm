@@ -14,9 +14,9 @@ import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.SIGNAL
 import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
 import com.github.whyrising.recompose.fx.FxIds.fx
+import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventFx
 import com.github.whyrising.recompose.regFx
-import com.github.whyrising.recompose.schemas.Schema
 import com.github.whyrising.y.core.get
 import com.github.whyrising.y.core.m
 import com.github.whyrising.y.core.v
@@ -45,7 +45,7 @@ fun registerFlashlightFxs(context: Context) {
   }
 
   regEventFx(id = turnOnLED) { cofx, _ ->
-    val appDp = cofx[Schema.db] as AppDb
+    val appDp = cofx[db] as AppDb
     val lightPatternsDb = appDp.lightPatternsDb
     val pair = Pair(
       lightPatternsDb.selectedLightPattern,
@@ -55,7 +55,7 @@ fun registerFlashlightFxs(context: Context) {
   }
 
   regEventFx(id = turnOffLED) { cofx, _ ->
-    val appDp = cofx[Schema.db] as AppDb
+    val appDp = cofx[db] as AppDb
     m(fx to v(v(turnOffLED, appDp.lightPatternsDb.selectedLightPattern)))
   }
 }

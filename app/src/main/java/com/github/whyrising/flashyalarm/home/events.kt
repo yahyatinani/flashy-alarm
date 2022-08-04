@@ -4,9 +4,9 @@ import com.github.whyrising.flashyalarm.alarmservice.AlarmService.toggleFlashyAl
 import com.github.whyrising.flashyalarm.base.AppDb
 import com.github.whyrising.flashyalarm.base.base.isAboutDialogVisible
 import com.github.whyrising.recompose.fx.FxIds
+import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
-import com.github.whyrising.recompose.schemas.Schema
 import com.github.whyrising.y.core.get
 import com.github.whyrising.y.core.m
 import com.github.whyrising.y.core.v
@@ -19,14 +19,14 @@ fun regHomeEvents() {
     db.copy(isDisableServiceDialogVisible = false)
   }
   regEventFx(id = toggleFlashyAlarmService) { cofx, (_, flag) ->
-    val appDb = cofx[Schema.db] as AppDb
+    val appDb = cofx[db] as AppDb
     val newDb = appDb.copy(
       alarmListenerDb = appDb.alarmListenerDb.copy(
         isFlashServiceRunning = flag as Boolean
       )
     )
     m(
-      Schema.db to newDb,
+      db to newDb,
       FxIds.fx to v(v(toggleFlashyAlarmService, flag))
     )
   }

@@ -11,9 +11,9 @@ import com.github.whyrising.flashyalarm.flashpattern.patterns.select_previous_pa
 import com.github.whyrising.flashyalarm.flashpattern.patterns.selected_pattern
 import com.github.whyrising.recompose.cofx.injectCofx
 import com.github.whyrising.recompose.fx.FxIds.fx
+import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
-import com.github.whyrising.recompose.schemas.Schema.db
 import com.github.whyrising.y.core.get
 import com.github.whyrising.y.core.m
 import com.github.whyrising.y.core.v
