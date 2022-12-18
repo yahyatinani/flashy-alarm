@@ -126,3 +126,5 @@ lint/tmp/
 
 # Gradle
 /build
+
+.idea/
