@@ -9,8 +9,9 @@ import com.github.whyrising.y.core.v
 fun regBaseSubs() {
   regSub<String, String>(
     queryId = formatScreenTitle,
+    initialValue = "",
     signalsFn = { subscribe(v(screenTitle)) }
-  ) { title, _ ->
+  ) { title, _, _ ->
     title.replaceFirstChar { it.uppercase() }
   }
 

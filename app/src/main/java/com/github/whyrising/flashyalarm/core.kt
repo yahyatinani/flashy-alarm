@@ -34,8 +34,7 @@ import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.dispatchSync
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regFx
-import com.github.whyrising.recompose.subscribe
-import com.github.whyrising.recompose.w
+import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -100,7 +99,7 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       HostScreen {
-        if (subscribe<Boolean>(v(AlarmService.isFlashHardwareAvailable)).w()) {
+        if (watch(v(AlarmService.isFlashHardwareAvailable))) {
           val systemUiController = rememberSystemUiController()
           val colors = MaterialTheme.colors
           SideEffect {

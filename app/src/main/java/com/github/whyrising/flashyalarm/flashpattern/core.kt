@@ -49,8 +49,7 @@ import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.flashyalarm.ui.theme.SectionTitle
 import com.github.whyrising.flashyalarm.ui.theme.Yellow700
 import com.github.whyrising.recompose.dispatch
-import com.github.whyrising.recompose.subscribe
-import com.github.whyrising.recompose.w
+import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
 
@@ -102,12 +101,12 @@ fun FlashingSpeedDialog() {
           modifier = Modifier.height(dimensionResource(id = R.dimen.normal_100))
         )
         Text(
-          text = subscribe<String>(v(blinkFrequencyStr)).w(),
+          text = watch<String>(v(blinkFrequencyStr)),
           style = MaterialTheme.typography.caption,
           color = MaterialTheme.colors.onSurface.copy(alpha = .5f)
         )
         Slider(
-          value = subscribe<Float>(v(blinkFrequency)).w(),
+          value = watch(v(blinkFrequency)),
           valueRange = 100f..1000f,
           steps = 3,
           onValueChange = {
@@ -124,7 +123,7 @@ fun FlashingSpeedDialog() {
               dispatch(v(turnOnLED))
               dispatch(v(isTestingFrequency, true))
             },
-            enabled = subscribe<Boolean>(v(isTestingFrequency)).w(),
+            enabled = watch(v(isTestingFrequency)),
             colors = ButtonDefaults.textButtonColors(contentColor = Yellow700)
           ) {
             Text(text = "Test")
@@ -150,7 +149,7 @@ fun FlashingSpeedDialog() {
 
 @Composable
 fun FlashlightPatterns() {
-  if (subscribe<Boolean>(v(blinkConfigDialog)).w())
+  if (watch(v(blinkConfigDialog)))
     FlashingSpeedDialog()
 
   ConfigColumn {
@@ -159,7 +158,7 @@ fun FlashlightPatterns() {
       ConfigItem(
         trailing = {
           RadioButton(
-            selected = subscribe<Boolean>(v(selected_pattern, STATIC)).w(),
+            selected = watch(v(selected_pattern, STATIC)),
             onClick = { dispatch(v(select_pattern, STATIC)) },
           )
         },
@@ -170,17 +169,17 @@ fun FlashlightPatterns() {
       ConfigItem(
         modifier = Modifier
           .clickable(
-            enabled = subscribe<Boolean>(v(selected_pattern, BLINK)).w()
+            enabled = watch<Boolean>(v(selected_pattern, BLINK))
           ) {
             dispatch(v(blinkConfigDialog, true))
           },
         secondaryText = {
-          if (subscribe<Boolean>(v(selected_pattern, BLINK)).w())
+          if (watch(v(selected_pattern, BLINK)))
             Text(text = "Tap to customize")
         },
         trailing = {
           RadioButton(
-            selected = subscribe<Boolean>(v(selected_pattern, BLINK)).w(),
+            selected = watch(v(selected_pattern, BLINK)),
             onClick = { dispatch(v(select_pattern, BLINK)) },
           )
         }
@@ -191,17 +190,17 @@ fun FlashlightPatterns() {
       ConfigItem(
         modifier = Modifier
           .clickable(
-            enabled = subscribe<Boolean>(v(selected_pattern, SIGNAL)).w(),
+            enabled = watch<Boolean>(v(selected_pattern, SIGNAL)),
           ) {
             dispatch(v(blinkConfigDialog, true))
           },
         secondaryText = {
-          if (subscribe<Boolean>(v(selected_pattern, SIGNAL)).w())
+          if (watch(v(selected_pattern, SIGNAL)))
             Text(text = "Tap to customize")
         },
         trailing = {
           RadioButton(
-            selected = subscribe<Boolean>(v(selected_pattern, SIGNAL)).w(),
+            selected = watch(v(selected_pattern, SIGNAL)),
             onClick = { dispatch(v(select_pattern, SIGNAL)) },
           )
         }

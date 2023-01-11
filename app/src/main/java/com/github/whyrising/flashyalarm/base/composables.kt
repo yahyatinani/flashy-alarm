@@ -12,8 +12,7 @@ import com.github.whyrising.flashyalarm.base.base.formatScreenTitle
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.theme.BackArrow
 import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
-import com.github.whyrising.recompose.subscribe
-import com.github.whyrising.recompose.w
+import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 
 @Composable
@@ -23,13 +22,14 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
       topBar = {
         TopAppBar(
           title = {
-            Text(subscribe<String>(v(formatScreenTitle)).w())
+            Text(text = watch<String>(query = v(formatScreenTitle)))
           },
           elevation = 1.dp,
           navigationIcon = when {
-            subscribe<Boolean>(v(base.isBackstackAvailable)).w() -> {
+            watch<Boolean>(v(base.isBackstackAvailable)) -> {
               { BackArrow() }
             }
+
             else -> null
           }
         )

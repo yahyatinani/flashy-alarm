@@ -41,8 +41,7 @@ import com.github.whyrising.flashyalarm.ui.theme.Label2
 import com.github.whyrising.flashyalarm.ui.theme.SectionTitle
 import com.github.whyrising.flashyalarm.ui.theme.SwitchStyled
 import com.github.whyrising.recompose.dispatch
-import com.github.whyrising.recompose.subscribe
-import com.github.whyrising.recompose.w
+import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
 import com.github.whyrising.flashyalarm.home.init as initHome
@@ -102,7 +101,7 @@ fun HomeScreen() {
   dispatch(v(previous_frequency_pattern))
   dispatch(v(isFlashServiceRunning))
 
-  if (subscribe<Boolean>(v(isAboutDialogVisible)).w())
+  if (watch(v(isAboutDialogVisible)))
     AboutDialog()
 
   ConfigColumn {
@@ -116,7 +115,7 @@ fun HomeScreen() {
         },
         trailing = {
           SwitchStyled(
-            checked = subscribe<Boolean>(v(isFlashServiceRunning)).w(),
+            checked = watch(v(isFlashServiceRunning)),
             onCheckedChange = {
               dispatch(v(AlarmService.toggleFlashyAlarmService, it))
             }
