@@ -1,5 +1,3 @@
-package com.github.whyrising.flashyalarm
-
 import java.io.File
 import java.io.FileOutputStream
 import java.util.Base64
@@ -28,7 +26,7 @@ object Build {
   }
 
   object Versions {
-    const val COMPOSE_COMPILER = "1.3.0-rc01"
+    const val COMPOSE_COMPILER = "1.3.2"
     const val KOTLIN = "1.7"
     const val JVM = "1.8"
   }

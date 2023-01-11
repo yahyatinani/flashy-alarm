@@ -1,5 +1,4 @@
-import com.github.whyrising.flashyalarm.Build
-import com.github.whyrising.flashyalarm.Build.Versions.KOTLIN
+import Build.Versions.KOTLIN
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
