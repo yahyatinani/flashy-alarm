@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -20,11 +19,9 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.checkDeviceFlashlight
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
-import com.github.whyrising.flashyalarm.alarmservice.FlashyAlarmService
 import com.github.whyrising.flashyalarm.alarmservice.registerFlashlightFxs
 import com.github.whyrising.flashyalarm.base.HostScreen
 import com.github.whyrising.flashyalarm.base.appDb
@@ -93,10 +90,8 @@ class MyApplication : Application() {
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
-    installSplashScreen()
     super.onCreate(savedInstanceState)
-
-    Log.i("FlashyAlarmService", "${FlashyAlarmService.isServiceRunning}")
+    
     initAlarmListener(context = this)
     dispatch(v(checkDeviceFlashlight))
     initBase(this)
