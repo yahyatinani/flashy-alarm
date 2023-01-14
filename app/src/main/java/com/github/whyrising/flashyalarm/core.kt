@@ -40,7 +40,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import com.github.whyrising.flashyalarm.panel.common.init as initBase
+import com.github.whyrising.flashyalarm.panel.common.init as initCommon
 import com.github.whyrising.flashyalarm.panel.home.init as initHome
 
 fun initAppDb() {
@@ -55,6 +55,8 @@ class MyApplication : Application() {
     super.onCreate()
 
     initAppDb()
+    initCommon(this)
+    dispatch(v(common.checkDeviceHasTorch))
   }
 }
 
@@ -87,15 +89,7 @@ class MainActivity : ComponentActivity() {
     )
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    dispatch(v(common.checkDeviceHasTorch))
-    initBase(this)
-    registerTorchEffects(this)
-    initHome(this)
-    initFlashPatternsModule(this)
-
+  private fun requestPostNotificationPermissionFromUser() {
     if (Build.VERSION.SDK_INT >= 33) {
       if (ContextCompat.checkSelfPermission(
           this,
@@ -105,9 +99,24 @@ class MainActivity : ComponentActivity() {
         requestPermissions(arrayOf(POST_NOTIFICATIONS), 101)
       }
     }
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    registerTorchEffects(this)
+    initHome(this)
+    initFlashPatternsModule(this)
+
+    requestPostNotificationPermissionFromUser()
+
     setContent {
+      SideEffect {
+        dispatch(v(common.isAlarmListenerRunning))
+      }
       HostScreen {
         if (watch(v(common.phoneHasTorch))) {
+          // FIXME: remove status bar color
           val systemUiController = rememberSystemUiController()
           val colors = MaterialTheme.colorScheme
           SideEffect {
@@ -116,6 +125,7 @@ class MainActivity : ComponentActivity() {
               darkIcons = true
             )
           }
+          
           val navCtrl = rememberAnimatedNavController().apply {
             addOnDestinationChangedListener { controller, navDestination, _ ->
               val flag = controller.previousBackStackEntry != null
@@ -149,11 +159,5 @@ class MainActivity : ComponentActivity() {
         }
       }
     }
-  }
-
-  override fun onResume() {
-    super.onResume()
-
-    dispatch(v(common.isAlarmListenerRunning))
   }
 }
