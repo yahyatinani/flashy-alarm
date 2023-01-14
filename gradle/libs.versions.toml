@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.7.20"
-gradleplugin = "7.3.1"
+gradleplugin = "7.4.0"
 
 kotest = "5.4.2"
 ktlint = "0.46.1"
