@@ -12,6 +12,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -39,6 +40,8 @@ import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import com.github.whyrising.flashyalarm.alarmservice.init as initAlarmListener
 import com.github.whyrising.flashyalarm.base.init as initBase
 import com.github.whyrising.flashyalarm.home.init as initHome
@@ -117,10 +120,14 @@ class MainActivity : ComponentActivity() {
                 dispatch(v(base.updateScreenTitle, route))
             }
           }
-          regFx(navigateFx) { route ->
-            when (val r = "$route") {
-              base.goBack.name -> navCtrl.popBackStack()
-              else -> navCtrl.navigate(r)
+          LaunchedEffect(key1 = navCtrl) {
+            regFx(navigateFx) { route ->
+              when (val r = "$route") {
+                base.goBack.name -> navCtrl.popBackStack()
+                else -> runBlocking(Dispatchers.Main.immediate) {
+                  navCtrl.navigate(r)
+                }
+              }
             }
           }
           AnimatedNavHost(

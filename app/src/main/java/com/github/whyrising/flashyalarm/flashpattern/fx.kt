@@ -5,8 +5,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.whyrising.flashyalarm.alarmservice.dataStore
-import com.github.whyrising.flashyalarm.flashpattern.patterns.saveBlinkFrequency
-import com.github.whyrising.flashyalarm.flashpattern.patterns.savePattern
+import com.github.whyrising.flashyalarm.flashpattern.Ids.saveBlinkFrequency
+import com.github.whyrising.flashyalarm.flashpattern.Ids.savePattern
 import com.github.whyrising.recompose.regFx
 import kotlinx.coroutines.runBlocking
 

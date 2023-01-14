@@ -24,9 +24,9 @@ import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashService
 import com.github.whyrising.flashyalarm.alarmservice.regSubs
 import com.github.whyrising.flashyalarm.base.base.isAboutDialogVisible
 import com.github.whyrising.flashyalarm.base.base.navigate
-import com.github.whyrising.flashyalarm.flashpattern.patterns
-import com.github.whyrising.flashyalarm.flashpattern.patterns.previous_frequency_pattern
-import com.github.whyrising.flashyalarm.flashpattern.patterns.select_previous_pattern
+import com.github.whyrising.flashyalarm.flashpattern.Ids
+import com.github.whyrising.flashyalarm.flashpattern.Ids.previous_frequency_pattern
+import com.github.whyrising.flashyalarm.flashpattern.Ids.select_previous_pattern
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
@@ -130,7 +130,7 @@ fun HomeScreen() {
     ConfigSection {
       ConfigItem(
         modifier = Modifier.clickable {
-          dispatch(v(navigate, patterns.patternsRoute))
+          dispatch(v(navigate, Ids.patternsRoute))
         },
         secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) },
       ) {

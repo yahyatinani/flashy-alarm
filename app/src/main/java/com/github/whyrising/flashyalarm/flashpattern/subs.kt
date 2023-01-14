@@ -1,20 +1,20 @@
 package com.github.whyrising.flashyalarm.flashpattern
 
 import com.github.whyrising.flashyalarm.base.AppDb
-import com.github.whyrising.flashyalarm.flashpattern.patterns.blinkFrequency
-import com.github.whyrising.flashyalarm.flashpattern.patterns.blinkFrequencyStr
-import com.github.whyrising.flashyalarm.flashpattern.patterns.isTestingFrequency
+import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequency
+import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequencyStr
+import com.github.whyrising.flashyalarm.flashpattern.Ids.isTestingFrequency
 import com.github.whyrising.recompose.regSub
 
 fun regLightPatternsSubs() {
   regSub<AppDb, Boolean>(
-    queryId = patterns.selected_pattern,
+    queryId = Ids.selected_pattern,
   ) { db, (_, pattern) ->
     db.lightPatternsDb.selectedLightPattern == pattern
   }
 
   regSub<AppDb, Boolean>(
-    queryId = patterns.blinkConfigDialog,
+    queryId = Ids.blinkConfigDialog,
   ) { db, _ ->
     db.lightPatternsDb.blinkFrequencyDialog
   }
