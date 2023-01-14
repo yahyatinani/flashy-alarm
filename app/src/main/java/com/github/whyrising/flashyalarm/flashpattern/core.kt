@@ -29,6 +29,13 @@ import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
+import com.github.whyrising.flashyalarm.designsystem.component.ConfigColumn
+import com.github.whyrising.flashyalarm.designsystem.component.ConfigDivider
+import com.github.whyrising.flashyalarm.designsystem.component.ConfigItem
+import com.github.whyrising.flashyalarm.designsystem.component.ConfigSection
+import com.github.whyrising.flashyalarm.designsystem.component.SectionTitle
+import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
+import com.github.whyrising.flashyalarm.designsystem.theme.Yellow700
 import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkConfigDialog
 import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequency
 import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequencyStr
@@ -41,13 +48,6 @@ import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
-import com.github.whyrising.flashyalarm.ui.theme.ConfigColumn
-import com.github.whyrising.flashyalarm.ui.theme.ConfigDivider
-import com.github.whyrising.flashyalarm.ui.theme.ConfigItem
-import com.github.whyrising.flashyalarm.ui.theme.ConfigSection
-import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
-import com.github.whyrising.flashyalarm.ui.theme.SectionTitle
-import com.github.whyrising.flashyalarm.ui.theme.Yellow700
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v

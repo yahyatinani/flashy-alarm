@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.ui.theme
+package com.github.whyrising.flashyalarm.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

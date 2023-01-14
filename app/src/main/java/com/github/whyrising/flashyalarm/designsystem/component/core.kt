@@ -1,7 +1,6 @@
-package com.github.whyrising.flashyalarm.ui.theme
+package com.github.whyrising.flashyalarm.designsystem.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
@@ -24,11 +23,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.SpanStyle
@@ -38,36 +34,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.base.base
+import com.github.whyrising.flashyalarm.designsystem.theme.Blue300
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.core.v
-
-private val LightColorPalette = lightColorScheme(
-  primary = Yellow500,
-  inversePrimary = Yellow700,
-  onPrimary = Black,
-  secondary = Black
-)
-
-private val DarkColorPalette = darkColorScheme(
-  primary = Yellow200,
-  inversePrimary = Yellow500,
-  secondary = Yellow200
-)
-
-@Composable
-fun FlashyAlarmTheme(
-  darkTheme: Boolean = isSystemInDarkTheme(),
-  content: @Composable () -> Unit
-) {
-  MaterialTheme(
-    colorScheme = if (darkTheme) DarkColorPalette else LightColorPalette,
-    typography = Typography,
-    shapes = Shapes,
-    content = content
-  )
-}
-
-// -- Composables --------------------------------------------------------------
 
 @Composable
 fun SwitchStyled(

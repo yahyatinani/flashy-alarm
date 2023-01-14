@@ -9,9 +9,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.whyrising.flashyalarm.base.base.formatScreenTitle
+import com.github.whyrising.flashyalarm.designsystem.component.BackArrow
+import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
 import com.github.whyrising.flashyalarm.initAppDb
-import com.github.whyrising.flashyalarm.ui.theme.BackArrow
-import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 

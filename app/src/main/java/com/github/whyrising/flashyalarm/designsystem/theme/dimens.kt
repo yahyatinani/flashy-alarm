@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.ui.theme.dimens
+package com.github.whyrising.flashyalarm.designsystem.theme.dimens
 
 import androidx.compose.ui.unit.dp
 
