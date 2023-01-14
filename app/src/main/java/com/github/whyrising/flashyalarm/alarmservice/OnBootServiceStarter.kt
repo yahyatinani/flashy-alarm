@@ -17,7 +17,7 @@ class OnBootServiceStarter : BroadcastReceiver() {
   override fun onReceive(context: Context?, intent: Intent?) {
     if (context == null || intent == null) return
 
-    if (intent.extras?.get(DISABLE_SERVICE) as Boolean? == true) {
+    if (intent.extras?.getBoolean(DISABLE_SERVICE) == true) {
       dispatch(v(AlarmService.toggleFlashyAlarmService, false))
     } else if (intent.action == BOOT_COMPLETED_ACTION) {
       val isEnabled = runBlocking {

@@ -5,9 +5,9 @@ import android.content.Context
 import android.hardware.camera2.CameraManager
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
-import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.BlinkController
-import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.SignalController
-import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.StaticControllerImp
+import com.github.whyrising.flashyalarm.alarmservice.torchcontrol.BlinkController
+import com.github.whyrising.flashyalarm.alarmservice.torchcontrol.SineController
+import com.github.whyrising.flashyalarm.alarmservice.torchcontrol.StaticController
 import com.github.whyrising.flashyalarm.panel.common.AppDb
 import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern
 import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.BLINK
@@ -24,8 +24,8 @@ import com.github.whyrising.y.core.v
 fun registerFlashlightFxs(context: Context) {
   val cm = context.getSystemService(Service.CAMERA_SERVICE) as CameraManager
   val blinkController = BlinkController(cm)
-  val staticController = StaticControllerImp(cm)
-  val signalController = SignalController(cm)
+  val staticController = StaticController(cm)
+  val signalController = SineController(cm)
 
   regFx(id = turnOnLED) { pair ->
     val (pattern, frequency) = pair as Pair<LightPattern, Long>

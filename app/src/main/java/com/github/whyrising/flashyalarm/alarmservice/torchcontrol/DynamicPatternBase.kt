@@ -1,14 +1,15 @@
-package com.github.whyrising.flashyalarm.alarmservice.ledcontrols
+package com.github.whyrising.flashyalarm.alarmservice.torchcontrol
 
 import android.hardware.camera2.CameraManager
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class BlinkController(private val cameraManager: CameraManager) :
-  LedController, FrequencyLedController {
+abstract class DynamicPatternBase(val cameraManager: CameraManager) :
+  DynamicPattern {
+  internal abstract suspend fun pattern(frequency: Long)
+
   private var isOn = false
   private val scope = CoroutineScope(Dispatchers.IO)
 
@@ -16,9 +17,7 @@ class BlinkController(private val cameraManager: CameraManager) :
     isOn = true
     scope.launch {
       while (isOn) {
-        enableTorch(cameraManager)
-        delay(frequency)
-        disableTorch(cameraManager)
+        pattern(frequency)
       }
     }.invokeOnCompletion {
       disableTorch(cameraManager)
