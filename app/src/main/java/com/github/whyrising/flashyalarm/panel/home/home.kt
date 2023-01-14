@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.home
+package com.github.whyrising.flashyalarm.panel.home
 
 @Suppress("EnumEntryName")
 enum class home {

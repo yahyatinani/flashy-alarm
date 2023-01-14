@@ -1,7 +1,7 @@
-package com.github.whyrising.flashyalarm.base
+package com.github.whyrising.flashyalarm.panel.common
 
 @Suppress("EnumEntryName")
-enum class base {
+enum class common {
   // Events
   initAppDb,
   updateScreenTitle,

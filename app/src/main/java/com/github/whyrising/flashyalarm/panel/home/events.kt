@@ -1,8 +1,8 @@
-package com.github.whyrising.flashyalarm.home
+package com.github.whyrising.flashyalarm.panel.home
 
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.toggleFlashyAlarmService
-import com.github.whyrising.flashyalarm.base.AppDb
-import com.github.whyrising.flashyalarm.base.base.isAboutDialogVisible
+import com.github.whyrising.flashyalarm.panel.common.AppDb
+import com.github.whyrising.flashyalarm.panel.common.common.isAboutDialogVisible
 import com.github.whyrising.recompose.fx.FxIds
 import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventDb

@@ -1,7 +1,7 @@
-package com.github.whyrising.flashyalarm.home
+package com.github.whyrising.flashyalarm.panel.home
 
-import com.github.whyrising.flashyalarm.base.AppDb
-import com.github.whyrising.flashyalarm.base.base.isAboutDialogVisible
+import com.github.whyrising.flashyalarm.panel.common.AppDb
+import com.github.whyrising.flashyalarm.panel.common.common.isAboutDialogVisible
 import com.github.whyrising.recompose.regSub
 
 fun regHomeSubs() {

@@ -1,7 +1,7 @@
-package com.github.whyrising.flashyalarm.flashpattern
+package com.github.whyrising.flashyalarm.panel.flashpattern
 
 @Suppress("EnumEntryName")
-enum class Ids {
+enum class flashPattern {
   selected_pattern,
   select_pattern,
   savePattern,

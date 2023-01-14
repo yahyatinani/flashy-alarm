@@ -1,9 +1,9 @@
-package com.github.whyrising.flashyalarm.flashpattern
+package com.github.whyrising.flashyalarm.panel.flashpattern
 
 import android.content.Context
 import com.github.whyrising.flashyalarm.alarmservice.dataStore
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequency
-import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkFrequency
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.selected_pattern
 import com.github.whyrising.recompose.cofx.regCofx
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map

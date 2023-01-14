@@ -1,9 +1,9 @@
-package com.github.whyrising.flashyalarm.base
+package com.github.whyrising.flashyalarm.panel.common
 
 import com.github.whyrising.flashyalarm.alarmservice.AlarmListenerDb
 import com.github.whyrising.flashyalarm.alarmservice.moduleDb
-import com.github.whyrising.flashyalarm.flashpattern.LightPatternsDb
-import com.github.whyrising.flashyalarm.flashpattern.defaultLightPatternsDb
+import com.github.whyrising.flashyalarm.panel.flashpattern.LightPatternsDb
+import com.github.whyrising.flashyalarm.panel.flashpattern.defaultLightPatternsDb
 
 data class AppDb(
   val screenTitle: String,

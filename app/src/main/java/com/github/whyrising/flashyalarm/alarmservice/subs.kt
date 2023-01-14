@@ -1,6 +1,6 @@
 package com.github.whyrising.flashyalarm.alarmservice
 
-import com.github.whyrising.flashyalarm.base.AppDb
+import com.github.whyrising.flashyalarm.panel.common.AppDb
 import com.github.whyrising.recompose.regSub
 
 fun regSubs() {

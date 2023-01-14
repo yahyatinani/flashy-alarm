@@ -1,13 +1,14 @@
-package com.github.whyrising.flashyalarm.base
+package com.github.whyrising.flashyalarm.panel.common
 
 import android.content.Context
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.base.base.exitApp
-import com.github.whyrising.flashyalarm.base.base.navigate
-import com.github.whyrising.flashyalarm.base.base.navigateFx
-import com.github.whyrising.flashyalarm.base.base.updateScreenTitle
-import com.github.whyrising.flashyalarm.flashpattern.Ids
-import com.github.whyrising.flashyalarm.home.home
+import com.github.whyrising.flashyalarm.panel.common.common.exitApp
+import com.github.whyrising.flashyalarm.panel.common.common.navigate
+import com.github.whyrising.flashyalarm.panel.common.common.navigateFx
+import com.github.whyrising.flashyalarm.panel.common.common.setBackstackStatus
+import com.github.whyrising.flashyalarm.panel.common.common.updateScreenTitle
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern
+import com.github.whyrising.flashyalarm.panel.home.home
 import com.github.whyrising.recompose.fx.FxIds.fx
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
@@ -18,7 +19,9 @@ fun regBaseEvents(c: Context) {
   regEventDb<AppDb>(id = updateScreenTitle) { db, (_, destination) ->
     val title = when (destination) {
       home.homeRoute.name -> c.getString(R.string.home_screen_title)
-      Ids.patternsRoute.name -> c.getString(R.string.patterns_screen_title)
+      flashPattern.patternsRoute.name -> c.getString(
+        R.string.patterns_screen_title
+      )
       else -> "todo: no title!"
     }
     db.copy(screenTitle = title)
@@ -32,7 +35,7 @@ fun regBaseEvents(c: Context) {
     m(fx to v(v(exitApp, null)))
   }
 
-  regEventDb<AppDb>(base.setBackstackStatus) { db, (_, flag) ->
+  regEventDb<AppDb>(setBackstackStatus) { db, (_, flag) ->
     db.copy(isBackstackAvailable = flag as Boolean)
   }
 }

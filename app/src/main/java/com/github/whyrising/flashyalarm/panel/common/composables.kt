@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.base
+package com.github.whyrising.flashyalarm.panel.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,10 +8,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.github.whyrising.flashyalarm.base.base.formatScreenTitle
 import com.github.whyrising.flashyalarm.designsystem.component.BackArrow
 import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
 import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.panel.common.common.formatScreenTitle
 import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 
@@ -26,7 +26,7 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
             Text(text = watch<String>(query = v(formatScreenTitle)))
           },
           navigationIcon = {
-            if (watch(v(base.isBackstackAvailable))) {
+            if (watch(v(common.isBackstackAvailable))) {
               BackArrow()
             }
           }

@@ -23,15 +23,15 @@ import com.github.whyrising.flashyalarm.alarmservice.AlarmService
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.checkDeviceFlashlight
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
 import com.github.whyrising.flashyalarm.alarmservice.registerFlashlightFxs
-import com.github.whyrising.flashyalarm.base.HostScreen
-import com.github.whyrising.flashyalarm.base.appDb
-import com.github.whyrising.flashyalarm.base.base
-import com.github.whyrising.flashyalarm.base.base.exitApp
-import com.github.whyrising.flashyalarm.base.base.initAppDb
-import com.github.whyrising.flashyalarm.base.base.navigateFx
-import com.github.whyrising.flashyalarm.flashpattern.flashPatterns
-import com.github.whyrising.flashyalarm.flashpattern.initFlashPatternsModule
-import com.github.whyrising.flashyalarm.home.home
+import com.github.whyrising.flashyalarm.panel.common.HostScreen
+import com.github.whyrising.flashyalarm.panel.common.appDb
+import com.github.whyrising.flashyalarm.panel.common.common
+import com.github.whyrising.flashyalarm.panel.common.common.exitApp
+import com.github.whyrising.flashyalarm.panel.common.common.initAppDb
+import com.github.whyrising.flashyalarm.panel.common.common.navigateFx
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPatterns
+import com.github.whyrising.flashyalarm.panel.flashpattern.initFlashPatternsModule
+import com.github.whyrising.flashyalarm.panel.home.home
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.dispatchSync
 import com.github.whyrising.recompose.regEventDb
@@ -44,40 +44,15 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import com.github.whyrising.flashyalarm.alarmservice.init as initAlarmListener
-import com.github.whyrising.flashyalarm.base.init as initBase
-import com.github.whyrising.flashyalarm.home.init as initHome
-
-// -- Entry Point --------------------------------------------------------------
-
-@Composable
-fun NoFlashAlertDialog() {
-  AlertDialog(
-    onDismissRequest = { /*TODO*/ },
-    title = {
-      Text(text = stringResource(R.string.alert_title_important))
-    },
-    text = {
-      Text(
-        text = stringResource(R.string.alert_msg_no_flashlight)
-      )
-    },
-    confirmButton = {},
-    dismissButton = {
-      Button(
-        onClick = {
-          dispatch(v(exitApp))
-        }
-      ) {
-        Text(text = stringResource(R.string.alert_btn_exit))
-      }
-    }
-  )
-}
+import com.github.whyrising.flashyalarm.panel.common.init as initBase
+import com.github.whyrising.flashyalarm.panel.home.init as initHome
 
 fun initAppDb() {
   regEventDb<Any>(initAppDb) { _, _ -> appDb }
   dispatchSync(v(initAppDb))
 }
+
+// -- Application Implementation -----------------------------------------------
 
 class MyApplication : Application() {
   override fun onCreate() {
@@ -87,8 +62,35 @@ class MyApplication : Application() {
   }
 }
 
+// -- Entry Point --------------------------------------------------------------
+
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
+  @Composable
+  fun PhoneWithoutTorchAlertDialog() {
+    AlertDialog(
+      onDismissRequest = { /*TODO*/ },
+      title = {
+        Text(text = stringResource(R.string.alert_title_important))
+      },
+      text = {
+        Text(
+          text = stringResource(R.string.alert_msg_no_flashlight)
+        )
+      },
+      confirmButton = {},
+      dismissButton = {
+        Button(
+          onClick = {
+            dispatch(v(exitApp))
+          }
+        ) {
+          Text(text = stringResource(R.string.alert_btn_exit))
+        }
+      }
+    )
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -122,17 +124,17 @@ class MainActivity : ComponentActivity() {
           val navCtrl = rememberAnimatedNavController().apply {
             addOnDestinationChangedListener { controller, navDestination, _ ->
               val flag = controller.previousBackStackEntry != null
-              dispatch(v(base.setBackstackStatus, flag))
+              dispatch(v(common.setBackstackStatus, flag))
               val route = navDestination.route
               if (route != null) {
-                dispatch(v(base.updateScreenTitle, route))
+                dispatch(v(common.updateScreenTitle, route))
               }
             }
           }
           LaunchedEffect(key1 = navCtrl) {
             regFx(navigateFx) { route ->
               when (val r = "$route") {
-                base.goBack.name -> navCtrl.popBackStack()
+                common.goBack.name -> navCtrl.popBackStack()
                 else -> runBlocking(Dispatchers.Main.immediate) {
                   navCtrl.navigate(r)
                 }
@@ -148,7 +150,7 @@ class MainActivity : ComponentActivity() {
             flashPatterns(animOffSetX = 300)
           }
         } else {
-          NoFlashAlertDialog()
+          PhoneWithoutTorchAlertDialog()
         }
       }
     }

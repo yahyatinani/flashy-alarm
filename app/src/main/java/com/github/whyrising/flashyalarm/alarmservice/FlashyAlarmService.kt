@@ -19,8 +19,8 @@ import androidx.core.app.NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
 import androidx.core.app.NotificationManagerCompat
 import com.github.whyrising.flashyalarm.MainActivity
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.base.CHANNEL_ID
-import com.github.whyrising.flashyalarm.base.CHANNEL_NAME
+import com.github.whyrising.flashyalarm.panel.common.CHANNEL_ID
+import com.github.whyrising.flashyalarm.panel.common.CHANNEL_NAME
 
 @OptIn(ExperimentalAnimationApi::class)
 class FlashyAlarmService : Service() {

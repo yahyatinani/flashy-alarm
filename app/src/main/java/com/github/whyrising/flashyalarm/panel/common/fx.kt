@@ -1,6 +1,6 @@
-package com.github.whyrising.flashyalarm.base
+package com.github.whyrising.flashyalarm.panel.common
 
-import com.github.whyrising.flashyalarm.base.base.exitApp
+import com.github.whyrising.flashyalarm.panel.common.common.exitApp
 import com.github.whyrising.recompose.regFx
 import kotlin.system.exitProcess
 

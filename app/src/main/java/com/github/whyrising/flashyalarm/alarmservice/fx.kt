@@ -8,11 +8,11 @@ import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
 import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.BlinkController
 import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.SignalController
 import com.github.whyrising.flashyalarm.alarmservice.ledcontrols.StaticControllerImp
-import com.github.whyrising.flashyalarm.base.AppDb
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.SIGNAL
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
+import com.github.whyrising.flashyalarm.panel.common.AppDb
+import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern
+import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.BLINK
+import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.SIGNAL
+import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.STATIC
 import com.github.whyrising.recompose.fx.FxIds.fx
 import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventFx

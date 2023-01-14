@@ -3,7 +3,7 @@ package com.github.whyrising.flashyalarm.alarmservice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.github.whyrising.flashyalarm.home.IS_FLASHY_SERVICE_ENABLED
+import com.github.whyrising.flashyalarm.panel.home.IS_FLASHY_SERVICE_ENABLED
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.core.v
 import kotlinx.coroutines.flow.first

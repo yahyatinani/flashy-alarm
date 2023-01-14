@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.flashpattern
+package com.github.whyrising.flashyalarm.panel.flashpattern
 
 import android.content.Context
 import android.content.res.Configuration
@@ -36,16 +36,16 @@ import com.github.whyrising.flashyalarm.designsystem.component.ConfigSection
 import com.github.whyrising.flashyalarm.designsystem.component.SectionTitle
 import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
 import com.github.whyrising.flashyalarm.designsystem.theme.Yellow700
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkConfigDialog
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequency
-import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequencyStr
-import com.github.whyrising.flashyalarm.flashpattern.Ids.isTestingFrequency
-import com.github.whyrising.flashyalarm.flashpattern.Ids.select_pattern
-import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.SIGNAL
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.BLINK
+import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.SIGNAL
+import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.STATIC
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkConfigDialog
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkFrequency
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkFrequencyStr
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.isTestingFrequency
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.select_pattern
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.selected_pattern
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
 import com.github.whyrising.recompose.dispatch
@@ -63,7 +63,7 @@ fun initFlashPatternsModule(context: Context) {
 @ExperimentalAnimationApi
 fun NavGraphBuilder.flashPatterns(animOffSetX: Int) {
   composable(
-    route = Ids.patternsRoute.name,
+    route = flashPattern.patternsRoute.name,
     exitTransition = { exitAnimation(targetOffsetX = -animOffSetX) },
     popEnterTransition = { enterAnimation(initialOffsetX = -animOffSetX) }
   ) {

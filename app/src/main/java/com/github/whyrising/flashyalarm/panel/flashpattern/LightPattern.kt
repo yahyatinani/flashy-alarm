@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.flashpattern
+package com.github.whyrising.flashyalarm.panel.flashpattern
 
 enum class LightPattern {
   STATIC,

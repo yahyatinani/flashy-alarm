@@ -33,8 +33,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.base.base
 import com.github.whyrising.flashyalarm.designsystem.theme.Blue300
+import com.github.whyrising.flashyalarm.panel.common.common
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.core.v
 
@@ -169,7 +169,7 @@ fun Hyperlink(url: String) {
 fun BackArrow() {
   IconButton(
     onClick = {
-      dispatch(v(base.navigate, base.goBack))
+      dispatch(v(common.navigate, common.goBack))
     }
   ) {
     Icon(

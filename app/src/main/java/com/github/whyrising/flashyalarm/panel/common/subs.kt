@@ -1,7 +1,7 @@
-package com.github.whyrising.flashyalarm.base
+package com.github.whyrising.flashyalarm.panel.common
 
-import com.github.whyrising.flashyalarm.base.base.formatScreenTitle
-import com.github.whyrising.flashyalarm.base.base.screenTitle
+import com.github.whyrising.flashyalarm.panel.common.common.formatScreenTitle
+import com.github.whyrising.flashyalarm.panel.common.common.screenTitle
 import com.github.whyrising.recompose.regSub
 import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.y.core.v
@@ -21,7 +21,7 @@ fun regBaseSubs() {
     db.screenTitle
   }
 
-  regSub<AppDb, Boolean>(base.isBackstackAvailable) { db, _ ->
+  regSub<AppDb, Boolean>(common.isBackstackAvailable) { db, _ ->
     db.isBackstackAvailable
   }
 }

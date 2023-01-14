@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.home
+package com.github.whyrising.flashyalarm.panel.home
 
 import android.content.Context
 import android.content.Intent

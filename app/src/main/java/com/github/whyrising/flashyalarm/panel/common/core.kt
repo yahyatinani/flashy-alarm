@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.base
+package com.github.whyrising.flashyalarm.panel.common
 
 import android.content.Context
 

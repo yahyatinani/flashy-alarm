@@ -2,8 +2,8 @@ package com.github.whyrising.flashyalarm.alarmservice
 
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashHardwareAvailable
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
-import com.github.whyrising.flashyalarm.base.AppDb
-import com.github.whyrising.flashyalarm.base.base.pushNotification
+import com.github.whyrising.flashyalarm.panel.common.AppDb
+import com.github.whyrising.flashyalarm.panel.common.common.pushNotification
 import com.github.whyrising.recompose.cofx.injectCofx
 import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventFx

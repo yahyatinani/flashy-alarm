@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.home
+package com.github.whyrising.flashyalarm.panel.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -22,8 +22,6 @@ import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
 import com.github.whyrising.flashyalarm.alarmservice.regSubs
-import com.github.whyrising.flashyalarm.base.base.isAboutDialogVisible
-import com.github.whyrising.flashyalarm.base.base.navigate
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigColumn
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigDivider
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigItem
@@ -34,17 +32,19 @@ import com.github.whyrising.flashyalarm.designsystem.component.Label2
 import com.github.whyrising.flashyalarm.designsystem.component.SectionTitle
 import com.github.whyrising.flashyalarm.designsystem.component.SwitchStyled
 import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
-import com.github.whyrising.flashyalarm.flashpattern.Ids
-import com.github.whyrising.flashyalarm.flashpattern.Ids.previous_frequency_pattern
-import com.github.whyrising.flashyalarm.flashpattern.Ids.select_previous_pattern
 import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.panel.common.common.isAboutDialogVisible
+import com.github.whyrising.flashyalarm.panel.common.common.navigate
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.previous_frequency_pattern
+import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.select_previous_pattern
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
-import com.github.whyrising.flashyalarm.home.init as initHome
+import com.github.whyrising.flashyalarm.panel.home.init as initHome
 
 @ExperimentalAnimationApi
 fun NavGraphBuilder.home(animOffSetX: Int) {
@@ -131,7 +131,7 @@ fun HomeScreen() {
     ConfigSection {
       ConfigItem(
         modifier = Modifier.clickable {
-          dispatch(v(navigate, Ids.patternsRoute))
+          dispatch(v(navigate, flashPattern.patternsRoute))
         },
         secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) }
       ) {
