@@ -7,5 +7,5 @@ enum class AlarmService {
   isFlashHardwareAvailable,
   turnOnLED,
   turnOffLED,
-  toggleFlashyAlarmService,
+  toggleFlashyAlarmService
 }

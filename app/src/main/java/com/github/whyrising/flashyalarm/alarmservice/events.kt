@@ -14,7 +14,7 @@ import com.github.whyrising.y.core.v
 fun regEvents() {
   regEventFx(
     id = AlarmService.checkDeviceFlashlight,
-    interceptors = v(injectCofx(isFlashHardwareAvailable)),
+    interceptors = v(injectCofx(isFlashHardwareAvailable))
   ) { cofx, _ ->
     val appDb = cofx[db] as AppDb
     m(

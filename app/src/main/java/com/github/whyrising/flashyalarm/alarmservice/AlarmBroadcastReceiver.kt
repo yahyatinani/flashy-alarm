@@ -28,7 +28,9 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
       dispatch(v(turnOnLED))
     } else if (alarmStoppedActions.contains(action)) {
       dispatch(v(turnOffLED))
-    } else TODO("This action is not supported: $action")
+    } else {
+      TODO("This action is not supported: $action")
+    }
   }
 
   companion object {
@@ -41,11 +43,11 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
     val alarmAlertActions = hs(
       "com.samsung.sec.android.clockpackage.alarm.ALARM_ALERT",
-      "com.android.deskclock.ALARM_ALERT",
+      "com.android.deskclock.ALARM_ALERT"
     )
     val alarmStoppedActions = hs(
       "com.samsung.sec.android.clockpackage.alarm.ALARM_STOPPED_IN_ALERT",
-      "com.android.deskclock.ALARM_DONE",
+      "com.android.deskclock.ALARM_DONE"
     )
     val filter = IntentFilter().apply {
       alarmAlertActions.forEach { addAction(it) }

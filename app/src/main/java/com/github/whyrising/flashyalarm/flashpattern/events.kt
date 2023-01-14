@@ -63,8 +63,11 @@ fun regLightPatternsEvents() {
     m(
       db to newDb,
       fx to v(
-        if (!flag) v(saveBlinkFrequency, newDb.lightPatternsDb.blinkFrequency)
-        else null
+        if (!flag) {
+          v(saveBlinkFrequency, newDb.lightPatternsDb.blinkFrequency)
+        } else {
+          null
+        }
       )
     )
   }

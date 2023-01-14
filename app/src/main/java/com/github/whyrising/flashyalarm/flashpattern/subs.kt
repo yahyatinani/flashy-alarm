@@ -8,37 +8,37 @@ import com.github.whyrising.recompose.regSub
 
 fun regLightPatternsSubs() {
   regSub<AppDb, Boolean>(
-    queryId = Ids.selected_pattern,
+    queryId = Ids.selected_pattern
   ) { db, (_, pattern) ->
     db.lightPatternsDb.selectedLightPattern == pattern
   }
 
   regSub<AppDb, Boolean>(
-    queryId = Ids.blinkConfigDialog,
+    queryId = Ids.blinkConfigDialog
   ) { db, _ ->
     db.lightPatternsDb.blinkFrequencyDialog
   }
 
   regSub<AppDb, Float>(
-    queryId = blinkFrequency,
+    queryId = blinkFrequency
   ) { db, _ ->
     db.lightPatternsDb.blinkFrequency.toFloat()
   }
 
   regSub<AppDb, String>(
-    queryId = blinkFrequencyStr,
+    queryId = blinkFrequencyStr
   ) { db, _ ->
     "${db.lightPatternsDb.blinkFrequency} ms"
   }
 
   regSub<AppDb, String>(
-    queryId = blinkFrequencyStr,
+    queryId = blinkFrequencyStr
   ) { db, _ ->
     "${db.lightPatternsDb.blinkFrequency} ms"
   }
 
   regSub<AppDb, Boolean>(
-    queryId = isTestingFrequency,
+    queryId = isTestingFrequency
   ) { db, _ ->
     !db.lightPatternsDb.isTestingFrequency
   }

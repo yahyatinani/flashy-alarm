@@ -101,8 +101,9 @@ fun HomeScreen() {
   dispatch(v(previous_frequency_pattern))
   dispatch(v(isFlashServiceRunning))
 
-  if (watch(v(isAboutDialogVisible)))
+  if (watch(v(isAboutDialogVisible))) {
     AboutDialog()
+  }
 
   ConfigColumn {
     SectionTitle("Service")
@@ -120,7 +121,7 @@ fun HomeScreen() {
               dispatch(v(AlarmService.toggleFlashyAlarmService, it))
             }
           )
-        },
+        }
       ) {
         Text(text = "Flashlight Service")
       }
@@ -132,7 +133,7 @@ fun HomeScreen() {
         modifier = Modifier.clickable {
           dispatch(v(navigate, Ids.patternsRoute))
         },
-        secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) },
+        secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) }
       ) {
         Text(text = "Flashlight Pattern")
       }

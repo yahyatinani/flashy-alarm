@@ -31,7 +31,7 @@ class FlashyAlarmService : Service() {
       Intent(application, MainActivity::class.java).apply {
         flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_SINGLE_TOP
       },
-      FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT,
+      FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
     )
   }
 

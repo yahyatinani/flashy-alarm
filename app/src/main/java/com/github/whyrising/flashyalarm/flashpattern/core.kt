@@ -82,7 +82,7 @@ fun FlashingSpeedDialog() {
     onDismissRequest = {
       dispatch(v(blinkConfigDialog, false))
       stopTesting()
-    },
+    }
   ) {
     Card {
       Column(
@@ -90,8 +90,8 @@ fun FlashingSpeedDialog() {
           .padding(
             start = dimensionResource(id = R.dimen.normal_100),
             end = dimensionResource(id = R.dimen.normal_100),
-            top = dimensionResource(id = R.dimen.normal_100),
-          ),
+            top = dimensionResource(id = R.dimen.normal_100)
+          )
       ) {
         Text(
           text = "Flashing Speed",
@@ -111,7 +111,7 @@ fun FlashingSpeedDialog() {
           steps = 3,
           onValueChange = {
             dispatch(v(blinkFrequency, it))
-          },
+          }
         )
 
         Row(
@@ -136,7 +136,9 @@ fun FlashingSpeedDialog() {
               stopTesting()
             },
             colors = ButtonDefaults.textButtonColors(
-              contentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = .4f)
+              contentColor = MaterialTheme.colorScheme.onSurface.copy(
+                alpha = .4f
+              )
             )
           ) {
             Text(text = "Stop")
@@ -149,8 +151,9 @@ fun FlashingSpeedDialog() {
 
 @Composable
 fun FlashlightPatterns() {
-  if (watch(v(blinkConfigDialog)))
+  if (watch(v(blinkConfigDialog))) {
     FlashingSpeedDialog()
+  }
 
   ConfigColumn {
     SectionTitle("Select")
@@ -159,9 +162,9 @@ fun FlashlightPatterns() {
         trailing = {
           RadioButton(
             selected = watch(v(selected_pattern, STATIC)),
-            onClick = { dispatch(v(select_pattern, STATIC)) },
+            onClick = { dispatch(v(select_pattern, STATIC)) }
           )
-        },
+        }
       ) {
         Text(text = "Static")
       }
@@ -174,13 +177,14 @@ fun FlashlightPatterns() {
             dispatch(v(blinkConfigDialog, true))
           },
         secondaryText = {
-          if (watch(v(selected_pattern, BLINK)))
+          if (watch(v(selected_pattern, BLINK))) {
             Text(text = "Tap to customize")
+          }
         },
         trailing = {
           RadioButton(
             selected = watch(v(selected_pattern, BLINK)),
-            onClick = { dispatch(v(select_pattern, BLINK)) },
+            onClick = { dispatch(v(select_pattern, BLINK)) }
           )
         }
       ) {
@@ -190,18 +194,19 @@ fun FlashlightPatterns() {
       ConfigItem(
         modifier = Modifier
           .clickable(
-            enabled = watch(v(selected_pattern, SIGNAL)),
+            enabled = watch(v(selected_pattern, SIGNAL))
           ) {
             dispatch(v(blinkConfigDialog, true))
           },
         secondaryText = {
-          if (watch(v(selected_pattern, SIGNAL)))
+          if (watch(v(selected_pattern, SIGNAL))) {
             Text(text = "Tap to customize")
+          }
         },
         trailing = {
           RadioButton(
             selected = watch(v(selected_pattern, SIGNAL)),
-            onClick = { dispatch(v(select_pattern, SIGNAL)) },
+            onClick = { dispatch(v(select_pattern, SIGNAL)) }
           )
         }
       ) {

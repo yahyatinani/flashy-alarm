@@ -17,16 +17,17 @@ class OnBootServiceStarter : BroadcastReceiver() {
   override fun onReceive(context: Context?, intent: Intent?) {
     if (context == null || intent == null) return
 
-    if (intent.extras?.get(DISABLE_SERVICE) as Boolean? == true)
+    if (intent.extras?.get(DISABLE_SERVICE) as Boolean? == true) {
       dispatch(v(AlarmService.toggleFlashyAlarmService, false))
-    else if (intent.action == BOOT_COMPLETED_ACTION) {
+    } else if (intent.action == BOOT_COMPLETED_ACTION) {
       val isEnabled = runBlocking {
         context.dataStore.data.map { preferences ->
           preferences[IS_FLASHY_SERVICE_ENABLED]
         }.first()
       }
-      if (isEnabled != null && isEnabled == true)
+      if (isEnabled != null && isEnabled == true) {
         context.startService(Intent(context, FlashyAlarmService::class.java))
+      }
     }
   }
 }

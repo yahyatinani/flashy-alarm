@@ -31,7 +31,7 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
             }
           }
         )
-      },
+      }
     ) { innerPadding ->
       content(innerPadding)
     }

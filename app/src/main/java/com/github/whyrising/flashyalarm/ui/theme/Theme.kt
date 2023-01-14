@@ -80,7 +80,7 @@ fun SwitchStyled(
     onCheckedChange = onCheckedChange,
     colors = SwitchDefaults.colors(
       checkedThumbColor = colors.inversePrimary,
-      checkedTrackColor = colors.primary,
+      checkedTrackColor = colors.primary
     )
   )
 }
@@ -93,7 +93,7 @@ fun SectionTitle(text: String) {
       modifier = Modifier.padding(
         top = dimensionResource(id = R.dimen.normal_100),
         start = dimensionResource(id = R.dimen.normal_125),
-        bottom = dimensionResource(id = R.dimen.small_50),
+        bottom = dimensionResource(id = R.dimen.small_50)
       ),
       style = MaterialTheme.typography.bodySmall
     )
@@ -119,7 +119,9 @@ fun ConfigColumn(
   Column(
     modifier = Modifier
       .fillMaxSize()
-      .background(color = MaterialTheme.colorScheme.onSurface.copy(alpha = .03f)),
+      .background(
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = .03f)
+      ),
     content = content
   )
 }
@@ -129,7 +131,7 @@ fun ConfigSection(content: @Composable () -> Unit) {
   Card(
     modifier = Modifier
       .wrapContentHeight()
-      .fillMaxWidth(),
+      .fillMaxWidth()
   ) {
     Column {
       content()
@@ -168,7 +170,7 @@ fun Label2(name: String) {
   Text(
     text = name,
     modifier = Modifier.padding(bottom = dimensionResource(R.dimen.normal_100)),
-    fontSize = 12.sp,
+    fontSize = 12.sp
   )
 }
 
@@ -199,7 +201,7 @@ fun BackArrow() {
   IconButton(
     onClick = {
       dispatch(v(base.navigate, base.goBack))
-    },
+    }
   ) {
     Icon(
       imageVector = Icons.Filled.ArrowBack,

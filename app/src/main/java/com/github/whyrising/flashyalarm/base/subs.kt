@@ -16,7 +16,7 @@ fun regBaseSubs() {
   }
 
   regSub<AppDb, String>(
-    queryId = screenTitle,
+    queryId = screenTitle
   ) { db, _ ->
     db.screenTitle
   }

@@ -18,5 +18,5 @@ enum class base {
   isBackstackAvailable,
 
   // Fx
-  navigateFx,
+  navigateFx
 }

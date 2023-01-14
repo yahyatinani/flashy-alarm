@@ -5,13 +5,13 @@ import com.github.whyrising.recompose.regSub
 
 fun regSubs() {
   regSub<AppDb, Boolean>(
-    queryId = AlarmService.isFlashServiceRunning,
+    queryId = AlarmService.isFlashServiceRunning
   ) { db, _ ->
     db.alarmListenerDb.isFlashServiceRunning
   }
 
   regSub<AppDb, Boolean>(
-    queryId = AlarmService.isFlashHardwareAvailable,
+    queryId = AlarmService.isFlashHardwareAvailable
   ) { db, _ ->
     db.alarmListenerDb.isFlashSupported
   }

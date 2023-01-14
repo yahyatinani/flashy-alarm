@@ -66,7 +66,7 @@ fun NoFlashAlertDialog() {
       Button(
         onClick = {
           dispatch(v(exitApp))
-        },
+        }
       ) {
         Text(text = stringResource(R.string.alert_btn_exit))
       }
@@ -91,7 +91,7 @@ class MyApplication : Application() {
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    
+
     initAlarmListener(context = this)
     dispatch(v(checkDeviceFlashlight))
     initBase(this)
@@ -124,8 +124,9 @@ class MainActivity : ComponentActivity() {
               val flag = controller.previousBackStackEntry != null
               dispatch(v(base.setBackstackStatus, flag))
               val route = navDestination.route
-              if (route != null)
+              if (route != null) {
                 dispatch(v(base.updateScreenTitle, route))
+              }
             }
           }
           LaunchedEffect(key1 = navCtrl) {
@@ -146,7 +147,9 @@ class MainActivity : ComponentActivity() {
             home(animOffSetX = 300)
             flashPatterns(animOffSetX = 300)
           }
-        } else NoFlashAlertDialog()
+        } else {
+          NoFlashAlertDialog()
+        }
       }
     }
   }

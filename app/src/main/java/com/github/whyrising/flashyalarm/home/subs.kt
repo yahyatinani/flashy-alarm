@@ -6,13 +6,13 @@ import com.github.whyrising.recompose.regSub
 
 fun regHomeSubs() {
   regSub<AppDb, Boolean>(
-    queryId = home.isDisableServiceDialogVisible,
+    queryId = home.isDisableServiceDialogVisible
   ) { db, _ ->
     db.isDisableServiceDialogVisible
   }
 
   regSub<AppDb, Boolean>(
-    queryId = isAboutDialogVisible,
+    queryId = isAboutDialogVisible
   ) { db, _ ->
     db.isAboutDialogVisible
   }
