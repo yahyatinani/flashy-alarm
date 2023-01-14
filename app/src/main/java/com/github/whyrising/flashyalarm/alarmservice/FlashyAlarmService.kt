@@ -15,6 +15,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
 import androidx.core.app.NotificationManagerCompat
 import com.github.whyrising.flashyalarm.MainActivity
 import com.github.whyrising.flashyalarm.R
@@ -39,12 +40,14 @@ class FlashyAlarmService : Service() {
       application,
       CHANNEL_ID
     ).apply {
+      setOngoing(true)
       setSmallIcon(R.drawable.ic_status_notification)
       setTicker(getText(R.string.notif_flashlight_service_content))
       setContentTitle(getText(R.string.notif_flashlight_service_title))
       setContentText(getText(R.string.notif_flashlight_service_content))
       setWhen(System.currentTimeMillis())
       setContentIntent(contentIntent)
+      foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
       val intent = Intent(application, OnBootServiceStarter::class.java).apply {
         putExtra(DISABLE_SERVICE, true)
       }

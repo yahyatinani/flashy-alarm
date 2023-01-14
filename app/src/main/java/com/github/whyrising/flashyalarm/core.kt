@@ -1,6 +1,9 @@
 package com.github.whyrising.flashyalarm
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.app.Application
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -16,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.checkDeviceFlashlight
@@ -100,6 +104,15 @@ class MainActivity : ComponentActivity() {
     initHome(this)
     initFlashPatternsModule(this)
 
+    if (Build.VERSION.SDK_INT >= 33) {
+      if (ContextCompat.checkSelfPermission(
+          this,
+          POST_NOTIFICATIONS
+        ) != PackageManager.PERMISSION_GRANTED
+      ) {
+        requestPermissions(arrayOf(POST_NOTIFICATIONS), 101)
+      }
+    }
     setContent {
       HostScreen {
         if (watch(v(AlarmService.isFlashHardwareAvailable))) {
