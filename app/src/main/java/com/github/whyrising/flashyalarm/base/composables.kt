@@ -2,12 +2,12 @@ package com.github.whyrising.flashyalarm.base
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.github.whyrising.flashyalarm.base.base.formatScreenTitle
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.theme.BackArrow
@@ -15,6 +15,7 @@ import com.github.whyrising.flashyalarm.ui.theme.FlashyAlarmTheme
 import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
   FlashyAlarmTheme {
@@ -24,13 +25,10 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
           title = {
             Text(text = watch<String>(query = v(formatScreenTitle)))
           },
-          elevation = 1.dp,
-          navigationIcon = when {
-            watch<Boolean>(v(base.isBackstackAvailable)) -> {
-              { BackArrow() }
+          navigationIcon = {
+            if (watch(v(base.isBackstackAvailable))) {
+              BackArrow()
             }
-
-            else -> null
           }
         )
       },

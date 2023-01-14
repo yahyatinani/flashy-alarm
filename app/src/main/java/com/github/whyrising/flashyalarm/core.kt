@@ -7,10 +7,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -104,7 +104,7 @@ class MainActivity : ComponentActivity() {
       HostScreen {
         if (watch(v(AlarmService.isFlashHardwareAvailable))) {
           val systemUiController = rememberSystemUiController()
-          val colors = MaterialTheme.colors
+          val colors = MaterialTheme.colorScheme
           SideEffect {
             systemUiController.setSystemBarsColor(
               color = colors.primary,

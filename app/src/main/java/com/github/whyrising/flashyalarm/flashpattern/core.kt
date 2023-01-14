@@ -12,13 +12,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Slider
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -29,15 +29,15 @@ import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
 import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.SIGNAL
-import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkConfigDialog
 import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequency
 import com.github.whyrising.flashyalarm.flashpattern.Ids.blinkFrequencyStr
 import com.github.whyrising.flashyalarm.flashpattern.Ids.isTestingFrequency
 import com.github.whyrising.flashyalarm.flashpattern.Ids.select_pattern
 import com.github.whyrising.flashyalarm.flashpattern.Ids.selected_pattern
+import com.github.whyrising.flashyalarm.flashpattern.LightPattern.BLINK
+import com.github.whyrising.flashyalarm.flashpattern.LightPattern.SIGNAL
+import com.github.whyrising.flashyalarm.flashpattern.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.ui.animation.nav.enterAnimation
 import com.github.whyrising.flashyalarm.ui.animation.nav.exitAnimation
@@ -95,15 +95,15 @@ fun FlashingSpeedDialog() {
       ) {
         Text(
           text = "Flashing Speed",
-          style = MaterialTheme.typography.subtitle2
+          style = MaterialTheme.typography.labelSmall
         )
         Spacer(
           modifier = Modifier.height(dimensionResource(id = R.dimen.normal_100))
         )
         Text(
           text = watch<String>(v(blinkFrequencyStr)),
-          style = MaterialTheme.typography.caption,
-          color = MaterialTheme.colors.onSurface.copy(alpha = .5f)
+          style = MaterialTheme.typography.labelSmall,
+          color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f)
         )
         Slider(
           value = watch(v(blinkFrequency)),
@@ -136,7 +136,7 @@ fun FlashingSpeedDialog() {
               stopTesting()
             },
             colors = ButtonDefaults.textButtonColors(
-              contentColor = MaterialTheme.colors.onSurface.copy(alpha = .4f)
+              contentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = .4f)
             )
           ) {
             Text(text = "Stop")
@@ -169,7 +169,7 @@ fun FlashlightPatterns() {
       ConfigItem(
         modifier = Modifier
           .clickable(
-            enabled = watch<Boolean>(v(selected_pattern, BLINK))
+            enabled = watch(v(selected_pattern, BLINK))
           ) {
             dispatch(v(blinkConfigDialog, true))
           },
@@ -190,7 +190,7 @@ fun FlashlightPatterns() {
       ConfigItem(
         modifier = Modifier
           .clickable(
-            enabled = watch<Boolean>(v(selected_pattern, SIGNAL)),
+            enabled = watch(v(selected_pattern, SIGNAL)),
           ) {
             dispatch(v(blinkConfigDialog, true))
           },

@@ -1,7 +1,7 @@
 package com.github.whyrising.flashyalarm.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Shapes
+import androidx.compose.material3.Shapes
 import com.github.whyrising.flashyalarm.ui.theme.dimens.normal150
 import com.github.whyrising.flashyalarm.ui.theme.dimens.small50
 

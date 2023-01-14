@@ -11,21 +11,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.Card
-import androidx.compose.material.Colors
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.ListItem
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Switch
-import androidx.compose.material.SwitchDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.darkColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.lightColors
+import androidx.compose.material3.Card
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
@@ -41,16 +41,16 @@ import com.github.whyrising.flashyalarm.base.base
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.core.v
 
-private val LightColorPalette = lightColors(
+private val LightColorPalette = lightColorScheme(
   primary = Yellow500,
-  primaryVariant = Yellow700,
+  inversePrimary = Yellow700,
   onPrimary = Black,
   secondary = Black
 )
 
-private val DarkColorPalette = darkColors(
+private val DarkColorPalette = darkColorScheme(
   primary = Yellow200,
-  primaryVariant = Yellow500,
+  inversePrimary = Yellow500,
   secondary = Yellow200
 )
 
@@ -60,7 +60,7 @@ fun FlashyAlarmTheme(
   content: @Composable () -> Unit
 ) {
   MaterialTheme(
-    colors = if (darkTheme) DarkColorPalette else LightColorPalette,
+    colorScheme = if (darkTheme) DarkColorPalette else LightColorPalette,
     typography = Typography,
     shapes = Shapes,
     content = content
@@ -73,13 +73,13 @@ fun FlashyAlarmTheme(
 fun SwitchStyled(
   checked: Boolean,
   onCheckedChange: (Boolean) -> Unit,
-  colors: Colors = MaterialTheme.colors
+  colors: ColorScheme = MaterialTheme.colorScheme
 ) {
   Switch(
     checked = checked,
     onCheckedChange = onCheckedChange,
     colors = SwitchDefaults.colors(
-      checkedThumbColor = colors.primaryVariant,
+      checkedThumbColor = colors.inversePrimary,
       checkedTrackColor = colors.primary,
     )
   )
@@ -95,7 +95,7 @@ fun SectionTitle(text: String) {
         start = dimensionResource(id = R.dimen.normal_125),
         bottom = dimensionResource(id = R.dimen.small_50),
       ),
-      style = MaterialTheme.typography.overline
+      style = MaterialTheme.typography.bodySmall
     )
     Spacer(
       modifier = Modifier.height(dimensionResource(id = R.dimen.small_100))
@@ -119,7 +119,7 @@ fun ConfigColumn(
   Column(
     modifier = Modifier
       .fillMaxSize()
-      .background(color = MaterialTheme.colors.onSurface.copy(alpha = .03f)),
+      .background(color = MaterialTheme.colorScheme.onSurface.copy(alpha = .03f)),
     content = content
   )
 }
@@ -137,7 +137,7 @@ fun ConfigSection(content: @Composable () -> Unit) {
   }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfigItem(
   modifier: Modifier = Modifier,
@@ -148,9 +148,9 @@ fun ConfigItem(
   ListItem(
     modifier = modifier
       .padding(start = dimensionResource(R.dimen.small_50)),
-    secondaryText = secondaryText,
-    trailing = trailing,
-    text = title
+    supportingText = secondaryText,
+    trailingContent = trailing,
+    headlineText = title
   )
 }
 
@@ -159,7 +159,7 @@ fun Label(name: String) {
   Text(
     text = name,
     modifier = Modifier.padding(bottom = dimensionResource(R.dimen.small_50)),
-    style = MaterialTheme.typography.overline.copy(fontSize = 10.sp)
+    style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp)
   )
 }
 
