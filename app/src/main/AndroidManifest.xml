@@ -30,11 +30,11 @@
         </activity>
 
         <service
-            android:name=".alarmservice.FlashyAlarmService"
+            android:name=".alarmlistenerservice.FlashyAlarmService"
             android:exported="false" />
 
         <receiver
-            android:name=".alarmservice.OnBootServiceStarter"
+            android:name=".alarmlistenerservice.OnBootServiceStarter"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

@@ -1,13 +1,13 @@
-package com.github.whyrising.flashyalarm.alarmservice
+package com.github.whyrising.flashyalarm.alarmlistenerservice
 
 import android.app.Service
 import android.content.Context
 import android.hardware.camera2.CameraManager
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
-import com.github.whyrising.flashyalarm.alarmservice.torchcontrol.BlinkController
-import com.github.whyrising.flashyalarm.alarmservice.torchcontrol.SineController
-import com.github.whyrising.flashyalarm.alarmservice.torchcontrol.StaticController
+import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerService.turnOffLED
+import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerService.turnOnLED
+import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.BlinkController
+import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.SineController
+import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.StaticController
 import com.github.whyrising.flashyalarm.panel.common.AppDb
 import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern
 import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.BLINK
@@ -21,7 +21,7 @@ import com.github.whyrising.y.core.get
 import com.github.whyrising.y.core.m
 import com.github.whyrising.y.core.v
 
-fun registerFlashlightFxs(context: Context) {
+fun registerTorchEffects(context: Context) {
   val cm = context.getSystemService(Service.CAMERA_SERVICE) as CameraManager
   val blinkController = BlinkController(cm)
   val staticController = StaticController(cm)

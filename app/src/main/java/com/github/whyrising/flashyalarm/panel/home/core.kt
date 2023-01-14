@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService
-import com.github.whyrising.flashyalarm.alarmservice.FlashyAlarmService
-import com.github.whyrising.flashyalarm.alarmservice.dataStore
+import com.github.whyrising.flashyalarm.alarmlistenerservice.FlashyAlarmService
+import com.github.whyrising.flashyalarm.alarmlistenerservice.dataStore
+import com.github.whyrising.flashyalarm.panel.common.common.isAlarmListenerRunning
+import com.github.whyrising.recompose.cofx.regCofx
 import com.github.whyrising.recompose.regFx
 import kotlinx.coroutines.runBlocking
 
@@ -21,13 +22,20 @@ fun saveServiceStatus(context: Context, b: Boolean) {
 }
 
 fun init(context: Context) {
-  regFx(id = AlarmService.toggleFlashyAlarmService) { serviceFlag ->
+  regCofx(id = isAlarmListenerRunning) { coeffects ->
+    coeffects.assoc(
+      isAlarmListenerRunning,
+      FlashyAlarmService.isServiceRunning
+    )
+  }
+  regFx(id = home.toggleFlashyAlarmService) { serviceFlag ->
     val serviceIntent = Intent(context, FlashyAlarmService::class.java)
     when (serviceFlag as Boolean) {
       true -> serviceIntent.also { intent ->
         context.startService(intent)
         saveServiceStatus(context, true)
       }
+
       else -> serviceIntent.also { intent ->
         context.stopService(intent)
         saveServiceStatus(context, false)

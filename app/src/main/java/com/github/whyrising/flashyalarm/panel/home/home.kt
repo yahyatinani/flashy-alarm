@@ -5,5 +5,6 @@ enum class home {
   isDisableServiceDialogVisible,
   showDisableServiceDialog,
   hideDisableServiceDialog,
-  homeRoute
+  homeRoute,
+  toggleFlashyAlarmService
 }

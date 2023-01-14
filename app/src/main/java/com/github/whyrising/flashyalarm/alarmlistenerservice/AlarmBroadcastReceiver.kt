@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.alarmservice
+package com.github.whyrising.flashyalarm.alarmlistenerservice
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -8,8 +8,8 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
+import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerService.turnOffLED
+import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerService.turnOnLED
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.y.core.hs
 import com.github.whyrising.y.core.v

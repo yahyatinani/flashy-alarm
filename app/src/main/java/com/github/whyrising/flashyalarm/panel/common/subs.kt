@@ -24,4 +24,14 @@ fun regBaseSubs() {
   regSub<AppDb, Boolean>(common.isBackstackAvailable) { db, _ ->
     db.isBackstackAvailable
   }
+
+  regSub<AppDb, Boolean>(
+    queryId = common.isAlarmListenerRunning
+  ) { db, _ ->
+    db.isAlarmListenerRunning
+  }
+
+  regSub<AppDb, Boolean>(queryId = common.phoneHasTorch) { db, _ ->
+    db.phoneHasTorch
+  }
 }

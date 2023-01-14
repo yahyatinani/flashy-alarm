@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.alarmservice
+package com.github.whyrising.flashyalarm.alarmlistenerservice
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -67,7 +67,7 @@ class FlashyAlarmService : Service() {
     super.onCreate()
     Log.i(TAG, "Created.")
 
-    registerFlashlightFxs(context = application)
+    registerTorchEffects(context = application)
     createNotificationChannelIfNeeded(application)
   }
 

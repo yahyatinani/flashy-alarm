@@ -19,9 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
-import com.github.whyrising.flashyalarm.alarmservice.regSubs
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigColumn
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigDivider
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigItem
@@ -33,6 +30,7 @@ import com.github.whyrising.flashyalarm.designsystem.component.SectionTitle
 import com.github.whyrising.flashyalarm.designsystem.component.SwitchStyled
 import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
 import com.github.whyrising.flashyalarm.initAppDb
+import com.github.whyrising.flashyalarm.panel.common.common
 import com.github.whyrising.flashyalarm.panel.common.common.isAboutDialogVisible
 import com.github.whyrising.flashyalarm.panel.common.common.navigate
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern
@@ -99,7 +97,7 @@ fun AboutDialog() {
 fun HomeScreen() {
   dispatch(v(select_previous_pattern))
   dispatch(v(previous_frequency_pattern))
-  dispatch(v(isFlashServiceRunning))
+  dispatch(v(common.isAlarmListenerRunning))
 
   if (watch(v(isAboutDialogVisible))) {
     AboutDialog()
@@ -116,9 +114,9 @@ fun HomeScreen() {
         },
         trailing = {
           SwitchStyled(
-            checked = watch(v(isFlashServiceRunning)),
+            checked = watch(v(common.isAlarmListenerRunning)),
             onCheckedChange = {
-              dispatch(v(AlarmService.toggleFlashyAlarmService, it))
+              dispatch(v(home.toggleFlashyAlarmService, it))
             }
           )
         }
@@ -156,7 +154,6 @@ fun HomeScreen() {
 fun HomePreview() {
   initAppDb()
   initHome(LocalContext.current)
-  regSubs()
 
   FlashyAlarmTheme {
     HomeScreen()
@@ -168,7 +165,6 @@ fun HomePreview() {
 fun AboutPreview() {
   initAppDb()
   initHome(LocalContext.current)
-  regSubs()
 
   FlashyAlarmTheme {
     AboutDialog()

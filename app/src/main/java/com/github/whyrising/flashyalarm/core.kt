@@ -19,10 +19,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.checkDeviceFlashlight
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.isFlashServiceRunning
-import com.github.whyrising.flashyalarm.alarmservice.registerFlashlightFxs
+import com.github.whyrising.flashyalarm.alarmlistenerservice.registerTorchEffects
 import com.github.whyrising.flashyalarm.panel.common.HostScreen
 import com.github.whyrising.flashyalarm.panel.common.appDb
 import com.github.whyrising.flashyalarm.panel.common.common
@@ -43,7 +40,6 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import com.github.whyrising.flashyalarm.alarmservice.init as initAlarmListener
 import com.github.whyrising.flashyalarm.panel.common.init as initBase
 import com.github.whyrising.flashyalarm.panel.home.init as initHome
 
@@ -94,10 +90,9 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    initAlarmListener(context = this)
-    dispatch(v(checkDeviceFlashlight))
+    dispatch(v(common.checkDeviceHasTorch))
     initBase(this)
-    registerFlashlightFxs(this)
+    registerTorchEffects(this)
     initHome(this)
     initFlashPatternsModule(this)
 
@@ -112,7 +107,7 @@ class MainActivity : ComponentActivity() {
     }
     setContent {
       HostScreen {
-        if (watch(v(AlarmService.isFlashHardwareAvailable))) {
+        if (watch(v(common.phoneHasTorch))) {
           val systemUiController = rememberSystemUiController()
           val colors = MaterialTheme.colorScheme
           SideEffect {
@@ -159,6 +154,6 @@ class MainActivity : ComponentActivity() {
   override fun onResume() {
     super.onResume()
 
-    dispatch(v(isFlashServiceRunning))
+    dispatch(v(common.isAlarmListenerRunning))
   }
 }

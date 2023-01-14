@@ -7,10 +7,11 @@ enum class common {
   updateScreenTitle,
   navigate,
   exitApp,
-  pushNotification,
   isAboutDialogVisible,
   setBackstackStatus,
   goBack,
+  phoneHasTorch,
+  checkDeviceHasTorch,
 
   // Subs
   screenTitle,
@@ -18,5 +19,6 @@ enum class common {
   isBackstackAvailable,
 
   // Fx
-  navigateFx
+  navigateFx,
+  isAlarmListenerRunning
 }

@@ -27,8 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOffLED
-import com.github.whyrising.flashyalarm.alarmservice.AlarmService.turnOnLED
+import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerService.turnOffLED
+import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerService.turnOnLED
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigColumn
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigDivider
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigItem

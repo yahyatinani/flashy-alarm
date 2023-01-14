@@ -4,6 +4,7 @@ import android.content.Context
 
 fun init(context: Context) {
   regBaseFx()
+  regCofx(context)
   regBaseEvents(context)
   regBaseSubs()
 }

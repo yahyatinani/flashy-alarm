@@ -1,4 +1,4 @@
-package com.github.whyrising.flashyalarm.alarmservice.torchcontrol
+package com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol
 
 import android.hardware.camera2.CameraManager
 
