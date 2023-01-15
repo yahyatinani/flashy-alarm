@@ -5,13 +5,13 @@ import android.content.Context
 import android.hardware.camera2.CameraManager
 import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerService.turnOffLED
 import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerService.turnOnLED
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.BLINK
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.SIGNAL
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.BlinkController
 import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.SineController
 import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.StaticController
 import com.github.whyrising.flashyalarm.panel.common.AppDb
-import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.BLINK
-import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.SIGNAL
-import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.STATIC
 import com.github.whyrising.recompose.fx.FxIds.fx
 import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventFx
