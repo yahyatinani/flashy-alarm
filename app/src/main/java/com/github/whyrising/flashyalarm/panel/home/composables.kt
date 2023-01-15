@@ -17,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.designsystem.component.AlertDialogText
-import com.github.whyrising.flashyalarm.designsystem.component.AlertDialogTitle
+import com.github.whyrising.flashyalarm.designsystem.component.AlertDialogBodyText
+import com.github.whyrising.flashyalarm.designsystem.component.AlertDialogBodyTitle
 import com.github.whyrising.flashyalarm.designsystem.component.FaColumn
 import com.github.whyrising.flashyalarm.designsystem.component.FaDivider
 import com.github.whyrising.flashyalarm.designsystem.component.FaListItem
@@ -67,13 +67,13 @@ fun AboutDialog() {
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start
       ) {
-        AlertDialogTitle(name = stringResource(R.string.by))
-        AlertDialogText(name = stringResource(R.string.developer))
+        AlertDialogBodyTitle(name = stringResource(R.string.by))
+        AlertDialogBodyText(name = stringResource(R.string.developer))
 
-        AlertDialogTitle(name = stringResource(R.string.version_label))
-        AlertDialogText(name = stringResource(id = R.string.app_version))
+        AlertDialogBodyTitle(name = stringResource(R.string.version_label))
+        AlertDialogBodyText(name = stringResource(id = R.string.app_version))
 
-        AlertDialogTitle(name = stringResource(R.string.src_code_label))
+        AlertDialogBodyTitle(name = stringResource(R.string.src_code_label))
         Hyperlink(url = stringResource(R.string.source_code_link))
       }
     },

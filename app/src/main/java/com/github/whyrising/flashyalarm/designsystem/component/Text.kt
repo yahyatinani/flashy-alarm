@@ -47,7 +47,7 @@ fun SectionTitle(text: String) {
 
 
 @Composable
-fun AlertDialogTitle(name: String) {
+fun AlertDialogBodyTitle(name: String) {
   Text(
     text = name,
     modifier = Modifier.padding(bottom = dimensionResource(R.dimen.small_50)),
@@ -56,7 +56,7 @@ fun AlertDialogTitle(name: String) {
 }
 
 @Composable
-fun AlertDialogText(name: String) {
+fun AlertDialogBodyText(name: String) {
   Text(
     text = name,
     modifier = Modifier.padding(bottom = dimensionResource(R.dimen.normal_100)),
