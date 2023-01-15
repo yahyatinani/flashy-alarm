@@ -13,10 +13,17 @@ spotless {
   kotlin {
     target "**/*.kt"
     targetExclude "buildSrc/build/"
-    ktlint(deps.versions.ktlint.get()).userData([
-      "indent_size"    : "2",
-      "max_line_length": "80"
-    ])
+    ktlint()
+      .editorConfigOverride([
+        "indent_size"             : "2",
+        "max_line_length"         : "80",
+        "indent_style"            : "space",
+        "charset"                 : "utf-8",
+        "end_of_line"             : "lf",
+        "disabled_rules"          : "filename,enum-entry-name-case,annotation",
+        "trim_trailing_whitespace": "true",
+        "insert_final_newline"    : "true",
+      ])
     trimTrailingWhitespace()
     endWithNewline()
   }

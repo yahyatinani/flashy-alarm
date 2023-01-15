@@ -16,13 +16,13 @@
     <string name="alert_btn_exit">Exit</string>
     <string name="alert_btn_yes">Yes</string>
     <string name="alert_btn_no">Nope!</string>
-    <string name="flashlight_service_switch_desc">Enable the foreground service that turns on the flashlight whenever an alarm goes off.</string>
-    <string name="flash_pattern_desc">Control the LED light\'s blinking pattern</string>
+    <string name="flashlight_service_switch_desc">Toggle the foreground service that turns the flashlight/torch on whenever an alarm goes off.</string>
+    <string name="flash_pattern_desc">Control the torch\'s lighting pattern</string>
     <string name="source_code_link">https://github.com/whyrising/flashy-alarm</string>
     <string name="by">By</string>
-    <string name="developer">Suckless Apps</string>
+    <string name="developer">Yahya Tinani</string>
     <string name="version_label">Version</string>
-    <string name="src_code_label">Source code</string>
+    <string name="src_code_label">Support the Project</string>
     <string name="about_label">About</string>
     <string name="patterns_screen_title">Flash Patterns</string>
 </resources>
