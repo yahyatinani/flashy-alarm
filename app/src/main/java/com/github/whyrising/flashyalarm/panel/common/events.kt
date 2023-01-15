@@ -32,7 +32,6 @@ fun regBaseEvents(c: Context) {
   }
 
   regEventFx(id = navigate) { _, (_, route) ->
-    println("sldkfjsdlj")
     m(fx to v(v(navigateFx, (route as Enum<*>).name)))
   }
 

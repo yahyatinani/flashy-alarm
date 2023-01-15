@@ -125,7 +125,7 @@ class MainActivity : ComponentActivity() {
               darkIcons = true
             )
           }
-          
+
           val navCtrl = rememberAnimatedNavController().apply {
             addOnDestinationChangedListener { controller, navDestination, _ ->
               val flag = controller.previousBackStackEntry != null
@@ -138,10 +138,11 @@ class MainActivity : ComponentActivity() {
           }
           LaunchedEffect(key1 = navCtrl) {
             regFx(navigateFx) { route ->
-              when (val r = "$route") {
-                common.goBack.name -> navCtrl.popBackStack()
-                else -> runBlocking(Dispatchers.Main.immediate) {
-                  navCtrl.navigate(r)
+              // FIXME: use withContext instead of runBlocking
+              runBlocking(Dispatchers.Main.immediate) {
+                when (val r = "$route") {
+                  common.goBack.name -> navCtrl.popBackStack()
+                  else -> navCtrl.navigate(r)
                 }
               }
             }
