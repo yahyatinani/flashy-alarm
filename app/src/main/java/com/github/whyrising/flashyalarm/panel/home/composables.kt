@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,13 +17,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import com.github.whyrising.flashyalarm.R
-import com.github.whyrising.flashyalarm.designsystem.component.ConfigColumn
-import com.github.whyrising.flashyalarm.designsystem.component.ConfigDivider
-import com.github.whyrising.flashyalarm.designsystem.component.ConfigItem
-import com.github.whyrising.flashyalarm.designsystem.component.ConfigSection
+import com.github.whyrising.flashyalarm.designsystem.component.AlertDialogText
+import com.github.whyrising.flashyalarm.designsystem.component.AlertDialogTitle
+import com.github.whyrising.flashyalarm.designsystem.component.FaColumn
+import com.github.whyrising.flashyalarm.designsystem.component.FaDivider
+import com.github.whyrising.flashyalarm.designsystem.component.FaListItem
+import com.github.whyrising.flashyalarm.designsystem.component.FaListItemTitle
 import com.github.whyrising.flashyalarm.designsystem.component.Hyperlink
-import com.github.whyrising.flashyalarm.designsystem.component.Label
-import com.github.whyrising.flashyalarm.designsystem.component.Label2
 import com.github.whyrising.flashyalarm.designsystem.component.SectionTitle
 import com.github.whyrising.flashyalarm.designsystem.component.SwitchStyled
 import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
@@ -55,41 +54,34 @@ fun NavGraphBuilder.home(animOffSetX: Int) {
 }
 
 @Composable
-fun AboutContent() {
-  Column(
-    modifier = Modifier.fillMaxWidth(),
-    horizontalAlignment = Alignment.Start
-  ) {
-    Label(name = stringResource(R.string.by))
-    Label2(name = stringResource(R.string.developer))
-
-    Label(name = stringResource(R.string.version_label))
-    Label2(name = stringResource(id = R.string.app_version))
-
-    Label(name = stringResource(R.string.src_code_label))
-    Hyperlink(url = stringResource(R.string.source_code_link))
-  }
-}
-
-@Composable
 fun AboutDialog() {
-  Card {
-    AlertDialog(
-      title = {
-        Text(
-          text = stringResource(R.string.about_label),
-          style = MaterialTheme.typography.titleSmall
-        )
-      },
-      text = {
-        AboutContent()
-      },
-      onDismissRequest = {
-        dispatch(v(isAboutDialogVisible, false))
-      },
-      confirmButton = {}
-    )
-  }
+  AlertDialog(
+    title = {
+      Text(
+        text = stringResource(R.string.about_label),
+        style = MaterialTheme.typography.titleLarge
+      )
+    },
+    text = {
+      Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.Start
+      ) {
+        AlertDialogTitle(name = stringResource(R.string.by))
+        AlertDialogText(name = stringResource(R.string.developer))
+
+        AlertDialogTitle(name = stringResource(R.string.version_label))
+        AlertDialogText(name = stringResource(id = R.string.app_version))
+
+        AlertDialogTitle(name = stringResource(R.string.src_code_label))
+        Hyperlink(url = stringResource(R.string.source_code_link))
+      }
+    },
+    onDismissRequest = {
+      dispatch(v(isAboutDialogVisible, false))
+    },
+    confirmButton = {}
+  )
 }
 
 @Composable
@@ -102,46 +94,42 @@ fun HomeScreen() {
     AboutDialog()
   }
 
-  ConfigColumn {
+  FaColumn {
     SectionTitle("Service")
-    ConfigSection {
-      ConfigItem(
-        modifier = Modifier
-          .padding(bottom = dimensionResource(id = R.dimen.normal_100)),
-        secondaryText = {
-          Text(text = stringResource(R.string.flashlight_service_switch_desc))
-        },
-        trailing = {
-          SwitchStyled(
-            checked = watch(v(common.isAlarmListenerRunning)),
-            onCheckedChange = {
-              dispatch(v(home.toggleFlashyAlarmService, it))
-            }
-          )
-        }
-      ) {
-        Text(text = "Flashlight Service")
+    FaListItem(
+      modifier = Modifier
+        .padding(bottom = dimensionResource(id = R.dimen.normal_100)),
+      secondaryText = {
+        Text(text = stringResource(R.string.flashlight_service_switch_desc))
+      },
+      trailing = {
+        SwitchStyled(
+          checked = watch(v(common.isAlarmListenerRunning)),
+          onCheckedChange = {
+            dispatch(v(home.toggleFlashyAlarmService, it))
+          }
+        )
       }
+    ) {
+      FaListItemTitle(text = "Alarm Listener Service")
     }
 
     SectionTitle("Configuration")
-    ConfigSection {
-      ConfigItem(
-        modifier = Modifier.clickable {
-          dispatch(v(navigate, flashPattern.patternsRoute))
-        },
-        secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) }
-      ) {
-        Text(text = "Flashlight Pattern")
+    FaListItem(
+      modifier = Modifier.clickable {
+        dispatch(v(navigate, flashPattern.patternsRoute))
+      },
+      secondaryText = { Text(stringResource(R.string.flash_pattern_desc)) }
+    ) {
+      FaListItemTitle(text = "Flashlight Pattern")
+    }
+    FaDivider()
+    FaListItem(
+      modifier = Modifier.clickable {
+        dispatch(v(isAboutDialogVisible, true))
       }
-      ConfigDivider()
-      ConfigItem(
-        modifier = Modifier.clickable {
-          dispatch(v(isAboutDialogVisible, true))
-        }
-      ) {
-        Text(text = stringResource(id = R.string.about_label))
-      }
+    ) {
+      FaListItemTitle(text = stringResource(id = R.string.about_label))
     }
   }
 }

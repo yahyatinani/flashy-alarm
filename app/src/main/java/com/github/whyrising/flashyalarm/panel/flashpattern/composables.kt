@@ -32,9 +32,9 @@ import com.github.whyrising.flashyalarm.alarmlistenerservice.AlarmListenerServic
 import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.BLINK
 import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.SIGNAL
 import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.STATIC
-import com.github.whyrising.flashyalarm.designsystem.component.ConfigColumn
-import com.github.whyrising.flashyalarm.designsystem.component.ConfigDivider
-import com.github.whyrising.flashyalarm.designsystem.component.ConfigItem
+import com.github.whyrising.flashyalarm.designsystem.component.FaColumn
+import com.github.whyrising.flashyalarm.designsystem.component.FaDivider
+import com.github.whyrising.flashyalarm.designsystem.component.FaListItem
 import com.github.whyrising.flashyalarm.designsystem.component.ConfigSection
 import com.github.whyrising.flashyalarm.designsystem.component.SectionTitle
 import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
@@ -155,10 +155,10 @@ fun FlashlightPatterns() {
     FlashingSpeedDialog()
   }
 
-  ConfigColumn {
+  FaColumn {
     SectionTitle("Select")
     ConfigSection {
-      ConfigItem(
+      FaListItem(
         trailing = {
           RadioButton(
             selected = watch(v(selected_pattern, STATIC)),
@@ -168,8 +168,8 @@ fun FlashlightPatterns() {
       ) {
         Text(text = "Static")
       }
-      ConfigDivider()
-      ConfigItem(
+      FaDivider()
+      FaListItem(
         modifier = Modifier
           .clickable(
             enabled = watch(v(selected_pattern, BLINK))
@@ -190,8 +190,8 @@ fun FlashlightPatterns() {
       ) {
         Text(text = "Blink")
       }
-      ConfigDivider()
-      ConfigItem(
+      FaDivider()
+      FaListItem(
         modifier = Modifier
           .clickable(
             enabled = watch(v(selected_pattern, SIGNAL))

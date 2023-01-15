@@ -48,25 +48,7 @@ fun SwitchStyled(
 }
 
 @Composable
-fun SectionTitle(text: String) {
-  Column {
-    Text(
-      text = text,
-      modifier = Modifier.padding(
-        top = dimensionResource(id = R.dimen.normal_100),
-        start = dimensionResource(id = R.dimen.normal_125),
-        bottom = dimensionResource(id = R.dimen.small_50)
-      ),
-      style = MaterialTheme.typography.bodySmall
-    )
-    Spacer(
-      modifier = Modifier.height(dimensionResource(id = R.dimen.small_100))
-    )
-  }
-}
-
-@Composable
-fun ConfigDivider() {
+fun FaDivider() {
   Divider(
     thickness = 1.dp,
     modifier = Modifier
@@ -75,14 +57,14 @@ fun ConfigDivider() {
 }
 
 @Composable
-fun ConfigColumn(
+fun FaColumn(
   content: @Composable ColumnScope.() -> Unit
 ) {
   Column(
     modifier = Modifier
       .fillMaxSize()
       .background(
-        color = MaterialTheme.colorScheme.onSurface.copy(alpha = .03f)
+        color = MaterialTheme.colorScheme.background
       ),
     content = content
   )
@@ -103,7 +85,7 @@ fun ConfigSection(content: @Composable () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConfigItem(
+fun FaListItem(
   modifier: Modifier = Modifier,
   secondaryText: @Composable (() -> Unit)? = null,
   trailing: @Composable (() -> Unit)? = null,
@@ -115,45 +97,5 @@ fun ConfigItem(
     supportingText = secondaryText,
     trailingContent = trailing,
     headlineText = title
-  )
-}
-
-@Composable
-fun Label(name: String) {
-  Text(
-    text = name,
-    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.small_50)),
-    style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp)
-  )
-}
-
-@Composable
-fun Label2(name: String) {
-  Text(
-    text = name,
-    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.normal_100)),
-    fontSize = 12.sp
-  )
-}
-
-@Composable
-fun Hyperlink(url: String) {
-  val uriHandler = LocalUriHandler.current
-  ClickableText(
-    text = buildAnnotatedString {
-      append(url)
-      addStyle(
-        style = SpanStyle(
-          color = Blue300,
-          fontSize = 12.sp,
-          textDecoration = TextDecoration.Underline
-        ),
-        start = 0,
-        end = url.length
-      )
-    },
-    onClick = {
-      uriHandler.openUri(url)
-    }
   )
 }
