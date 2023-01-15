@@ -5,7 +5,7 @@ import com.github.whyrising.flashyalarm.panel.common.common.isAboutDialogVisible
 import com.github.whyrising.flashyalarm.panel.home.home.hideDisableServiceDialog
 import com.github.whyrising.flashyalarm.panel.home.home.showDisableServiceDialog
 import com.github.whyrising.flashyalarm.panel.home.home.toggleFlashyAlarmService
-import com.github.whyrising.recompose.fx.FxIds
+import com.github.whyrising.recompose.fx.FxIds.fx
 import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventDb
 import com.github.whyrising.recompose.regEventFx
@@ -25,7 +25,7 @@ fun regHomeEvents() {
     val newDb = appDb.copy(isAlarmListenerRunning = flag as Boolean)
     m(
       db to newDb,
-      FxIds.fx to v(v(toggleFlashyAlarmService, flag))
+      fx to v(v(toggleFlashyAlarmService, flag))
     )
   }
 

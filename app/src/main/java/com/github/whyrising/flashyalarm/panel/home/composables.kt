@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +32,7 @@ import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.panel.common.common
 import com.github.whyrising.flashyalarm.panel.common.common.isAboutDialogVisible
 import com.github.whyrising.flashyalarm.panel.common.common.navigate
+import com.github.whyrising.flashyalarm.panel.common.regBaseSubs
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.previous_frequency_pattern
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.select_previous_pattern
@@ -42,7 +42,6 @@ import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
-import com.github.whyrising.flashyalarm.panel.home.init as initHome
 
 @ExperimentalAnimationApi
 fun NavGraphBuilder.home(animOffSetX: Int) {
@@ -151,20 +150,10 @@ fun HomeScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun HomePreview() {
-  initAppDb()
-  initHome(LocalContext.current)
-
-  FlashyAlarmTheme {
-    HomeScreen()
-  }
-}
-
-@Preview(showBackground = true)
-@Composable
 fun AboutPreview() {
   initAppDb()
-  initHome(LocalContext.current)
+  regBaseSubs()
+  regHomeSubs()
 
   FlashyAlarmTheme {
     AboutDialog()
@@ -176,6 +165,14 @@ fun AboutPreview() {
 fun AboutDarkPreview() {
   FlashyAlarmTheme(darkTheme = true) {
     AboutDialog()
+  }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomePreview() {
+  FlashyAlarmTheme {
+    HomeScreen()
   }
 }
 

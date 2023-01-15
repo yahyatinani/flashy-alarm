@@ -27,7 +27,9 @@ class OnBootServiceStarter : BroadcastReceiver() {
         }.first()
       }
       if (isEnabled != null && isEnabled == true) {
-        context.startService(Intent(context, FlashyAlarmService::class.java))
+        context.startService(
+          Intent(context, FlashyAlarmService::class.java)
+        )
       }
     }
   }

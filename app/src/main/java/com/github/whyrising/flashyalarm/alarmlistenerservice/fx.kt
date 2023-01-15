@@ -20,7 +20,7 @@ import com.github.whyrising.y.core.get
 import com.github.whyrising.y.core.m
 import com.github.whyrising.y.core.v
 
-fun registerTorchEffects(context: Context) {
+fun registerTorchFx(context: Context) {
   val cm = context.getSystemService(Service.CAMERA_SERVICE) as CameraManager
   val blinkController = BlinkController(cm)
   val staticController = StaticController(cm)

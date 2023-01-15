@@ -19,7 +19,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
-import com.github.whyrising.flashyalarm.alarmlistenerservice.registerTorchEffects
+import com.github.whyrising.flashyalarm.alarmlistenerservice.registerTorchFx
 import com.github.whyrising.flashyalarm.panel.common.HostScreen
 import com.github.whyrising.flashyalarm.panel.common.appDb
 import com.github.whyrising.flashyalarm.panel.common.common
@@ -27,8 +27,11 @@ import com.github.whyrising.flashyalarm.panel.common.common.exitApp
 import com.github.whyrising.flashyalarm.panel.common.common.initAppDb
 import com.github.whyrising.flashyalarm.panel.common.common.navigateFx
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPatterns
-import com.github.whyrising.flashyalarm.panel.flashpattern.initFlashPatternsModule
+import com.github.whyrising.flashyalarm.panel.flashpattern.initTorchPatternsPanel
 import com.github.whyrising.flashyalarm.panel.home.home
+import com.github.whyrising.flashyalarm.panel.home.regHomeEvents
+import com.github.whyrising.flashyalarm.panel.home.regHomeFx
+import com.github.whyrising.flashyalarm.panel.home.regHomeSubs
 import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.dispatchSync
 import com.github.whyrising.recompose.regEventDb
@@ -41,7 +44,6 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import com.github.whyrising.flashyalarm.panel.common.init as initCommon
-import com.github.whyrising.flashyalarm.panel.home.init as initHome
 
 fun initAppDb() {
   regEventDb<Any>(initAppDb) { _, _ -> appDb }
@@ -104,9 +106,14 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    registerTorchEffects(this)
-    initHome(this)
-    initFlashPatternsModule(this)
+    registerTorchFx(this)
+
+    // home panel
+    regHomeFx(this)
+    regHomeEvents()
+    regHomeSubs()
+
+    initTorchPatternsPanel(this)
 
     requestPostNotificationPermissionFromUser()
 

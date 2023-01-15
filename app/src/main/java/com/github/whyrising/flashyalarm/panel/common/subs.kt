@@ -7,18 +7,18 @@ import com.github.whyrising.recompose.subscribe
 import com.github.whyrising.y.core.v
 
 fun regBaseSubs() {
+  regSub<AppDb, String>(
+    queryId = screenTitle
+  ) { db, _ ->
+    db.screenTitle
+  }
+
   regSub<String, String>(
     queryId = formatScreenTitle,
     initialValue = "",
     signalsFn = { subscribe(v(screenTitle)) }
   ) { title, _, _ ->
     title.replaceFirstChar { it.uppercase() }
-  }
-
-  regSub<AppDb, String>(
-    queryId = screenTitle
-  ) { db, _ ->
-    db.screenTitle
   }
 
   regSub<AppDb, Boolean>(common.isBackstackAvailable) { db, _ ->

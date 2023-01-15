@@ -53,7 +53,7 @@ import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 import com.google.accompanist.navigation.animation.composable
 
-fun initFlashPatternsModule(context: Context) {
+fun initTorchPatternsPanel(context: Context) {
   regLightFx(context)
   regLightCofx(context)
   regLightPatternsEvents()
@@ -222,7 +222,7 @@ fun FlashlightPatterns() {
 @Composable
 fun FlashlightPatternsPreview() {
   initAppDb()
-  initFlashPatternsModule(LocalContext.current)
+  initTorchPatternsPanel(LocalContext.current)
   FlashyAlarmTheme {
     FlashlightPatterns()
   }
@@ -232,7 +232,7 @@ fun FlashlightPatternsPreview() {
 @Composable
 fun FlashlightPatternsDarkPreview() {
   initAppDb()
-  initFlashPatternsModule(LocalContext.current)
+  initTorchPatternsPanel(LocalContext.current)
   FlashyAlarmTheme(darkTheme = true) {
     FlashlightPatterns()
   }
@@ -242,7 +242,7 @@ fun FlashlightPatternsDarkPreview() {
 @Composable
 fun BlinkDialogPreview() {
   initAppDb()
-  initFlashPatternsModule(LocalContext.current)
+  initTorchPatternsPanel(LocalContext.current)
   FlashyAlarmTheme {
     FlashingSpeedDialog()
   }
@@ -252,7 +252,7 @@ fun BlinkDialogPreview() {
 @Composable
 fun BlinkDialogPreviewDarkPreview() {
   initAppDb()
-  initFlashPatternsModule(LocalContext.current)
+  initTorchPatternsPanel(LocalContext.current)
   FlashyAlarmTheme(darkTheme = true) {
     FlashingSpeedDialog()
   }

@@ -21,7 +21,7 @@ fun saveServiceStatus(context: Context, b: Boolean) {
   }
 }
 
-fun init(context: Context) {
+fun regHomeFx(context: Context) {
   regCofx(id = isAlarmListenerRunning) { coeffects ->
     coeffects.assoc(
       isAlarmListenerRunning,
@@ -29,19 +29,12 @@ fun init(context: Context) {
     )
   }
   regFx(id = home.toggleFlashyAlarmService) { serviceFlag ->
-    val serviceIntent = Intent(context, FlashyAlarmService::class.java)
+    val serviceIntent =
+      Intent(context, FlashyAlarmService::class.java)
     when (serviceFlag as Boolean) {
-      true -> serviceIntent.also { intent ->
-        context.startService(intent)
-        saveServiceStatus(context, true)
-      }
-
-      else -> serviceIntent.also { intent ->
-        context.stopService(intent)
-        saveServiceStatus(context, false)
-      }
+      true -> context.startService(serviceIntent)
+      else -> context.stopService(serviceIntent)
     }
+    saveServiceStatus(context, serviceFlag)
   }
-  regHomeEvents()
-  regHomeSubs()
 }

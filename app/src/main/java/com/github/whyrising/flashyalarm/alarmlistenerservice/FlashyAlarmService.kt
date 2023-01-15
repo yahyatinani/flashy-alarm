@@ -67,7 +67,7 @@ class FlashyAlarmService : Service() {
     super.onCreate()
     Log.i(TAG, "Created.")
 
-    registerTorchEffects(context = application)
+    registerTorchFx(context = application)
     createNotificationChannelIfNeeded(application)
   }
 
