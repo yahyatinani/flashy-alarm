@@ -164,17 +164,3 @@ fun Hyperlink(url: String) {
     }
   )
 }
-
-@Composable
-fun BackArrow() {
-  IconButton(
-    onClick = {
-      dispatch(v(common.navigate, common.goBack))
-    }
-  ) {
-    Icon(
-      imageVector = Icons.Filled.ArrowBack,
-      contentDescription = "Back"
-    )
-  }
-}

@@ -1,5 +1,6 @@
 package com.github.whyrising.flashyalarm.panel.flashpattern
 
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern
 import com.github.whyrising.flashyalarm.panel.common.AppDb
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkConfigDialog
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkFrequency

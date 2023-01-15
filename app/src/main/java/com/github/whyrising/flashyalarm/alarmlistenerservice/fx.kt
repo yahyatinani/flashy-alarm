@@ -9,10 +9,9 @@ import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.BlinkC
 import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.SineController
 import com.github.whyrising.flashyalarm.alarmlistenerservice.torchcontrol.StaticController
 import com.github.whyrising.flashyalarm.panel.common.AppDb
-import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern
-import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.BLINK
-import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.SIGNAL
-import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.STATIC
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.BLINK
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.SIGNAL
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.STATIC
 import com.github.whyrising.recompose.fx.FxIds.fx
 import com.github.whyrising.recompose.ids.recompose.db
 import com.github.whyrising.recompose.regEventFx

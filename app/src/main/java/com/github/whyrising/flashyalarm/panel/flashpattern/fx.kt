@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern
 import com.github.whyrising.flashyalarm.alarmlistenerservice.dataStore
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.saveBlinkFrequency
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.savePattern

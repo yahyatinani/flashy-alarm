@@ -37,9 +37,9 @@ import com.github.whyrising.flashyalarm.designsystem.component.SectionTitle
 import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
 import com.github.whyrising.flashyalarm.designsystem.theme.Yellow700
 import com.github.whyrising.flashyalarm.initAppDb
-import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.BLINK
-import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.SIGNAL
-import com.github.whyrising.flashyalarm.panel.flashpattern.LightPattern.STATIC
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.BLINK
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.SIGNAL
+import com.github.whyrising.flashyalarm.alarmlistenerservice.LightPattern.STATIC
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkConfigDialog
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkFrequency
 import com.github.whyrising.flashyalarm.panel.flashpattern.flashPattern.blinkFrequencyStr

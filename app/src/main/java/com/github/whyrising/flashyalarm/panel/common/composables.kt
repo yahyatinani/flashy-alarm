@@ -2,16 +2,20 @@ package com.github.whyrising.flashyalarm.panel.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.github.whyrising.flashyalarm.designsystem.component.BackArrow
 import com.github.whyrising.flashyalarm.designsystem.theme.FlashyAlarmTheme
 import com.github.whyrising.flashyalarm.initAppDb
 import com.github.whyrising.flashyalarm.panel.common.common.formatScreenTitle
+import com.github.whyrising.recompose.dispatch
 import com.github.whyrising.recompose.watch
 import com.github.whyrising.y.core.v
 
@@ -27,7 +31,16 @@ fun HostScreen(content: @Composable (padding: PaddingValues) -> Unit = {}) {
           },
           navigationIcon = {
             if (watch(v(common.isBackstackAvailable))) {
-              BackArrow()
+              IconButton(
+                onClick = {
+                  dispatch(v(common.navigate, common.goBack))
+                }
+              ) {
+                Icon(
+                  imageVector = Icons.Filled.ArrowBack,
+                  contentDescription = "Back"
+                )
+              }
             }
           }
         )
