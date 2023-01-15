@@ -167,7 +167,7 @@ fun FlashlightPatterns() {
           selected = watch(v(selected_pattern, STATIC)),
           onClick = { dispatch(v(select_pattern, STATIC)) }
         )
-      },
+      }
     ) {
       FaListItemTitle(text = "Static")
     }

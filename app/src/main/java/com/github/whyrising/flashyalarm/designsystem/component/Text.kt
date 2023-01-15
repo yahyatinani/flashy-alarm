@@ -45,7 +45,6 @@ fun SectionTitle(text: String) {
   }
 }
 
-
 @Composable
 fun AlertDialogBodyTitle(name: String) {
   Text(
