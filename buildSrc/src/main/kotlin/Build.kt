@@ -5,9 +5,9 @@ import java.util.Base64
 object Build {
   const val APP_ID = "com.github.whyrising.flashyalarm"
 
-  const val versionMajor = 0
+  const val versionMajor = 1
   const val versionMinor = 0
-  const val versionPatch = 1
+  const val versionPatch = 0
 
   fun keyStoreBase64ToStoreFile(keyStoreBase64: String?): File? {
     if (keyStoreBase64 == null) return null
