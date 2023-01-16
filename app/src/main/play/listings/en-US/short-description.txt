@@ -1,1 +1,1 @@
-Automatically turn on flashlight/torch when alarm goes off in the morning darkness with this app.
+Turn on flashlight/torch when alarm goes off.
