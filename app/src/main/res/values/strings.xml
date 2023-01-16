@@ -18,7 +18,7 @@
     <string name="alert_btn_no">Nope!</string>
     <string name="flashlight_service_switch_desc">Toggle the foreground service that turns the flashlight/torch on whenever an alarm goes off.</string>
     <string name="flash_pattern_desc">Control the torch\'s lighting pattern</string>
-    <string name="source_code_link">https://github.com/whyrising/flashy-alarm</string>
+    <string name="source_code_link">https://github.com/yahyatinani/flashy-alarm</string>
     <string name="by">By</string>
     <string name="developer">Yahya Tinani</string>
     <string name="version_label">Version</string>

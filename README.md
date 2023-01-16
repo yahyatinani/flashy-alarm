@@ -1,8 +1,8 @@
 Flashy Alarm
 ======
-[![PR](https://github.com/whyrising/flashy-alarm/actions/workflows/PR.yml/badge.svg)](https://github.com/whyrising/flashy-alarm/actions/workflows/PR.yml)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/whyrising/flashy-alarm?label=latest%20release)
-![GitHub](https://img.shields.io/github/license/whyrising/flashy-alarm)
+[![PR](https://github.com/yahyatinani/flashy-alarm/actions/workflows/PR.yml/badge.svg)](https://github.com/yahyatinani/flashy-alarm/actions/workflows/PR.yml)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/yahyatinani/flashy-alarm?label=latest%20release)
+![GitHub](https://img.shields.io/github/license/yahyatinani/flashy-alarm)
 
 Awaken fully with this app that automatically triggers your phone's
 flashlight/torch when your alarm goes off during early morning darkness.
