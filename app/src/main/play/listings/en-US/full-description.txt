@@ -1,9 +1,17 @@
-You may want your camera's flashlight (android.hardware.camera.flash) to be turned on automatically when your alarm goes off in early dark mornings to help your body fully wake up.
-This app does just that.
+Awaken fully with this app that automatically triggers your phone's flashlight/torch when your alarm goes off during early morning darkness.
+
 Tested on Samsung's stock alarm app and LineageOS alarm app.
 
-How to use: toggle the switch to turn the service on or off. That's all!
+How to use:
+1. On Android 13, You're asked to allow the app to post a notification for the foreground service. (optional)
+2. Toggle the switch to turn the alarm listener service on or off.
+3. That's all!
+
+CAUTION:
+Be careful not to put the phone close to your eyes since the flashlight can hurt your eyes!
+Instead, leave it at least one meter away from you so the light can gently wake you up.
 
 Permissions:
-- It needs android.permission.FLASHLIGHT to turn on the flashlight.
-- It runs a notification listener service (android.permission.BIND_NOTIFICATION_LISTENER_SERVICE) in order to catch the alarm notification when it goes off to turn on the flashlight.
+- It needs android.permission.FLASHLIGHT to turn on the flashlight/torch.
+- It needs android.permission.FOREGROUND_SERVICE to run the alarm listener service.
+- It needs android.permission.POST_NOTIFICATIONS to post the foreground service notification.
