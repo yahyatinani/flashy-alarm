@@ -99,20 +99,24 @@ fun FlashingSpeedDialog() {
             top = dimensionResource(id = R.dimen.normal_100)
           )
       ) {
+        val typography = MaterialTheme.typography
+        val colorScheme = MaterialTheme.colorScheme
         Text(
           text = "Flashing Speed",
-          style = MaterialTheme.typography.titleLarge
+          style = typography.titleLarge
         )
         Spacer(
           modifier = Modifier.height(dimensionResource(id = R.dimen.normal_100))
         )
         Text(
           text = watch<String>(v(blinkFrequencyStr)),
-          style = MaterialTheme.typography.labelSmall,
-          color = MaterialTheme.colorScheme.onBackground
+          style = typography.labelSmall,
+          color = colorScheme.onBackground
         )
+        val isTesting = watch<Boolean>(v(isTestingFrequency))
         Slider(
           value = watch(v(blinkFrequency)),
+          enabled = isTesting,
           valueRange = 100f..1000f,
           steps = 5,
           onValueChange = {
@@ -129,7 +133,7 @@ fun FlashingSpeedDialog() {
               dispatch(v(turnOnLED))
               dispatch(v(isTestingFrequency, true))
             },
-            enabled = watch(v(isTestingFrequency)),
+            enabled = isTesting,
             colors = ButtonDefaults.textButtonColors(contentColor = Yellow700)
           ) {
             Text(text = "Test")
@@ -142,7 +146,7 @@ fun FlashingSpeedDialog() {
               stopTesting()
             },
             colors = ButtonDefaults.textButtonColors(
-              contentColor = MaterialTheme.colorScheme.onSurface.copy(.7f)
+              contentColor = colorScheme.onSurface.copy(.7f)
             )
           ) {
             Text(text = "Stop")
