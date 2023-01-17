@@ -37,7 +37,6 @@ android {
 
   buildTypes {
     debug {
-      isMinifyEnabled = false
       versionNameSuffix = "-debug"
       resValue(
         type = "string",
